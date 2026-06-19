@@ -131,21 +131,20 @@ function ImageFields({ value, onChange, uploads, slug, uploadAction, optional, l
 
 const ICONE = ['wifi', 'ac', 'breakfast', 'parking', 'terrace', 'pets', 'pool', 'spa', 'bar', 'check'];
 
-// ── editor principale ──────────────────────────────────────────────────────
-export function ContentEditor({ config, uploads, saveAction, uploadAction }: {
-  config: SiteConfig; uploads: string[]; saveAction: SaveAction; uploadAction: UploadAction;
+// ── Campi dell'editor (CONTROLLATO: stato gestito dal genitore) ─────────────
+export function ContentFields({ blocks, onChange, uploads, uploadAction, slug }: {
+  blocks: BlockInstance[];
+  onChange: (blocks: BlockInstance[]) => void;
+  uploads: string[];
+  uploadAction: UploadAction;
+  slug: string;
 }) {
-  const [blocks, setBlocks] = useState<BlockInstance[]>(config.blocks);
-
-  // aggiorna i contenuti di un blocco per tipo
   function patch<T extends BlockInstance['type']>(type: T, updater: (content: any) => any) {
-    setBlocks((bs) => bs.map((b) => (b.type === type ? ({ ...b, content: updater(b.content) } as BlockInstance) : b)));
+    onChange(blocks.map((b) => (b.type === type ? ({ ...b, content: updater(b.content) } as BlockInstance) : b)));
   }
   function content<T extends BlockInstance['type']>(type: T): any {
     return blocks.find((b) => b.type === type)!.content;
   }
-
-  const fullConfig = useMemo(() => ({ ...config, blocks }), [config, blocks]);
 
   const h = content('header');
   const pr = content('prenotazioni');
@@ -155,12 +154,10 @@ export function ContentEditor({ config, uploads, saveAction, uploadAction }: {
   const co = content('confort');
   const co2 = content('contatti');
   const fo = content('footer');
+  const config = { slug };
 
   return (
-    <form action={saveAction}>
-      <input type="hidden" name="slug" value={config.slug} />
-      <input type="hidden" name="config" value={JSON.stringify(fullConfig)} />
-
+    <>
       <datalist id="uploads-list">
         {uploads.map((u) => <option key={u} value={u} />)}
       </datalist>
@@ -335,6 +332,22 @@ export function ContentEditor({ config, uploads, saveAction, uploadAction }: {
         </div>
       </section>
 
+    </>
+  );
+}
+
+// ── editor con form (usato dall'admin: stato interno + salvataggio) ─────────
+export function ContentEditor({ config, uploads, saveAction, uploadAction }: {
+  config: SiteConfig; uploads: string[]; saveAction: SaveAction; uploadAction: UploadAction;
+}) {
+  const [blocks, setBlocks] = useState<BlockInstance[]>(config.blocks);
+  const fullConfig = useMemo(() => ({ ...config, blocks }), [config, blocks]);
+
+  return (
+    <form action={saveAction}>
+      <input type="hidden" name="slug" value={config.slug} />
+      <input type="hidden" name="config" value={JSON.stringify(fullConfig)} />
+      <ContentFields blocks={blocks} onChange={setBlocks} uploads={uploads} uploadAction={uploadAction} slug={config.slug} />
       <div style={{ position: 'sticky', bottom: 0, background: 'linear-gradient(to top, #f6f7f9, rgba(246,247,249,0))', padding: '12px 0' }}>
         <button type="submit" style={s.btnPrimary}>💾 Salva tutte le modifiche</button>
         <span style={{ marginLeft: 12, fontSize: 12, color: '#9aa0ab' }}>L'anteprima si aggiorna dopo il salvataggio.</span>

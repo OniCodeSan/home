@@ -48,14 +48,16 @@ export function buildDemoContents(
 
   return {
     header: {
+      // Unità + simpatia: parla a chi cerca un soggiorno autentico, non a "tutti".
       eyebrow: citta ? `Struttura ricettiva · ${citta}` : 'Struttura ricettiva',
       struttura,
-      sottotitolo: `${struttura}, ${dove}: la tua base ideale per scoprire il territorio e rilassarti dopo ogni giornata.`,
+      sottotitolo: `${struttura}, ${dove}. Un soggiorno autentico e curato nei dettagli, lontano dall'anonimato delle grandi catene: qui sei un ospite, non un numero.`,
       immagine: IMG.header,
     },
     prenotazioni: {
-      titolo: 'Prenota il tuo soggiorno',
-      testo: `Disponibilità tutto l'anno. Scrivici${form.whatsapp ? ' su WhatsApp' : ''} per verificare le date e ricevere una conferma rapida.`,
+      // Reciprocità (miglior prezzo diretto, niente commissioni) + simpatia + impegno (piccolo passo).
+      titolo: 'Prenota direttamente con noi',
+      testo: `Miglior prezzo prenotando diretto, senza commissioni di intermediari. Scrivici${form.whatsapp ? ' su WhatsApp' : ''}: ti rispondiamo di persona e confermiamo le date in poche ore.`,
       calendarSlot: true,
     },
     stanze: {
@@ -68,19 +70,22 @@ export function buildDemoContents(
       ],
     },
     cta: {
-      titolo: 'Pronti ad accogliervi',
-      testo: 'Contattaci per disponibilità e preventivi in tempo reale.',
-      label: 'Prenota ora',
+      // Impegno e coerenza: primo passo a basso attrito, nessun impegno.
+      titolo: 'Le tue date sono libere?',
+      testo: 'Verifica subito la disponibilità: nessun impegno, ti confermiamo in poche ore.',
+      label: 'Verifica disponibilità',
       target: form.whatsapp ? 'whatsapp' : 'form',
       valore: form.whatsapp || 'prenotazioni',
     },
     vicinanze: {
+      // Autorità + simpatia: dimostra che conosci il territorio (luoghi reali da OSM).
       titolo: 'Cosa c’è nei dintorni',
-      intro: citta ? `Il meglio di ${citta} a pochi passi.` : 'Tutto il bello del territorio a portata di mano.',
+      intro: citta ? `Conosciamo ${citta} a memoria: ecco cosa non perdere, a due passi da te.` : 'Conosciamo il territorio: ecco cosa non perdere, a due passi da te.',
       luoghi,
     },
     confort: {
-      titolo: 'Servizi e comfort',
+      // Autorità nei dettagli concreti.
+      titolo: 'Tutto quello che ti serve',
       servizi: [
         { icona: 'wifi', label: 'Wi-Fi gratuito' },
         { icona: 'ac', label: 'Aria condizionata' },
