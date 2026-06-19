@@ -102,12 +102,23 @@ export type BlockInstance =
   | { type: 'contatti';     variantId: string; content: ContattiContent }
   | { type: 'footer';       variantId: string; content: FooterContent };
 
+// Dati della richiesta demo (lead) + stato dell'arricchimento dati.
+export type Lead = {
+  nome?: string;
+  email?: string;
+  whatsapp?: string;
+  citta?: string;
+  dove?: string;        // link Booking/Airbnb/Google fornito dal cliente
+  enriched?: boolean;   // true dopo la ricerca dati (OSM) completata
+};
+
 export type SiteConfig = {
   slug: string;
   status: 'draft' | 'review' | 'published';
   schemeId: SchemeId;
   mood: Mood;                 // mood effettivo = mood della palette scelta
   blocks: BlockInstance[];    // ordine fisso degli slot
+  lead?: Lead;                // presente per i siti nati da richiesta demo
 };
 
 // Ordine fisso degli slot.
