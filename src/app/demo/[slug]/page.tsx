@@ -22,7 +22,7 @@ export default async function DemoPage({ params }: { params: { slug: string } })
   return (
     <>
       <div style={{ position: 'sticky', top: 0, zIndex: 50, background: '#163A46', color: '#fff', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, fontFamily: "'Hanken Grotesk', system-ui, sans-serif", fontSize: 14, flexWrap: 'wrap' }}>
-        <span>✨ Questo è un <strong>sito dimostrativo</strong> generato per te.</span>
+        <span>Questo è un <strong>sito dimostrativo</strong> generato per te.</span>
         <Link href="/richiedi-demo" style={{ color: '#E0A95C', fontWeight: 700 }}>Ti piace? Richiedi info →</Link>
       </div>
       <Compose config={config} />

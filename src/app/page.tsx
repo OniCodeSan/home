@@ -125,16 +125,16 @@ export default function Landing() {
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18 }}>
             {[
-              ['🌐', 'Dominio dedicato', 'Il tuo indirizzo, non un sotto-pagina di un portale.'],
-              ['✉️', 'Modulo contatti', 'Le richieste arrivano direttamente a te, senza intermediari.'],
-              ['💬', 'WhatsApp diretto', 'Pulsante che apre la chat: prenotazioni in tempo reale.'],
-              ['🔎', 'Ottimizzazione base', 'Costruito attorno al nome della tua struttura, per farti trovare.'],
-              ['🖼️', 'Foto e testi curati', 'Sezioni camere, servizi e dintorni già impostate.'],
-              ['⚡', 'Online in pochi giorni', 'Tu approvi, noi pubblichiamo. Senza complicazioni tecniche.'],
-            ].map(([ic, t, d]) => (
-              <div key={t} style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 16, padding: 20 }}>
-                <div style={{ fontSize: 26 }}>{ic}</div>
-                <h3 style={{ fontFamily: serif, fontSize: 19, margin: '10px 0 6px' }}>{t}</h3>
+              ['Dominio dedicato', 'Il tuo indirizzo, non un sotto-pagina di un portale.'],
+              ['Modulo contatti', 'Le richieste arrivano direttamente a te, senza intermediari.'],
+              ['WhatsApp diretto', 'Pulsante che apre la chat: prenotazioni in tempo reale.'],
+              ['Ottimizzazione base', 'Costruito attorno al nome della tua struttura, per farti trovare.'],
+              ['Foto e testi curati', 'Sezioni camere, servizi e dintorni già impostate.'],
+              ['Online in pochi giorni', 'Tu approvi, noi pubblichiamo. Senza complicazioni tecniche.'],
+            ].map(([t, d], i) => (
+              <div key={t} style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 16, padding: 24 }}>
+                <div style={{ fontFamily: serif, fontSize: 34, fontWeight: 600, color: C.gold, lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</div>
+                <h3 style={{ fontFamily: serif, fontSize: 19, margin: '12px 0 6px' }}>{t}</h3>
                 <p style={{ color: '#cfe0e4', fontSize: 15, margin: 0 }}>{d}</p>
               </div>
             ))}
