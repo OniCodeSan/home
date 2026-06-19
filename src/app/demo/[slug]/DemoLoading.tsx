@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { processDemoAction } from '@/app/richiedi-demo/actions';
 
 const STEPS = [
   'Cerchiamo la tua struttura su OpenStreetMap…',
@@ -21,7 +20,7 @@ export function DemoLoading({ slug }: { slug: string }) {
     let alive = true;
     (async () => {
       try {
-        await processDemoAction(slug);
+        await fetch(`/api/demo/${slug}/enrich`, { method: 'POST' });
       } finally {
         if (alive) {
           setStep(STEPS.length - 1);
