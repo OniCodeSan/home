@@ -110,6 +110,7 @@ export type Lead = {
   citta?: string;
   dove?: string;        // link Booking/Airbnb/Google fornito dal cliente
   enriched?: boolean;   // true dopo la ricerca dati (OSM) completata
+  purchaseRequested?: boolean;  // il cliente ha richiesto l'acquisto
 };
 
 export type SiteConfig = {

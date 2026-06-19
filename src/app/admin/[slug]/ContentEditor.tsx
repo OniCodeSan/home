@@ -2,7 +2,9 @@
 
 import React, { useMemo, useRef, useState } from 'react';
 import type { BlockInstance, SiteConfig } from '@/blocks/types';
-import { saveConfigAction, uploadImageAction } from '../actions';
+
+type SaveAction = (formData: FormData) => void | Promise<void>;
+type UploadAction = (formData: FormData) => Promise<{ url?: string; error?: string }>;
 
 // ── stili locali dell'editor (UI di servizio) ──────────────────────────────
 const s = {
@@ -53,11 +55,12 @@ function Area({ value, onChange, placeholder }: { value: string; onChange: (v: s
   );
 }
 
-function ImageFields({ value, onChange, uploads, slug, optional, label = 'Immagine' }: {
+function ImageFields({ value, onChange, uploads, slug, uploadAction, optional, label = 'Immagine' }: {
   value?: { src: string; alt: string };
   onChange: (v: { src: string; alt: string } | undefined) => void;
   uploads: string[];
   slug: string;
+  uploadAction: UploadAction;
   optional?: boolean;
   label?: string;
 }) {
@@ -73,7 +76,7 @@ function ImageFields({ value, onChange, uploads, slug, optional, label = 'Immagi
       const fd = new FormData();
       fd.set('slug', slug);
       fd.set('file', file);
-      const res = await uploadImageAction(fd);
+      const res = await uploadAction(fd);
       if (res.error) setErr(res.error);
       else if (res.url) onChange({ src: res.url, alt: (value?.alt || file.name.replace(/\.[^.]+$/, '')) });
     } catch (e2) {
@@ -129,7 +132,9 @@ function ImageFields({ value, onChange, uploads, slug, optional, label = 'Immagi
 const ICONE = ['wifi', 'ac', 'breakfast', 'parking', 'terrace', 'pets', 'pool', 'spa', 'bar', 'check'];
 
 // ── editor principale ──────────────────────────────────────────────────────
-export function ContentEditor({ config, uploads }: { config: SiteConfig; uploads: string[] }) {
+export function ContentEditor({ config, uploads, saveAction, uploadAction }: {
+  config: SiteConfig; uploads: string[]; saveAction: SaveAction; uploadAction: UploadAction;
+}) {
   const [blocks, setBlocks] = useState<BlockInstance[]>(config.blocks);
 
   // aggiorna i contenuti di un blocco per tipo
@@ -152,7 +157,7 @@ export function ContentEditor({ config, uploads }: { config: SiteConfig; uploads
   const fo = content('footer');
 
   return (
-    <form action={saveConfigAction}>
+    <form action={saveAction}>
       <input type="hidden" name="slug" value={config.slug} />
       <input type="hidden" name="config" value={JSON.stringify(fullConfig)} />
 
@@ -171,7 +176,7 @@ export function ContentEditor({ config, uploads }: { config: SiteConfig; uploads
           <span style={s.label}>Sottotitolo</span>
           <Area value={h.sottotitolo} onChange={(v) => patch('header', (c) => ({ ...c, sottotitolo: v }))} />
         </div>
-        <ImageFields value={h.immagine} uploads={uploads} slug={config.slug} onChange={(img) => patch('header', (c) => ({ ...c, immagine: img ?? { src: '', alt: '' } }))} />
+        <ImageFields value={h.immagine} uploads={uploads} slug={config.slug} uploadAction={uploadAction} onChange={(img) => patch('header', (c) => ({ ...c, immagine: img ?? { src: '', alt: '' } }))} />
       </section>
 
       {/* PRENOTAZIONI */}
@@ -215,7 +220,7 @@ export function ContentEditor({ config, uploads }: { config: SiteConfig; uploads
               <span style={s.label}>Caratteristiche (separate da virgola)</span>
               <Text value={(cam.caratteristiche ?? []).join(', ')} placeholder="Vista mare, Bagno privato" onChange={(v) => patch('stanze', (c) => ({ ...c, camere: c.camere.map((x: any, j: number) => j === i ? { ...x, caratteristiche: v.split(',').map((t) => t.trim()).filter(Boolean) } : x) }))} />
             </div>
-            <ImageFields optional value={cam.immagine} uploads={uploads} slug={config.slug} onChange={(img) => patch('stanze', (c) => ({ ...c, camere: c.camere.map((x: any, j: number) => j === i ? { ...x, immagine: img } : x) }))} />
+            <ImageFields optional value={cam.immagine} uploads={uploads} slug={config.slug} uploadAction={uploadAction} onChange={(img) => patch('stanze', (c) => ({ ...c, camere: c.camere.map((x: any, j: number) => j === i ? { ...x, immagine: img } : x) }))} />
           </div>
         ))}
         <button type="button" style={s.btn} onClick={() => patch('stanze', (c) => ({ ...c, camere: [...(c.camere ?? []), { nome: 'Nuova camera', descrizione: '' }] }))}>+ Aggiungi camera</button>
@@ -265,7 +270,7 @@ export function ContentEditor({ config, uploads }: { config: SiteConfig; uploads
               <span style={s.label}>Descrizione</span>
               <Area value={lu.descrizione} onChange={(v) => patch('vicinanze', (c) => ({ ...c, luoghi: c.luoghi.map((x: any, j: number) => j === i ? { ...x, descrizione: v } : x) }))} />
             </div>
-            <ImageFields optional value={lu.immagine} uploads={uploads} slug={config.slug} onChange={(img) => patch('vicinanze', (c) => ({ ...c, luoghi: c.luoghi.map((x: any, j: number) => j === i ? { ...x, immagine: img } : x) }))} />
+            <ImageFields optional value={lu.immagine} uploads={uploads} slug={config.slug} uploadAction={uploadAction} onChange={(img) => patch('vicinanze', (c) => ({ ...c, luoghi: c.luoghi.map((x: any, j: number) => j === i ? { ...x, immagine: img } : x) }))} />
           </div>
         ))}
         <button type="button" style={s.btn} onClick={() => patch('vicinanze', (c) => ({ ...c, luoghi: [...(c.luoghi ?? []), { nome: 'Nuovo luogo' }] }))}>+ Aggiungi luogo</button>

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { storage } from '@/storage';
 import { Compose } from '@/assembler/compose';
 import { DemoLoading } from './DemoLoading';
+import { DemoPopup } from './DemoPopup';
 
 // Pubblica (niente auth): il lead deve poterla vedere. Sempre fresca.
 export const dynamic = 'force-dynamic';
@@ -23,9 +24,11 @@ export default async function DemoPage({ params }: { params: { slug: string } })
     <>
       <div style={{ position: 'sticky', top: 0, zIndex: 50, background: '#163A46', color: '#fff', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, fontFamily: "'Hanken Grotesk', system-ui, sans-serif", fontSize: 14, flexWrap: 'wrap' }}>
         <span>Questo è un <strong>sito dimostrativo</strong> generato per te.</span>
-        <Link href="/richiedi-demo" style={{ color: '#E0A95C', fontWeight: 700 }}>Ti piace? Richiedi info →</Link>
+        <Link href={`/demo/${params.slug}/modifica`} style={{ color: '#E0A95C', fontWeight: 700 }}>Personalizza</Link>
+        <Link href={`/demo/${params.slug}/acquista`} style={{ color: '#E0A95C', fontWeight: 700 }}>Acquista →</Link>
       </div>
       <Compose config={config} />
+      <DemoPopup slug={params.slug} />
     </>
   );
 }

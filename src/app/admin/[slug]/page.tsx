@@ -7,7 +7,7 @@ import { storage } from '@/storage';
 import { paletteList } from '@/schemes/palettes';
 import { SLOT_ORDER } from '@/blocks/types';
 import { ui } from '../ui';
-import { setPaletteAction, rerollAction, setStatusAction } from '../actions';
+import { setPaletteAction, rerollAction, setStatusAction, saveConfigAction, uploadImageAction } from '../actions';
 import { listImages } from '@/storage/images';
 import { ContentEditor } from './ContentEditor';
 
@@ -115,7 +115,7 @@ export default async function EditSite({ params }: { params: { slug: string } })
             <p style={{ fontSize: 12, color: '#9aa0ab', margin: '0 0 12px' }}>
               Modifica testi, immagini, camere, servizi… poi salva. Niente codice.
             </p>
-            <ContentEditor config={config} uploads={uploads} />
+            <ContentEditor config={config} uploads={uploads} saveAction={saveConfigAction} uploadAction={uploadImageAction} />
           </section>
         </div>
 
