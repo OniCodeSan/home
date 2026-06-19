@@ -9,14 +9,8 @@ const nextConfig = {
     // immagini servite localmente da /public/uploads o remote (placeholder)
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
   },
-  async rewrites() {
-    return {
-      // La homepage serve la landing originale "Hotel ContentMug" (file statico self-contained).
-      beforeFiles: [{ source: '/', destination: '/hotel-contentmug.html' }],
-      afterFiles: [],
-      fallback: [],
-    };
-  },
+  // La homepage è ora una pagina Next (src/app/page.tsx).
+  // La landing originale resta consultabile come file statico: /hotel-contentmug.html
 };
 
 export default nextConfig;
