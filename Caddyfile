@@ -1,0 +1,11 @@
+# Caddy reverse-proxy con HTTPS automatico — DA USARE QUANDO HAI IL DOMINIO.
+# Sostituisci hotel.contentmug.it con il tuo dominio (deve puntare all'IP del server).
+hotel.contentmug.it {
+    encode zstd gzip
+    reverse_proxy app:3000
+}
+
+# (opzionale) reindirizza il dominio nudo
+# contentmug.it {
+#     redir https://hotel.contentmug.it{uri}
+# }

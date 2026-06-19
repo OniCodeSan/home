@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{font-family:'Hanken Grotesk',-apple-system,system-ui,sans-serif;}
+  ::selection{background:#C0673D;color:#fff;}
+  input::placeholder{color:#9aa0ab;}
+  .cta-arrow{display:inline-block;transition:transform .18s ease;}
+  [data-cta]:hover .cta-arrow{transform:translateX(3px);}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail">
+  <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#163A46;">
+    <svg viewBox="0 0 100 100" style="width:40%;height:40%;" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="40" width="60" height="42" rx="4" fill="#EFE6D4"/>
+      <polygon points="50,18 86,44 14,44" fill="#C25E3C"/>
+      <rect x="44" y="58" width="12" height="24" fill="#163A46"/>
+    </svg>
+  </div>
+</template>
+<div style="background:#FAF6EE;color:#1B2436;width:100%;overflow-x:hidden;font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased;">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:sticky;top:0;z-index:50;background:rgba(250,246,238,0.88);backdrop-filter:blur(10px);border-bottom:1px solid #E8E1D2;">
+    <div style="max-width:1140px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#163A46;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:#163A46;color:#FAF6EE;font-family:'Fraunces',serif;font-weight:800;font-size:16px;">c</span>
+        <span style="font-family:'Fraunces',serif;font-weight:700;font-size:17px;letter-spacing:-0.01em;">contentmug<span style="color:#8C9A7B;">·hotel</span></span>
+      </a>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <span style="display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:14.5px;color:#163A46;">
+          <span style="font-family:'Fraunces',serif;font-weight:800;font-size:17px;">170€</span>
+          <span style="color:#6A7283;font-weight:500;">/ anno</span>
+        </span>
+        <a href="#form" data-cta="1" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#C25E3C;color:#FFFFFF;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 24px -12px rgba(194,94,60,.8);transition:transform .18s ease,box-shadow .18s ease,background .18s ease;" style-hover="background:#A44A2C;transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(194,94,60,.85);">Richiedi il tuo sito</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" style="position:relative;background:#163A46;color:#FAF6EE;overflow:hidden;min-height:clamp(560px,86vh,760px);display:flex;align-items:center;">
+    <div style="position:absolute;inset:0;background-image:url('uploads/heAder.png');background-size:cover;background-position:center right;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,58,70,0.92) 0%,rgba(22,58,70,0.74) 40%,rgba(22,58,70,0.34) 70%,rgba(22,58,70,0.12) 100%);"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(900px 500px at 0% 110%, rgba(196,103,61,0.18), transparent 55%);"></div>
+    <div style="position:relative;z-index:1;width:100%;max-width:1140px;margin:0 auto;padding:64px 22px 72px;display:grid;grid-template-columns:1fr;gap:48px;">
+      <div style="max-width:680px;">
+        <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(250,246,238,0.08);border:1px solid rgba(250,246,238,0.18);padding:7px 14px;border-radius:999px;font-size:13.5px;font-weight:600;letter-spacing:0.01em;margin-bottom:24px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#C49A4A;"></span>
+          Dominio incluso · pubblicazione inclusa
+        </div>
+        <h1 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(34px,6.4vw,60px);line-height:1.02;letter-spacing:-0.025em;margin:0 0 22px;text-wrap:balance;">Il sito della tua struttura online a <span style="color:#C49A4A;">170€ l'anno.</span></h1>
+        <p style="font-size:clamp(16px,2.4vw,19px);line-height:1.55;color:#C9CFDA;margin:0 0 32px;max-width:560px;text-wrap:pretty;">Se oggi i clienti ti trovano solo su Booking o Airbnb, stai pagando commissioni anche quando cercano proprio te. Con un sito tuo puoi ricevere richieste dirette, mostrare la struttura e dare un contatto immediato.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:13px;align-items:center;">
+          <a href="#form" data-cta="1" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#C25E3C;color:#FFFFFF;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;box-shadow:0 10px 24px -12px rgba(194,94,60,.8);transition:transform .18s ease,box-shadow .18s ease,background .18s ease;" style-hover="background:#A44A2C;transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(194,94,60,.85);">Richiedi il tuo sito <span class="cta-arrow" style="font-size:17px;">→</span></a>
+          <a href="#esempio" data-cta="1" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:transparent;border:1.5px solid rgba(250,246,238,0.45);color:#FAF6EE;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:16px;padding:12.5px 23px;border-radius:999px;transition:transform .18s ease,border-color .18s ease;" style-hover="transform:translateY(-2px);border-color:rgba(250,246,238,0.85);">Guarda un esempio <span class="cta-arrow" style="font-size:17px;">→</span></a>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:12px;margin-top:34px;padding-top:26px;border-top:1px solid rgba(250,246,238,0.14);">
+          <span style="font-family:'Fraunces',serif;font-weight:800;font-size:clamp(40px,8vw,58px);line-height:1;color:#FAF6EE;">170€</span>
+          <span style="font-size:16px;color:#A9B1BF;font-weight:500;">/ anno · tutto incluso per partire</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEMA ============ -->
+  <section style="background:#FAF6EE;">
+    <div style="max-width:1140px;margin:0 auto;padding:72px 22px;">
+      <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(26px,4.4vw,40px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 22px;max-width:760px;text-wrap:balance;color:#163A46;">Se non hai un sito, stai lasciando troppo controllo alle piattaforme.</h2>
+      <p style="font-size:clamp(15.5px,2.2vw,18px);line-height:1.62;color:#54607A;margin:0 0 40px;max-width:720px;text-wrap:pretty;">Molte strutture ricettive lavorano bene con Booking, Airbnb o altri portali, ma senza un sito proprio dipendono sempre da pagine che non controllano davvero. Il cliente cerca il nome della struttura, atterra su una piattaforma, confronta altre offerte e spesso prenota passando da lì.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+        <div style="background:#fff;border:1px solid #EBE4D5;border-radius:14px;padding:22px;">
+          <div style="font-family:'Fraunces',serif;font-weight:700;color:#C0673D;font-size:15px;margin-bottom:8px;">Commissioni</div>
+          <p style="margin:0;font-size:15.5px;line-height:1.5;color:#3A4360;">Paghi commissioni anche su clienti che ti stavano già cercando.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #EBE4D5;border-radius:14px;padding:22px;">
+          <div style="font-family:'Fraunces',serif;font-weight:700;color:#C0673D;font-size:15px;margin-bottom:8px;">Controllo</div>
+          <p style="margin:0;font-size:15.5px;line-height:1.5;color:#3A4360;">Non controlli del tutto immagini, testi e informazioni.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #EBE4D5;border-radius:14px;padding:22px;">
+          <div style="font-family:'Fraunces',serif;font-weight:700;color:#C0673D;font-size:15px;margin-bottom:8px;">Confronto</div>
+          <p style="margin:0;font-size:15.5px;line-height:1.5;color:#3A4360;">Il cliente può confrontarti subito con altre strutture.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #EBE4D5;border-radius:14px;padding:22px;">
+          <div style="font-family:'Fraunces',serif;font-weight:700;color:#C0673D;font-size:15px;margin-bottom:8px;">Nessuna pagina tua</div>
+          <p style="margin:0;font-size:15.5px;line-height:1.5;color:#3A4360;">Non hai una pagina ufficiale da mandare su WhatsApp, social o Google.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOLUZIONE ============ -->
+  <section style="background:#EFE6D4;">
+    <div style="max-width:1140px;margin:0 auto;padding:72px 22px;display:grid;grid-template-columns:1fr;gap:36px;">
+      <div style="max-width:760px;">
+        <div style="font-weight:700;font-size:13.5px;letter-spacing:0.06em;text-transform:uppercase;color:#6E7E5C;margin-bottom:14px;">La soluzione</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(26px,4.4vw,40px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 20px;text-wrap:balance;color:#163A46;">Ti prepariamo un sito semplice, chiaro e già pronto per ricevere contatti.</h2>
+        <p style="font-size:clamp(15.5px,2.2vw,18px);line-height:1.62;color:#46523B;margin:0;max-width:680px;text-wrap:pretty;">Creiamo una pagina web dedicata alla tua struttura, con le informazioni essenziali, foto, descrizione, mappa, pulsante WhatsApp e modulo richiesta. Non è un portale, non è un gestionale, non è un sistema complicato: è il tuo punto ufficiale online.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COSA INCLUDE ============ -->
+  <section style="background:#FAF6EE;">
+    <div style="max-width:1140px;margin:0 auto;padding:72px 22px;">
+      <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(26px,4.4vw,40px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 36px;max-width:680px;color:#163A46;">Cosa include il servizio da 170€ l'anno</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 40px;border-top:1px solid #E5DECF;">
+        <sc-for list="{{ includes }}" as="item" hint-placeholder-count="10">
+          <div style="display:flex;align-items:flex-start;gap:13px;padding:16px 0;border-bottom:1px solid #E5DECF;">
+            <span style="flex:none;margin-top:1px;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#EFE6D4;color:#5E6E4A;font-size:13px;font-weight:800;">✓</span>
+            <span style="font-size:16px;line-height:1.4;color:#2A3450;font-weight:500;">{{ item }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ESEMPIO + MOCKUP ============ -->
+  <section id="esempio" style="background:#163A46;color:#FAF6EE;">
+    <div style="max-width:1140px;margin:0 auto;padding:72px 22px;">
+      <div style="max-width:720px;margin-bottom:40px;">
+        <div style="font-weight:700;font-size:13.5px;letter-spacing:0.06em;text-transform:uppercase;color:#C49A4A;margin-bottom:14px;">Un esempio reale</div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(26px,4.4vw,40px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 18px;text-wrap:balance;">Prima vedi il sito, poi decidi.</h2>
+        <p style="font-size:clamp(15.5px,2.2vw,18px);line-height:1.6;color:#C9CFDA;margin:0;text-wrap:pretty;">Possiamo preparare una bozza iniziale della pagina della tua struttura. La guardi, valuti se ti rappresenta e solo dopo decidi se pubblicarla con dominio dedicato.</p>
+      </div>
+
+      <!-- browser mockup -->
+      <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.1);">
+        <!-- chrome -->
+        <div style="display:flex;align-items:center;gap:14px;padding:11px 16px;background:#EDE7DB;border-bottom:1px solid #DED6C5;">
+          <div style="display:flex;gap:7px;">
+            <span style="width:11px;height:11px;border-radius:50%;background:#E06A57;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#E6B94E;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#7FB37A;"></span>
+          </div>
+          <div style="flex:1;background:#fff;border:1px solid #DCD3C2;border-radius:8px;padding:6px 12px;font-size:13px;color:#5A6275;font-family:'Hanken Grotesk',monospace;display:flex;align-items:center;gap:7px;">
+            <span style="color:#8C9A7B;">🔒</span> www.leterrazze-spoleto.it
+          </div>
+        </div>
+        <!-- page body -->
+        <div style="background:#FBF8F1;color:#1B2436;">
+          <!-- hero strip -->
+          <div style="position:relative;height:200px;background-image:url('uploads/terrazza al tramonto.png');background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:22px;">
+            <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.12) 50%,transparent 100%);"></div>
+            <div style="position:relative;">
+              <div style="color:rgba(255,255,255,0.85);font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">B&amp;B · Spoleto (PG)</div>
+              <div style="font-family:'Fraunces',serif;font-weight:800;font-size:30px;color:#fff;line-height:1.05;margin-top:4px;">Le Terrazze</div>
+            </div>
+          </div>
+          <!-- content -->
+          <div style="padding:22px;display:grid;grid-template-columns:1fr;gap:22px;">
+            <div>
+              <p style="margin:0 0 16px;font-size:15px;line-height:1.55;color:#3A4360;">Camere luminose nel centro storico, a pochi passi dal Duomo. Colazione con prodotti del territorio e terrazza panoramica sulla valle. Parcheggio convenzionato.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
+                <span style="background:#EFE6D4;color:#5E6E4A;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;">Wi-Fi</span>
+                <span style="background:#EFE6D4;color:#5E6E4A;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;">Colazione inclusa</span>
+                <span style="background:#EFE6D4;color:#5E6E4A;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;">Terrazza</span>
+                <span style="background:#EFE6D4;color:#5E6E4A;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;">Animali ammessi</span>
+              </div>
+              <!-- thumbs -->
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;">
+                <div style="aspect-ratio:4/3;border-radius:9px;background-image:url('uploads/camera.png');background-size:cover;background-position:center;"></div>
+                <div style="aspect-ratio:4/3;border-radius:9px;background-image:url('uploads/colazione.png');background-size:cover;background-position:center;"></div>
+                <div style="aspect-ratio:4/3;border-radius:9px;background-image:url('uploads/borgo .png');background-size:cover;background-position:center;"></div>
+              </div>
+              <div style="display:flex;gap:9px;flex-wrap:wrap;">
+                <span style="background:#25D366;color:#fff;font-weight:700;font-size:13.5px;padding:10px 16px;border-radius:10px;display:inline-flex;align-items:center;gap:7px;">WhatsApp diretto</span>
+                <span style="background:#163A46;color:#fff;font-weight:700;font-size:13.5px;padding:10px 16px;border-radius:10px;">Richiedi info</span>
+              </div>
+            </div>
+            <!-- mini form + map -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
+              <div style="background:#fff;border:1px solid #EBE4D5;border-radius:12px;padding:15px;">
+                <div style="font-family:'Fraunces',serif;font-weight:700;font-size:14px;margin-bottom:10px;color:#163A46;">Richiesta informazioni</div>
+                <div style="height:30px;background:#F3EFE6;border:1px solid #E5DECF;border-radius:7px;margin-bottom:8px;"></div>
+                <div style="height:30px;background:#F3EFE6;border:1px solid #E5DECF;border-radius:7px;margin-bottom:8px;"></div>
+                <div style="height:30px;background:#C0673D;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12.5px;font-weight:700;">Invia richiesta</div>
+              </div>
+              <!-- mappa finta (placeholder): blocchi, strade e acqua simulati con CSS -->
+              <div style="position:relative;border-radius:12px;overflow:hidden;border:1px solid #EBE4D5;min-height:150px;background:#EAE6DC;">
+                <!-- acqua -->
+                <div style="position:absolute;right:-18%;bottom:-22%;width:62%;height:74%;background:#AFD0DE;transform:rotate(-18deg);border-radius:22% 30% 26% 34%;"></div>
+                <!-- parco -->
+                <div style="position:absolute;left:8%;top:10%;width:28%;height:30%;background:#C7D7AC;border-radius:8px;"></div>
+                <!-- isolati -->
+                <div style="position:absolute;left:46%;top:14%;width:16%;height:20%;background:#E0DACB;border-radius:3px;"></div>
+                <div style="position:absolute;left:14%;bottom:14%;width:20%;height:22%;background:#E0DACB;border-radius:3px;"></div>
+                <!-- strade -->
+                <div style="position:absolute;left:-10%;top:42%;width:120%;height:9px;background:#FBFAF6;transform:rotate(-7deg);box-shadow:0 0 0 1px #DAD3C2;"></div>
+                <div style="position:absolute;left:38%;top:-10%;width:8px;height:120%;background:#FBFAF6;transform:rotate(6deg);box-shadow:0 0 0 1px #DAD3C2;"></div>
+                <div style="position:absolute;left:-10%;top:74%;width:120%;height:5px;background:#FBFAF6;transform:rotate(-3deg);box-shadow:0 0 0 1px #E2DCCC;"></div>
+                <!-- pin -->
+                <div style="position:absolute;left:42%;top:44%;transform:translate(-50%,-100%);">
+                  <div style="width:20px;height:20px;border-radius:50% 50% 50% 0;background:#C25E3C;rotate:-45deg;box-shadow:0 5px 9px rgba(0,0,0,0.28);border:2px solid #fff;"></div>
+                </div>
+                <!-- attribuzione -->
+                <div style="position:absolute;bottom:7px;right:9px;font-family:'Hanken Grotesk',sans-serif;font-size:9.5px;color:#6c7466;background:rgba(255,255,255,0.7);padding:2px 6px;border-radius:5px;">Mappa</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+        <a href="#form" data-cta="1" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#C25E3C;color:#FFFFFF;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;box-shadow:0 10px 24px -12px rgba(194,94,60,.8);transition:transform .18s ease,box-shadow .18s ease,background .18s ease;" style-hover="background:#A44A2C;transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(194,94,60,.85);">Voglio vedere una bozza <span class="cta-arrow" style="font-size:17px;">→</span></a>
+        <span style="color:#A9B1BF;font-size:14.5px;">Esempio illustrativo · la tua pagina sarà personalizzata</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONFRONTO ============ -->
+  <section style="background:#FAF6EE;">
+    <div style="max-width:1140px;margin:0 auto;padding:72px 22px;">
+      <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,4.2vw,38px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 36px;max-width:760px;text-wrap:balance;color:#163A46;">Booking e Airbnb restano utili. Il punto è non dipendere solo da loro.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;">
+        <div style="background:#fff;border:1px solid #EBE4D5;border-radius:16px;padding:26px;">
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:#6A7283;margin-bottom:18px;">Solo Booking / Airbnb</div>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#54607A;line-height:1.4;"><span style="flex:none;color:#B0566A;font-weight:800;">✕</span>Commissioni sulle prenotazioni</div>
+            <div style="display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#54607A;line-height:1.4;"><span style="flex:none;color:#B0566A;font-weight:800;">✕</span>Confronto immediato con altre strutture</div>
+            <div style="display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#54607A;line-height:1.4;"><span style="flex:none;color:#B0566A;font-weight:800;">✕</span>Pagina non completamente tua</div>
+            <div style="display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#54607A;line-height:1.4;"><span style="flex:none;color:#B0566A;font-weight:800;">✕</span>Contatto diretto limitato</div>
+          </div>
+        </div>
+        <div style="background:#163A46;border:1px solid #163A46;border-radius:16px;padding:26px;color:#FAF6EE;box-shadow:0 18px 40px -22px rgba(22,58,70,0.7);">
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:#C49A4A;margin-bottom:18px;">Sito tuo</div>
+          <div style="display:flex;flex-direction:column;gap:13px;">
+            <div style="display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#E4E7ED;line-height:1.4;"><span style="flex:none;color:#9DBF8E;font-weight:800;">✓</span>Richieste dirette</div>
+            <div style="display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#E4E7ED;line-height:1.4;"><span style="flex:none;color:#9DBF8E;font-weight:800;">✓</span>Pagina ufficiale della struttura</div>
+            <div style="display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#E4E7ED;line-height:1.4;"><span style="flex:none;color:#9DBF8E;font-weight:800;">✓</span>Link da usare su WhatsApp, social e Google</div>
+            <div style="display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#E4E7ED;line-height:1.4;"><span style="flex:none;color:#9DBF8E;font-weight:800;">✓</span>Maggiore controllo su testi, foto e informazioni</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PREZZO ============ -->
+  <section style="background:#EFE6D4;">
+    <div style="max-width:1140px;margin:0 auto;padding:72px 22px;">
+      <div style="background:#fff;border:1px solid #DCE2D1;border-radius:22px;padding:clamp(28px,5vw,52px);display:grid;grid-template-columns:1fr;gap:30px;box-shadow:0 20px 50px -30px rgba(22,58,70,0.4);">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;">
+          <div style="max-width:560px;">
+            <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1.04;letter-spacing:-0.025em;margin:0 0 16px;color:#163A46;">170€ l'anno. Tutto incluso per partire.</h2>
+            <p style="font-size:clamp(15.5px,2.2vw,18px);line-height:1.6;color:#46523B;margin:0;text-wrap:pretty;">Con 170€ l'anno hai il sito online, il dominio incluso e la pubblicazione gestita. Non ci sono pacchetti complicati o costi nascosti per iniziare.</p>
+          </div>
+          <div style="text-align:right;flex:none;">
+            <div style="font-family:'Fraunces',serif;font-weight:800;font-size:clamp(48px,10vw,76px);line-height:0.9;color:#163A46;">170€</div>
+            <div style="font-size:15px;color:#6E7E5C;font-weight:600;margin-top:4px;">/ anno · dominio incluso</div>
+          </div>
+        </div>
+        <a href="#form" data-cta="1" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:9px;align-self:start;background:#C25E3C;color:#FFFFFF;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;box-shadow:0 10px 24px -12px rgba(194,94,60,.8);transition:transform .18s ease,box-shadow .18s ease,background .18s ease;" style-hover="background:#A44A2C;transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(194,94,60,.85);">Richiedi il sito della tua struttura <span class="cta-arrow" style="font-size:17px;">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FORM ============ -->
+  <section id="form" style="background:#FAF6EE;color:#1B2436;">
+    <div style="max-width:1140px;margin:0 auto;padding:72px 22px;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:flex-start;">
+
+      <!-- left column -->
+      <div style="flex:1 1 320px;max-width:430px;">
+        <div style="display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid #E4D6C2;padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#C0673D;margin-bottom:24px;">
+          <span style="color:#C0673D;font-size:11px;">◆</span> Richiedi il sito
+        </div>
+        <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.04;letter-spacing:-0.015em;margin:0 0 18px;text-wrap:balance;color:#163A46;">Raccontaci la tua struttura.</h2>
+        <p style="font-size:clamp(15.5px,2.2vw,18px);line-height:1.6;color:#54607A;margin:0 0 30px;text-wrap:pretty;">Lasciaci due informazioni essenziali. Ti ricontattiamo noi e, se vuoi, prepariamo una bozza da guardare prima di decidere.</p>
+        <a href="{{ whatsappLink }}" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#0a2e16;font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:15.5px;padding:14px 22px;border-radius:999px;box-shadow:0 10px 24px -12px rgba(37,211,102,.7);transition:transform .18s ease,box-shadow .18s ease,background .18s ease;" style-hover="background:#20BE5B;transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(37,211,102,.75);">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.35);font-size:14px;">💬</span> Scrivici su WhatsApp
+        </a>
+        <p style="margin:18px 0 0;font-size:13.5px;color:#8A8270;">Oppure compila il modulo: ti rispondiamo entro poche ore.</p>
+      </div>
+
+      <!-- form card -->
+      <div style="flex:1 1 460px;background:#fff;border-radius:22px;padding:clamp(24px,3.5vw,38px);box-shadow:0 26px 60px -32px rgba(22,58,70,0.45);">
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:30px 8px;">
+            <div style="width:56px;height:56px;border-radius:50%;background:#EFE6D4;color:#5E6E4A;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;">✓</div>
+            <div style="font-family:'Fraunces',serif;font-weight:400;font-size:24px;color:#163A46;margin-bottom:8px;">Richiesta inviata.</div>
+            <p style="font-size:15.5px;line-height:1.55;color:#54607A;margin:0;">Grazie. Ti ricontattiamo a breve con una prima bozza della pagina della tua struttura.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ onSubmit }}" novalidate="true" style="display:flex;flex-direction:column;gap:18px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px;">
+            <div>
+              <label style="display:block;font-size:13.5px;font-weight:700;color:#2A3450;margin-bottom:7px;">Il tuo nome</label>
+              <input type="text" value="{{ form.nome }}" onChange="{{ onNome }}" placeholder="Mario Rossi" style="width:100%;border:1px solid #E5DBC6;border-radius:11px;padding:13px 15px;font-size:15.5px;font-family:'Hanken Grotesk',sans-serif;background:#F4EEE1;color:#1B2436;outline:none;" />
+              <sc-if value="{{ errors.nome }}" hint-placeholder-val="{{ false }}"><div style="color:#B0566A;font-size:13px;margin-top:5px;font-weight:600;">{{ errors.nome }}</div></sc-if>
+            </div>
+            <div>
+              <label style="display:block;font-size:13.5px;font-weight:700;color:#2A3450;margin-bottom:7px;">Nome della struttura</label>
+              <input type="text" value="{{ form.struttura }}" onChange="{{ onStruttura }}" placeholder="Villa Il Mandorlo" style="width:100%;border:1px solid #E5DBC6;border-radius:11px;padding:13px 15px;font-size:15.5px;font-family:'Hanken Grotesk',sans-serif;background:#F4EEE1;color:#1B2436;outline:none;" />
+              <sc-if value="{{ errors.struttura }}" hint-placeholder-val="{{ false }}"><div style="color:#B0566A;font-size:13px;margin-top:5px;font-weight:600;">{{ errors.struttura }}</div></sc-if>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px;">
+            <div>
+              <label style="display:block;font-size:13.5px;font-weight:700;color:#2A3450;margin-bottom:7px;">Città</label>
+              <input type="text" value="{{ form.citta }}" onChange="{{ onCitta }}" placeholder="Sorrento" style="width:100%;border:1px solid #E5DBC6;border-radius:11px;padding:13px 15px;font-size:15.5px;font-family:'Hanken Grotesk',sans-serif;background:#F4EEE1;color:#1B2436;outline:none;" />
+              <sc-if value="{{ errors.citta }}" hint-placeholder-val="{{ false }}"><div style="color:#B0566A;font-size:13px;margin-top:5px;font-weight:600;">{{ errors.citta }}</div></sc-if>
+            </div>
+            <div>
+              <label style="display:block;font-size:13.5px;font-weight:700;color:#2A3450;margin-bottom:7px;">Telefono / WhatsApp</label>
+              <input type="tel" value="{{ form.whatsapp }}" onChange="{{ onWhatsapp }}" placeholder="+39 ..." style="width:100%;border:1px solid #E5DBC6;border-radius:11px;padding:13px 15px;font-size:15.5px;font-family:'Hanken Grotesk',sans-serif;background:#F4EEE1;color:#1B2436;outline:none;" />
+              <sc-if value="{{ errors.whatsapp }}" hint-placeholder-val="{{ false }}"><div style="color:#B0566A;font-size:13px;margin-top:5px;font-weight:600;">{{ errors.whatsapp }}</div></sc-if>
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font-size:13.5px;font-weight:700;color:#2A3450;margin-bottom:7px;">Email</label>
+            <input type="email" value="{{ form.email }}" onChange="{{ onEmail }}" placeholder="nome@email.it" style="width:100%;border:1px solid #E5DBC6;border-radius:11px;padding:13px 15px;font-size:15.5px;font-family:'Hanken Grotesk',sans-serif;background:#F4EEE1;color:#1B2436;outline:none;" />
+            <sc-if value="{{ errors.email }}" hint-placeholder-val="{{ false }}"><div style="color:#B0566A;font-size:13px;margin-top:5px;font-weight:600;">{{ errors.email }}</div></sc-if>
+          </div>
+          <div>
+            <label style="display:block;font-size:13.5px;font-weight:700;color:#2A3450;margin-bottom:7px;">Dove ti trovano oggi? <span style="color:#9aa0ab;font-weight:500;">— facoltativo</span></label>
+            <input type="text" value="{{ form.dove }}" onChange="{{ onDove }}" placeholder="Link Booking, Airbnb o profilo Google" style="width:100%;border:1px solid #E5DBC6;border-radius:11px;padding:13px 15px;font-size:15.5px;font-family:'Hanken Grotesk',sans-serif;background:#F4EEE1;color:#1B2436;outline:none;" />
+          </div>
+          <div>
+            <label style="display:block;font-size:13.5px;font-weight:700;color:#2A3450;margin-bottom:7px;">Qualcosa su di te <span style="color:#9aa0ab;font-weight:500;">— facoltativo</span></label>
+            <textarea value="{{ form.note }}" onChange="{{ onNote }}" rows="3" placeholder="Quante camere, cosa offri, cosa ti serve…" style="width:100%;border:1px solid #E5DBC6;border-radius:11px;padding:13px 15px;font-size:15.5px;font-family:'Hanken Grotesk',sans-serif;background:#F4EEE1;color:#1B2436;outline:none;resize:vertical;"></textarea>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between;margin-top:4px;">
+            <button type="submit" data-cta="1" style="background:#C25E3C;color:#FFFFFF;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:16px;padding:14px 24px;border:none;border-radius:999px;cursor:pointer;box-shadow:0 10px 24px -12px rgba(194,94,60,.8);transition:transform .18s ease,box-shadow .18s ease,background .18s ease;display:inline-flex;align-items:center;gap:9px;" style-hover="background:#A44A2C;transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(194,94,60,.85);">Invia la richiesta <span class="cta-arrow" style="font-size:17px;">→</span></button>
+            <p style="margin:0;font-size:13px;color:#8A8270;line-height:1.4;max-width:220px;">Niente impegno: prima prepariamo la bozza, poi decidi tu.</p>
+          </div>
+        </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section style="background:#FAF6EE;">
+    <div style="max-width:820px;margin:0 auto;padding:72px 22px;">
+      <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(26px,4.4vw,40px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 32px;color:#163A46;">Domande frequenti</h2>
+      <div style="border-top:1px solid #E5DECF;">
+        <sc-for list="{{ faqs }}" as="item" hint-placeholder-count="6">
+          <div style="border-bottom:1px solid #E5DECF;">
+            <button onClick="{{ item.toggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;padding:20px 0;cursor:pointer;text-align:left;font-family:'Hanken Grotesk',sans-serif;">
+              <span style="font-family:'Fraunces',serif;font-weight:600;font-size:clamp(16px,2.6vw,19px);color:#163A46;line-height:1.3;">{{ item.q }}</span>
+              <span style="flex:none;width:26px;height:26px;border-radius:50%;background:#EFE6D4;color:#5E6E4A;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;">{{ item.sign }}</span>
+            </button>
+            <sc-if value="{{ item.isOpen }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;padding:0 0 22px;font-size:16px;line-height:1.6;color:#54607A;max-width:680px;">{{ item.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- reviews slot — attivare con recensioni reali
+  <section style="background:#EFE6D4;"> ... recensioni verificate ... </section>
+  -->
+
+  <!-- ============ CHIUSURA ============ -->
+  <section style="background:#163A46;color:#FAF6EE;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(800px 400px at 100% 0%, rgba(196,154,74,0.18), transparent 60%);"></div>
+    <div style="position:relative;max-width:820px;margin:0 auto;padding:80px 22px;text-align:center;">
+      <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,5.6vw,52px);line-height:1.03;letter-spacing:-0.025em;margin:0 0 20px;text-wrap:balance;">Dai alla tua struttura una pagina ufficiale.</h2>
+      <p style="font-size:clamp(16px,2.4vw,19px);line-height:1.58;color:#C9CFDA;margin:0 auto 34px;max-width:620px;text-wrap:pretty;">Se oggi la tua presenza online dipende solo da Booking, Airbnb o Google, un sito semplice può aiutarti a ricevere contatti diretti e presentarti meglio a chi ti sta già cercando.</p>
+      <a href="#form" data-cta="1" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#C25E3C;color:#FFFFFF;font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;box-shadow:0 10px 24px -12px rgba(194,94,60,.8);transition:transform .18s ease,box-shadow .18s ease,background .18s ease;" style-hover="background:#A44A2C;transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(194,94,60,.85);">Richiedi il tuo sito a 170€ l'anno <span class="cta-arrow" style="font-size:17px;">→</span></a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#0E2A33;color:#8FA6AC;">
+    <div style="max-width:1140px;margin:0 auto;padding:34px 22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+      <div style="display:flex;align-items:center;gap:10px;color:#C9CFDA;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:#FAF6EE;color:#163A46;font-family:'Fraunces',serif;font-weight:800;font-size:14px;">c</span>
+        <span style="font-family:'Fraunces',serif;font-weight:700;font-size:15px;">hotel.contentmug.it</span>
+      </div>
+      <div style="font-size:13.5px;">Sito della tua struttura online · 170€ l'anno</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    openFaq: 0,
+    submitted: false,
+    form: { nome: '', struttura: '', citta: '', whatsapp: '', email: '', dove: '', note: '' },
+    errors: {}
+  };
+
+  // === INTEGRAZIONE: numero WhatsApp di destinazione (formato internazionale, senza +) ===
+  WHATSAPP_NUMBER = '393330000000';
+
+  setField(key, val) {
+    this.setState(s => ({
+      form: { ...s.form, [key]: val },
+      errors: { ...s.errors, [key]: undefined }
+    }));
+  }
+
+  validate(form) {
+    const e = {};
+    if (!form.nome.trim()) e.nome = 'Inserisci nome e cognome.';
+    if (!form.struttura.trim()) e.struttura = 'Inserisci il nome della struttura.';
+    if (!form.citta.trim()) e.citta = 'Inserisci la città.';
+    const tel = form.whatsapp.replace(/[^0-9]/g, '');
+    if (tel.length < 8) e.whatsapp = 'Inserisci un numero WhatsApp valido.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = 'Inserisci un indirizzo email valido.';
+    return e;
+  }
+
+  submit(ev) {
+    if (ev && ev.preventDefault) ev.preventDefault();
+    const errors = this.validate(this.state.form);
+    if (Object.keys(errors).length) {
+      this.setState({ errors });
+      return;
+    }
+    // === PUNTO DI AGGANCIO: collega qui Brevo / email / webhook ===
+    // Esempio:
+    // fetch('https://il-tuo-webhook.example/endpoint', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(this.state.form)
+    // });
+    this.setState({ submitted: true, errors: {} });
+  }
+
+  renderVals() {
+    const f = this.state.form;
+    const faqData = [
+      { q: 'Devo avere già un dominio?', a: 'No, il dominio è incluso nel servizio annuale.' },
+      { q: 'Devo scrivere io i testi?', a: 'No, prepariamo noi i testi base. Tu puoi correggerli o integrarli.' },
+      { q: 'Posso usare le mie foto?', a: 'Sì, useremo le immagini che ci invierai.' },
+      { q: 'Il sito sostituisce Booking?', a: 'No. Il sito serve ad avere un canale diretto in più, senza eliminare i portali che già usi.' },
+      { q: 'Ci sarà un sistema di prenotazione?', a: 'Nel piano base è previsto un modulo richiesta informazioni. Un sistema di prenotazione avanzato può essere valutato a parte.' },
+      { q: 'Quanto tempo serve per pubblicarlo?', a: 'Dopo la raccolta delle informazioni, il sito può essere pubblicato rapidamente.' }
+    ];
+    const faqs = faqData.map((item, i) => ({
+      q: item.q,
+      a: item.a,
+      isOpen: this.state.openFaq === i,
+      sign: this.state.openFaq === i ? '–' : '+',
+      toggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i }))
+    }));
+
+    const waMsg = encodeURIComponent('Ciao, vorrei una bozza del sito per la mia struttura.');
+
+    return {
+      includes: [
+        'Sito web pubblicato online',
+        'Dominio incluso',
+        'Pagina dedicata alla struttura',
+        'Testi base scritti per presentare camere, servizi e posizione',
+        'Inserimento immagini fornite dalla struttura',
+        'Pulsante WhatsApp',
+        'Modulo richiesta informazioni',
+        'Mappa Google',
+        'Ottimizzazione base per ricerca del nome struttura',
+        'Assistenza essenziale per piccole modifiche durante l\u2019anno'
+      ],
+      faqs,
+      form: f,
+      errors: this.state.errors,
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      whatsappLink: 'https://wa.me/' + this.WHATSAPP_NUMBER + '?text=' + waMsg,
+      onNome: (e) => this.setField('nome', e.target.value),
+      onStruttura: (e) => this.setField('struttura', e.target.value),
+      onCitta: (e) => this.setField('citta', e.target.value),
+      onWhatsapp: (e) => this.setField('whatsapp', e.target.value),
+      onEmail: (e) => this.setField('email', e.target.value),
+      onDove: (e) => this.setField('dove', e.target.value),
+      onNote: (e) => this.setField('note', e.target.value),
+      onSubmit: (e) => this.submit(e)
+    };
+  }
+}
+</script>
+</body>
+</html>

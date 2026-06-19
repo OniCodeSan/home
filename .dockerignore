@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+.DS_Store
+# segreti: mai dentro l'immagine (arrivano a runtime via compose env_file)
+.env
+.env.*
+!.env.example
+Dockerfile
+.dockerignore
+nginx.conf
+*.tsbuildinfo
+# vecchio design statico di riferimento (non serve nell'immagine)
+hotel-contentmug-standalone.html
+Hotel ContentMug.dc.html
+support.js
+.thumbnail

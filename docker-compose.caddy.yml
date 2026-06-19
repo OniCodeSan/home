@@ -1,0 +1,34 @@
+# Deploy con dominio + HTTPS automatico (Let's Encrypt via Caddy).
+# Uso (sul server, dopo aver puntato il dominio all'IP):
+#   docker compose -f docker-compose.caddy.yml up -d --build
+services:
+  app:
+    build: .
+    image: contentmug-hotel
+    container_name: contentmug
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: contentmug-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:
+  caddy_config:

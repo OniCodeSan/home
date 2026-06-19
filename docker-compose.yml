@@ -1,0 +1,18 @@
+# Deploy su IP (HTTP, senza dominio).
+# NB: questo server ha già un nginx di sistema sulla 80 e altri servizi,
+# quindi esponiamo l'app su una porta pubblica dedicata (8081).
+# Override: CM_PORT=9000 docker compose up -d
+# Quando avrai il dominio: usa docker-compose.caddy.yml per HTTPS automatico.
+services:
+  app:
+    build: .
+    image: contentmug-hotel
+    container_name: contentmug
+    restart: unless-stopped
+    ports:
+      - "${CM_PORT:-8081}:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
