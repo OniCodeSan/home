@@ -18,32 +18,16 @@ const ctaButtonStyle: React.CSSProperties = {
   transition: 'opacity 0.15s ease',
 };
 
-/* Placeholder del calendario prenotazioni — verrà sostituito dall'integrazione
-   Google Calendar (fase 2). Mockup non interattivo, solo presentazione. */
-const CalendarPlaceholder: React.FC = () => {
-  const giorni = Array.from({ length: 35 }, (_, i) => i - 2); // offset per partire a metà settimana
-  const liberi = new Set([4, 5, 11, 12, 18, 19, 25, 26]);
+/* Placeholder calendario prenotazioni — compatto, due mesi affiancati.
+   Mockup non interattivo: verrà sostituito dall'integrazione Google Calendar (fase 2). */
+const MiniMese: React.FC<{ nome: string; offset: number; liberi: Set<number> }> = ({ nome, offset, liberi }) => {
+  const giorni = Array.from({ length: 35 }, (_, i) => i - offset);
   return (
-    <div
-      style={{
-        width: '100%',
-        maxWidth: 720,
-        margin: '0 auto',
-        border: '1px solid var(--line)',
-        background: 'var(--surface)',
-        borderRadius: 14,
-        padding: 'clamp(18px,3vw,28px)',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
-        <strong style={{ fontFamily: titleFont, color: 'var(--ink)', fontSize: 'clamp(1.05rem,1.6vw,1.2rem)' }}>Disponibilità</strong>
-        <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: '#fff', background: 'var(--primary)', borderRadius: 999, padding: '4px 10px' }}>
-          Prenotazioni online · in arrivo
-        </span>
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 6, opacity: 0.6 }} aria-hidden="true">
+    <div style={{ flex: '1 1 150px', minWidth: 140 }}>
+      <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--ink)', marginBottom: 5 }}>{nome}</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 2, opacity: 0.7 }} aria-hidden="true">
         {['L', 'M', 'M', 'G', 'V', 'S', 'D'].map((d, i) => (
-          <div key={`h${i}`} style={{ textAlign: 'center', fontSize: '0.72rem', color: 'var(--muted)', fontWeight: 600 }}>{d}</div>
+          <div key={`h${i}`} style={{ textAlign: 'center', fontSize: '0.55rem', color: 'var(--muted)', fontWeight: 600 }}>{d}</div>
         ))}
         {giorni.map((n, i) => (
           <div
@@ -53,8 +37,8 @@ const CalendarPlaceholder: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              borderRadius: 8,
-              fontSize: '0.85rem',
+              borderRadius: 4,
+              fontSize: '0.55rem',
               border: '1px solid var(--line)',
               background: n > 0 && liberi.has(n) ? 'var(--accent)' : 'var(--surface)',
               color: n > 0 ? 'var(--ink)' : 'transparent',
@@ -64,12 +48,37 @@ const CalendarPlaceholder: React.FC = () => {
           </div>
         ))}
       </div>
-      <p style={{ margin: '14px 0 0', textAlign: 'center', color: 'var(--muted)', fontSize: '0.9rem' }}>
-        Presto potrai verificare le date e prenotare in tempo reale.
-      </p>
     </div>
   );
 };
+
+const CalendarPlaceholder: React.FC = () => (
+  <div
+    style={{
+      width: '100%',
+      maxWidth: 440,
+      margin: '0 auto',
+      border: '1px solid var(--line)',
+      background: 'var(--surface)',
+      borderRadius: 12,
+      padding: 14,
+    }}
+  >
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+      <strong style={{ fontFamily: titleFont, color: 'var(--ink)', fontSize: '0.95rem' }}>Disponibilità</strong>
+      <span style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: '#fff', background: 'var(--primary)', borderRadius: 999, padding: '3px 8px' }}>
+        in arrivo
+      </span>
+    </div>
+    <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+      <MiniMese nome="Questo mese" offset={2} liberi={new Set([4, 5, 11, 12, 18, 19, 25, 26])} />
+      <MiniMese nome="Prossimo mese" offset={5} liberi={new Set([2, 3, 9, 10, 16, 17, 23, 24, 30])} />
+    </div>
+    <p style={{ margin: '10px 0 0', textAlign: 'center', color: 'var(--muted)', fontSize: '0.75rem' }}>
+      Presto potrai prenotare in tempo reale.
+    </p>
+  </div>
+);
 
 /* -------------------------------------------------------------------------- */
 /* Variante 01 — "caldo": card centrata e accogliente                          */
