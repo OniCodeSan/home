@@ -48,7 +48,7 @@ const Riga: React.FC<{ label: string; children: React.ReactNode }> = ({ label, c
 const Contatti01: React.FC<{ content: ContattiContent }> = ({ content }) => {
   const { telefono, whatsapp, email, indirizzo, mappaEmbed } = content;
   return (
-    <section
+    <section id="contatti"
       style={{
         background: 'var(--bg)',
         color: 'var(--ink)',
@@ -162,7 +162,7 @@ const Contatti01: React.FC<{ content: ContattiContent }> = ({ content }) => {
 const Contatti02: React.FC<{ content: ContattiContent }> = ({ content }) => {
   const { telefono, whatsapp, email, indirizzo, mappaEmbed } = content;
   return (
-    <section
+    <section id="contatti"
       style={{
         background: 'var(--surface)',
         color: 'var(--ink)',
@@ -276,7 +276,7 @@ const Contatti02: React.FC<{ content: ContattiContent }> = ({ content }) => {
 const Contatti03: React.FC<{ content: ContattiContent }> = ({ content }) => {
   const { telefono, whatsapp, email, indirizzo, mappaEmbed } = content;
   return (
-    <section
+    <section id="contatti"
       style={{
         background: 'var(--bg)',
         color: 'var(--ink)',
