@@ -115,21 +115,25 @@ const focusRing: React.CSSProperties = {
 const Dettaglio: React.FC<{ nome: string }> = ({ nome }) => (
   <a
     href="#prenota"
-    aria-label={`Scopri ${nome}`}
+    aria-label={`Prenota ${nome}`}
     style={{
       ...focusRing,
       alignSelf: 'flex-start',
-      display: 'inline-block',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 8,
       textDecoration: 'none',
       color: 'var(--cta)',
-      borderBottom: '1px solid var(--cta)',
-      paddingBottom: 3,
-      fontSize: 'clamp(12px,1.6vw,14px)',
+      border: '1px solid var(--cta)',
+      padding: '9px 18px',
+      borderRadius: 8,
+      fontSize: 'clamp(11px,1.5vw,13px)',
+      fontWeight: 600,
       textTransform: 'uppercase',
       letterSpacing: '.12em',
     }}
   >
-    Scopri la camera
+    Prenota <span aria-hidden="true">→</span>
   </a>
 );
 
