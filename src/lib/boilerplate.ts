@@ -58,7 +58,7 @@ export function buildDemoContents(
       // Reciprocità (miglior prezzo diretto, niente commissioni) + simpatia + impegno (piccolo passo).
       titolo: 'Prenota direttamente con noi',
       testo: `Miglior prezzo prenotando diretto, senza commissioni di intermediari. Scrivici${form.whatsapp ? ' su WhatsApp' : ''}: ti rispondiamo di persona e confermiamo le date in poche ore.`,
-      calendarSlot: true,
+      whatsapp: form.whatsapp || undefined,
     },
     stanze: {
       titolo: 'Le nostre camere',

@@ -78,6 +78,21 @@ const TagList: React.FC<{ items?: string[] }> = ({ items }) =>
     </ul>
   ) : null;
 
+// Galleria foto aggiuntive della camera: striscia di miniature sobrie.
+const Galleria: React.FC<{ immagini?: { src: string; alt: string }[] }> = ({ immagini }) =>
+  immagini && immagini.length > 0 ? (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+      {immagini.filter((im) => im && im.src).map((im, k) => (
+        <img
+          key={(im.src || '') + k}
+          src={im.src}
+          alt={im.alt || ''}
+          style={{ width: 'clamp(64px,9vw,88px)', height: 'clamp(48px,7vw,64px)', objectFit: 'cover', border: '1px solid var(--line)', display: 'block' }}
+        />
+      ))}
+    </div>
+  ) : null;
+
 // Area neutra quando l'immagine manca: nessun <img>, solo una superficie sobria.
 const Vuoto: React.FC<{ style?: React.CSSProperties }> = ({ style }) => (
   <div
@@ -256,6 +271,7 @@ const Stanze01: React.FC<{ content: StanzeContent }> = ({ content }) => (
                 {camera.descrizione}
               </p>
               <TagList items={camera.caratteristiche} />
+              <Galleria immagini={camera.immagini} />
               <div
                 style={{
                   marginTop: 'auto',
@@ -369,6 +385,7 @@ const Stanze02: React.FC<{ content: StanzeContent }> = ({ content }) => (
                   {camera.descrizione}
                 </p>
                 <TagList items={camera.caratteristiche} />
+              <Galleria immagini={camera.immagini} />
                 <div
                   style={{
                     display: 'flex',
@@ -494,6 +511,7 @@ const Stanze03: React.FC<{ content: StanzeContent }> = ({ content }) => (
                 {camera.descrizione}
               </p>
               <TagList items={camera.caratteristiche} />
+              <Galleria immagini={camera.immagini} />
               <Dettaglio nome={camera.nome} />
             </div>
           </article>

@@ -23,7 +23,8 @@ export type HeaderContent = {
 export type PrenotazioniContent = {
   titolo: string;
   testo: string;
-  calendarSlot?: boolean;     // fase 2: collegamento Google Calendar (per ora placeholder)
+  whatsapp?: string;          // numero per il bottone "Prenota su WhatsApp"
+  calendarSlot?: boolean;     // (deprecato) ex placeholder calendario
 };
 
 export type StanzeContent = {
@@ -32,7 +33,8 @@ export type StanzeContent = {
   camere: {
     nome: string;
     descrizione: string;
-    immagine?: ImageRef;
+    immagine?: ImageRef;         // foto principale
+    immagini?: ImageRef[];       // foto aggiuntive (galleria)
     prezzoIndicativo?: string;   // es. "da 89€"
     caratteristiche?: string[];  // es. ["Vista mare", "Bagno privato"]
   }[];

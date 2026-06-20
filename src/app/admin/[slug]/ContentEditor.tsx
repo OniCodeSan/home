@@ -186,10 +186,9 @@ export function ContentFields({ blocks, onChange, uploads, uploadAction, slug }:
           <span style={s.label}>Testo</span>
           <Area value={pr.testo} onChange={(v) => patch('prenotazioni', (c) => ({ ...c, testo: v }))} />
         </div>
-        <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14 }}>
-          <input type="checkbox" checked={!!pr.calendarSlot} onChange={(e) => patch('prenotazioni', (c) => ({ ...c, calendarSlot: e.target.checked }))} />
-          Mostra il riquadro calendario disponibilità
-        </label>
+        <div style={s.row}>
+          <Field label="Numero WhatsApp per il bottone 'Prenota'"><Text value={pr.whatsapp} placeholder="+39 ..." onChange={(v) => patch('prenotazioni', (c) => ({ ...c, whatsapp: v }))} /></Field>
+        </div>
       </section>
 
       {/* STANZE */}
@@ -218,6 +217,18 @@ export function ContentFields({ blocks, onChange, uploads, uploadAction, slug }:
               <Text value={(cam.caratteristiche ?? []).join(', ')} placeholder="Vista mare, Bagno privato" onChange={(v) => patch('stanze', (c) => ({ ...c, camere: c.camere.map((x: any, j: number) => j === i ? { ...x, caratteristiche: v.split(',').map((t) => t.trim()).filter(Boolean) } : x) }))} />
             </div>
             <ImageFields optional value={cam.immagine} uploads={uploads} slug={config.slug} uploadAction={uploadAction} onChange={(img) => patch('stanze', (c) => ({ ...c, camere: c.camere.map((x: any, j: number) => j === i ? { ...x, immagine: img } : x) }))} />
+            <div style={{ marginTop: 10 }}>
+              <span style={s.label}>Altre foto (galleria)</span>
+              {(cam.immagini ?? []).map((im: any, k: number) => (
+                <div key={k} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', marginBottom: 8 }}>
+                  <div style={{ flex: 1 }}>
+                    <ImageFields value={im} uploads={uploads} slug={config.slug} uploadAction={uploadAction} onChange={(img) => patch('stanze', (c) => ({ ...c, camere: c.camere.map((x: any, j: number) => j === i ? { ...x, immagini: (x.immagini ?? []).map((y: any, z: number) => z === k ? (img ?? { src: '', alt: '' }) : y) } : x) }))} />
+                  </div>
+                  <button type="button" style={s.btnDanger} onClick={() => patch('stanze', (c) => ({ ...c, camere: c.camere.map((x: any, j: number) => j === i ? { ...x, immagini: (x.immagini ?? []).filter((_: any, z: number) => z !== k) } : x) }))}>rimuovi</button>
+                </div>
+              ))}
+              <button type="button" style={s.btn} onClick={() => patch('stanze', (c) => ({ ...c, camere: c.camere.map((x: any, j: number) => j === i ? { ...x, immagini: [...(x.immagini ?? []), { src: '', alt: '' }] } : x) }))}>+ Aggiungi foto</button>
+            </div>
           </div>
         ))}
         <button type="button" style={s.btn} onClick={() => patch('stanze', (c) => ({ ...c, camere: [...(c.camere ?? []), { nome: 'Nuova camera', descrizione: '' }] }))}>+ Aggiungi camera</button>

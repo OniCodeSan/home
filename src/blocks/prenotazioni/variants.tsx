@@ -5,285 +5,79 @@ import type { PrenotazioniContent } from '../types';
 const sectionPadding = 'clamp(28px,4vw,56px) clamp(20px,5vw,48px)';
 const titleFont = 'var(--font-head)';
 
-const ctaButtonStyle: React.CSSProperties = {
-  display: 'inline-block',
-  border: 'none',
-  cursor: 'pointer',
-  background: 'var(--cta)',
-  color: '#fff',
-  fontSize: 'clamp(0.95rem,1.4vw,1.05rem)',
-  fontWeight: 600,
-  padding: 'clamp(12px,1.4vw,16px) clamp(22px,3vw,34px)',
-  borderRadius: 10,
-  transition: 'opacity 0.15s ease',
-};
-
-/* Placeholder calendario prenotazioni — compatto, due mesi affiancati.
-   Mockup non interattivo: verrà sostituito dall'integrazione Google Calendar (fase 2). */
-const MiniMese: React.FC<{ nome: string; offset: number; liberi: Set<number> }> = ({ nome, offset, liberi }) => {
-  const giorni = Array.from({ length: 35 }, (_, i) => i - offset);
+// Bottone prenotazione: se c'è il numero WhatsApp apre la chat, altrimenti link generico.
+const PrenotaButton: React.FC<{ whatsapp?: string }> = ({ whatsapp }) => {
+  const digits = (whatsapp || '').replace(/[^0-9]/g, '');
+  const href = digits
+    ? `https://wa.me/${digits}?text=${encodeURIComponent('Ciao! Vorrei verificare la disponibilità e prenotare.')}`
+    : '#contatti';
+  const label = digits ? 'Prenota subito su WhatsApp' : 'Prenota subito';
   return (
-    <div style={{ flex: '1 1 150px', minWidth: 140 }}>
-      <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--ink)', marginBottom: 5 }}>{nome}</div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 2, opacity: 0.7 }} aria-hidden="true">
-        {['L', 'M', 'M', 'G', 'V', 'S', 'D'].map((d, i) => (
-          <div key={`h${i}`} style={{ textAlign: 'center', fontSize: '0.55rem', color: 'var(--muted)', fontWeight: 600 }}>{d}</div>
-        ))}
-        {giorni.map((n, i) => (
-          <div
-            key={i}
-            style={{
-              aspectRatio: '1 / 1',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 4,
-              fontSize: '0.55rem',
-              border: '1px solid var(--line)',
-              background: n > 0 && liberi.has(n) ? 'var(--accent)' : 'var(--surface)',
-              color: n > 0 ? 'var(--ink)' : 'transparent',
-            }}
-          >
-            {n > 0 ? n : ''}
-          </div>
-        ))}
-      </div>
-    </div>
+    <a
+      href={href}
+      target={digits ? '_blank' : undefined}
+      rel={digits ? 'noreferrer' : undefined}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 10,
+        background: 'var(--cta)',
+        color: '#fff',
+        textDecoration: 'none',
+        fontSize: 'clamp(0.95rem,1.4vw,1.05rem)',
+        fontWeight: 600,
+        padding: 'clamp(13px,1.5vw,17px) clamp(24px,3.2vw,36px)',
+        borderRadius: 10,
+        outlineOffset: 3,
+      }}
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+        <path d="M3 21l1.8-5.2A8.2 8.2 0 1 1 12 20.2a8.3 8.3 0 0 1-3.9-1L3 21z" />
+        <path d="M8.6 8.4c.3-.7.6-.7.9-.7h.6c.2 0 .5 0 .7.6.3.7.8 2 .9 2.1.1.2.1.3 0 .5-.3.6-.6.8-.8 1-.2.2-.3.3-.1.6.6 1 1.3 1.6 2.3 2.1.3.2.5.1.6 0 .2-.2.7-.8.9-1 .2-.3.3-.2.6-.1.7.3 2 .9 2 .9.2.1.4.2.4.3.1.4.1.9-.1 1.4-.3.6-1.3 1.1-1.8 1.1-.9.1-1.7.1-3.6-.7-2.6-1.1-4.2-3.7-4.3-3.9-.1-.2-1-1.3-1-2.6 0-1.2.6-1.8.9-2.1z" />
+      </svg>
+      {label}
+    </a>
   );
 };
 
-const CalendarPlaceholder: React.FC = () => (
-  <div
-    style={{
-      width: '100%',
-      maxWidth: 440,
-      margin: '0 auto',
-      border: '1px solid var(--line)',
-      background: 'var(--surface)',
-      borderRadius: 12,
-      padding: 14,
-    }}
-  >
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
-      <strong style={{ fontFamily: titleFont, color: 'var(--ink)', fontSize: '0.95rem' }}>Disponibilità</strong>
-      <span style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: '#fff', background: 'var(--primary)', borderRadius: 999, padding: '3px 8px' }}>
-        in arrivo
-      </span>
-    </div>
-    <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-      <MiniMese nome="Questo mese" offset={2} liberi={new Set([4, 5, 11, 12, 18, 19, 25, 26])} />
-      <MiniMese nome="Prossimo mese" offset={5} liberi={new Set([2, 3, 9, 10, 16, 17, 23, 24, 30])} />
-    </div>
-    <p style={{ margin: '10px 0 0', textAlign: 'center', color: 'var(--muted)', fontSize: '0.75rem' }}>
-      Presto potrai prenotare in tempo reale.
-    </p>
-  </div>
+const Titolo: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }> = ({ children, style }) => (
+  <h2 style={{ fontFamily: titleFont, color: 'var(--ink)', fontWeight: 400, lineHeight: 1.1, margin: 0, ...style }}>{children}</h2>
 );
 
-/* -------------------------------------------------------------------------- */
-/* Variante 01 — "caldo": card centrata e accogliente                          */
-/* -------------------------------------------------------------------------- */
-const Prenotazioni01: React.FC<{ content: PrenotazioniContent }> = ({ content }) => {
-  const { titolo, testo, calendarSlot } = content;
+// ── 01 · "caldo" — centrato e accogliente ─────────────────────────────────────
+const Prenotazioni01: React.FC<{ content: PrenotazioniContent }> = ({ content }) => (
+  <section id="prenota" style={{ background: 'var(--bg)', padding: sectionPadding }}>
+    <div style={{ maxWidth: 760, margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(14px,2.2vw,22px)' }}>
+      {content.titolo && <Titolo style={{ fontSize: 'clamp(1.9rem,4.5vw,3rem)' }}>{content.titolo}</Titolo>}
+      {content.testo && <p style={{ color: 'var(--muted)', fontSize: 'clamp(1rem,1.6vw,1.2rem)', lineHeight: 1.6, maxWidth: 620, margin: 0 }}>{content.testo}</p>}
+      <PrenotaButton whatsapp={content.whatsapp} />
+    </div>
+  </section>
+);
 
-  return (
-    <section style={{ background: 'var(--bg)', padding: sectionPadding }}>
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: '0 auto',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          gap: 'clamp(16px,2.5vw,28px)',
-        }}
-      >
-        {titolo && (
-          <h2
-            style={{
-              fontFamily: titleFont,
-              color: 'var(--ink)',
-              fontSize: 'clamp(1.9rem,4.5vw,3rem)',
-              lineHeight: 1.1,
-              margin: 0,
-            }}
-          >
-            {titolo}
-          </h2>
-        )}
-
-        {testo && (
-          <p
-            style={{
-              color: 'var(--muted)',
-              fontSize: 'clamp(1rem,1.6vw,1.2rem)',
-              lineHeight: 1.6,
-              maxWidth: 640,
-              margin: 0,
-            }}
-          >
-            {testo}
-          </p>
-        )}
-
-        {calendarSlot && <CalendarPlaceholder />}
-
-        <button type="button" style={ctaButtonStyle}>
-          Verifica disponibilità
-        </button>
+// ── 02 · "moderno" — banda su surface con bordo, testo + bottone ───────────────
+const Prenotazioni02: React.FC<{ content: PrenotazioniContent }> = ({ content }) => (
+  <section id="prenota" style={{ background: 'var(--surface)', padding: sectionPadding }}>
+    <div style={{ maxWidth: 1100, margin: '0 auto', border: '1px solid var(--line)', padding: 'clamp(24px,4vw,48px)', display: 'flex', flexWrap: 'wrap', gap: 'clamp(20px,3vw,40px)', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ flex: '1 1 360px', minWidth: 280 }}>
+        {content.titolo && <Titolo style={{ fontSize: 'clamp(1.8rem,4vw,2.7rem)', borderLeft: '3px solid var(--primary)', paddingLeft: 'clamp(12px,1.5vw,18px)' }}>{content.titolo}</Titolo>}
+        {content.testo && <p style={{ color: 'var(--muted)', fontSize: 'clamp(1rem,1.5vw,1.15rem)', lineHeight: 1.6, margin: 'clamp(12px,2vw,18px) 0 0' }}>{content.testo}</p>}
       </div>
-    </section>
-  );
-};
+      <PrenotaButton whatsapp={content.whatsapp} />
+    </div>
+  </section>
+);
 
-/* -------------------------------------------------------------------------- */
-/* Variante 02 — "moderno": layout a due colonne, testo a sinistra            */
-/* -------------------------------------------------------------------------- */
-const Prenotazioni02: React.FC<{ content: PrenotazioniContent }> = ({ content }) => {
-  const { titolo, testo, calendarSlot } = content;
-
-  return (
-    <section style={{ background: 'var(--surface)', padding: sectionPadding }}>
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: '0 auto',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 'clamp(24px,4vw,56px)',
-          alignItems: 'stretch',
-        }}
-      >
-        <div
-          style={{
-            flex: '1 1 320px',
-            minWidth: 280,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: 'clamp(14px,2vw,22px)',
-          }}
-        >
-          {titolo && (
-            <h2
-              style={{
-                fontFamily: titleFont,
-                color: 'var(--ink)',
-                fontSize: 'clamp(1.9rem,4vw,2.8rem)',
-                lineHeight: 1.1,
-                margin: 0,
-                borderLeft: '4px solid var(--primary)',
-                paddingLeft: 'clamp(12px,1.5vw,18px)',
-              }}
-            >
-              {titolo}
-            </h2>
-          )}
-
-          {testo && (
-            <p
-              style={{
-                color: 'var(--muted)',
-                fontSize: 'clamp(1rem,1.5vw,1.15rem)',
-                lineHeight: 1.6,
-                margin: 0,
-              }}
-            >
-              {testo}
-            </p>
-          )}
-
-          <div>
-            <button type="button" style={ctaButtonStyle}>
-              Verifica disponibilità
-            </button>
-          </div>
-        </div>
-
-        {calendarSlot && (
-          <div style={{ flex: '1 1 340px', minWidth: 280, display: 'flex', alignItems: 'center' }}>
-            <CalendarPlaceholder />
-          </div>
-        )}
-      </div>
-    </section>
-  );
-};
-
-/* -------------------------------------------------------------------------- */
-/* Variante 03 — "any": banda con accent, calendario sopra e CTA a fondo      */
-/* -------------------------------------------------------------------------- */
-const Prenotazioni03: React.FC<{ content: PrenotazioniContent }> = ({ content }) => {
-  const { titolo, testo, calendarSlot } = content;
-
-  return (
-    <section style={{ background: 'var(--bg)', padding: sectionPadding }}>
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: '0 auto',
-          borderTop: '3px solid var(--accent)',
-          background: 'var(--surface)',
-          borderRadius: '0 0 18px 18px',
-          padding: 'clamp(28px,4vw,52px)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'clamp(18px,2.6vw,30px)',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'baseline',
-            justifyContent: 'space-between',
-            gap: 'clamp(12px,2vw,24px)',
-          }}
-        >
-          {titolo && (
-            <h2
-              style={{
-                fontFamily: titleFont,
-                color: 'var(--ink)',
-                fontSize: 'clamp(1.8rem,4vw,2.7rem)',
-                lineHeight: 1.1,
-                margin: 0,
-                flex: '1 1 260px',
-                minWidth: 240,
-              }}
-            >
-              {titolo}
-            </h2>
-          )}
-
-          {testo && (
-            <p
-              style={{
-                color: 'var(--muted)',
-                fontSize: 'clamp(0.95rem,1.5vw,1.1rem)',
-                lineHeight: 1.6,
-                margin: 0,
-                flex: '1 1 280px',
-                minWidth: 240,
-              }}
-            >
-              {testo}
-            </p>
-          )}
-        </div>
-
-        {calendarSlot && <CalendarPlaceholder />}
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-          <button type="button" style={ctaButtonStyle}>
-            Verifica disponibilità
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-};
+// ── 03 · "any" — banda piena primary, testo chiaro ────────────────────────────
+const Prenotazioni03: React.FC<{ content: PrenotazioniContent }> = ({ content }) => (
+  <section id="prenota" style={{ background: 'var(--primary)', color: '#fff', padding: sectionPadding }}>
+    <div style={{ maxWidth: 820, margin: '0 auto', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(14px,2.2vw,22px)' }}>
+      {content.titolo && <Titolo style={{ color: '#fff', fontSize: 'clamp(1.9rem,4.5vw,3rem)' }}>{content.titolo}</Titolo>}
+      {content.testo && <p style={{ color: 'rgba(255,255,255,.88)', fontSize: 'clamp(1rem,1.6vw,1.2rem)', lineHeight: 1.6, maxWidth: 620, margin: 0 }}>{content.testo}</p>}
+      <PrenotaButton whatsapp={content.whatsapp} />
+    </div>
+  </section>
+);
 
 export const prenotazioniVariants: Variant<PrenotazioniContent>[] = [
   { id: 'prenotazioni-01', mood: 'caldo', Component: Prenotazioni01 },

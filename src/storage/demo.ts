@@ -12,7 +12,7 @@ export const demoContents: SiteContents = {
   prenotazioni: {
     titolo: 'Prenota il tuo soggiorno',
     testo: 'Disponibilità tutto l’anno. Scrivici per verificare le date e ricevere conferma immediata.',
-    calendarSlot: true,
+    whatsapp: '+39 081 0000000',
   },
   stanze: {
     titolo: 'Le nostre camere',
