@@ -193,8 +193,9 @@ const Confort01: React.FC<{ content: ConfortContent }> = ({ content }) => {
             margin: 0,
             padding: 0,
             width: '100%',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
             gap: 'clamp(28px,4vw,52px)',
           }}
         >
@@ -204,6 +205,7 @@ const Confort01: React.FC<{ content: ConfortContent }> = ({ content }) => {
               tabIndex={0}
               style={{
                 ...focusableLi,
+                width: 'clamp(130px,16vw,170px)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
