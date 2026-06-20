@@ -26,14 +26,14 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
     [config, blocks, schemeId, fontId, status],
   );
 
-  // reroll lato client: pesca una variante compatibile col mood della palette
+  // reroll lato client: per ogni blocco pesca una variante DIVERSA dall'attuale
+  // (tra tutte le varianti: ognuna funziona con qualsiasi palette) -> cambio sempre visibile.
   function rerollAll() {
-    const mood = palettes[schemeId].mood;
     setBlocks((bs) => bs.map((b) => {
-      const vs = registry[b.type] as { id: string; mood: string }[];
-      const pool = vs.filter((v) => v.mood === mood || v.mood === 'any');
-      const list = pool.length ? pool : vs;
-      const pick = list[Math.floor(Math.random() * list.length)];
+      const vs = registry[b.type] as { id: string }[];
+      const altre = vs.filter((v) => v.id !== b.variantId);
+      const pool = altre.length ? altre : vs;
+      const pick = pool[Math.floor(Math.random() * pool.length)];
       return { ...b, variantId: pick.id } as BlockInstance;
     }));
   }
