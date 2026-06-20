@@ -18,6 +18,59 @@ const ctaButtonStyle: React.CSSProperties = {
   transition: 'opacity 0.15s ease',
 };
 
+/* Placeholder del calendario prenotazioni — verrà sostituito dall'integrazione
+   Google Calendar (fase 2). Mockup non interattivo, solo presentazione. */
+const CalendarPlaceholder: React.FC = () => {
+  const giorni = Array.from({ length: 35 }, (_, i) => i - 2); // offset per partire a metà settimana
+  const liberi = new Set([4, 5, 11, 12, 18, 19, 25, 26]);
+  return (
+    <div
+      style={{
+        width: '100%',
+        maxWidth: 720,
+        margin: '0 auto',
+        border: '1px solid var(--line)',
+        background: 'var(--surface)',
+        borderRadius: 14,
+        padding: 'clamp(18px,3vw,28px)',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
+        <strong style={{ fontFamily: titleFont, color: 'var(--ink)', fontSize: 'clamp(1.05rem,1.6vw,1.2rem)' }}>Disponibilità</strong>
+        <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: '#fff', background: 'var(--primary)', borderRadius: 999, padding: '4px 10px' }}>
+          Prenotazioni online · in arrivo
+        </span>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 6, opacity: 0.6 }} aria-hidden="true">
+        {['L', 'M', 'M', 'G', 'V', 'S', 'D'].map((d, i) => (
+          <div key={`h${i}`} style={{ textAlign: 'center', fontSize: '0.72rem', color: 'var(--muted)', fontWeight: 600 }}>{d}</div>
+        ))}
+        {giorni.map((n, i) => (
+          <div
+            key={i}
+            style={{
+              aspectRatio: '1 / 1',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 8,
+              fontSize: '0.85rem',
+              border: '1px solid var(--line)',
+              background: n > 0 && liberi.has(n) ? 'var(--accent)' : 'var(--surface)',
+              color: n > 0 ? 'var(--ink)' : 'transparent',
+            }}
+          >
+            {n > 0 ? n : ''}
+          </div>
+        ))}
+      </div>
+      <p style={{ margin: '14px 0 0', textAlign: 'center', color: 'var(--muted)', fontSize: '0.9rem' }}>
+        Presto potrai verificare le date e prenotare in tempo reale.
+      </p>
+    </div>
+  );
+};
+
 /* -------------------------------------------------------------------------- */
 /* Variante 01 — "caldo": card centrata e accogliente                          */
 /* -------------------------------------------------------------------------- */
@@ -65,22 +118,7 @@ const Prenotazioni01: React.FC<{ content: PrenotazioniContent }> = ({ content })
           </p>
         )}
 
-        {calendarSlot && (
-          <div
-            style={{
-              width: '100%',
-              maxWidth: 720,
-              border: '1px solid var(--line)',
-              background: 'var(--surface)',
-              borderRadius: 14,
-              padding: 'clamp(28px,5vw,52px)',
-              color: 'var(--muted)',
-              fontSize: 'clamp(0.95rem,1.4vw,1.05rem)',
-            }}
-          >
-            Calendario disponibilità — in arrivo
-          </div>
-        )}
+        {calendarSlot && <CalendarPlaceholder />}
 
         <button type="button" style={ctaButtonStyle}>
           Verifica disponibilità
@@ -155,24 +193,8 @@ const Prenotazioni02: React.FC<{ content: PrenotazioniContent }> = ({ content })
         </div>
 
         {calendarSlot && (
-          <div
-            style={{
-              flex: '1 1 340px',
-              minWidth: 280,
-              border: '1px solid var(--line)',
-              background: 'var(--bg)',
-              borderRadius: 16,
-              padding: 'clamp(28px,4vw,48px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              color: 'var(--muted)',
-              fontSize: 'clamp(0.95rem,1.4vw,1.1rem)',
-              minHeight: 'clamp(180px,22vw,260px)',
-            }}
-          >
-            Calendario disponibilità — in arrivo
+          <div style={{ flex: '1 1 340px', minWidth: 280, display: 'flex', alignItems: 'center' }}>
+            <CalendarPlaceholder />
           </div>
         )}
       </div>
@@ -242,21 +264,7 @@ const Prenotazioni03: React.FC<{ content: PrenotazioniContent }> = ({ content })
           )}
         </div>
 
-        {calendarSlot && (
-          <div
-            style={{
-              border: '1px dashed var(--line)',
-              background: 'var(--bg)',
-              borderRadius: 12,
-              padding: 'clamp(24px,4vw,44px)',
-              textAlign: 'center',
-              color: 'var(--muted)',
-              fontSize: 'clamp(0.95rem,1.4vw,1.05rem)',
-            }}
-          >
-            Calendario disponibilità — in arrivo
-          </div>
-        )}
+        {calendarSlot && <CalendarPlaceholder />}
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
           <button type="button" style={ctaButtonStyle}>
