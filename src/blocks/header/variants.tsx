@@ -56,7 +56,7 @@ const Header01: React.FC<{ content: HeaderContent }> = ({ content }) => (
         width: '100%',
         maxWidth: 1180,
         margin: '0 auto',
-        padding: 'clamp(40px, 7vw, 96px) clamp(24px, 6vw, 80px)',
+        padding: 'clamp(28px,4vw,60px) clamp(24px, 6vw, 80px)',
       }}
     >
       <Eyebrow text={content.eyebrow} color="#fff" />
@@ -107,7 +107,7 @@ const Header02: React.FC<{ content: HeaderContent }> = ({ content }) => (
         flexWrap: 'wrap',
         alignItems: 'stretch',
         gap: 'clamp(24px, 5vw, 80px)',
-        padding: 'clamp(32px, 6vw, 96px) clamp(24px, 5vw, 72px)',
+        padding: 'clamp(28px,4vw,60px) clamp(24px, 5vw, 72px)',
       }}
     >
       <div
@@ -189,7 +189,7 @@ const Header03: React.FC<{ content: HeaderContent }> = ({ content }) => (
         maxWidth: 960,
         margin: '0 auto',
         padding:
-          'clamp(56px, 9vw, 128px) clamp(24px, 5vw, 56px) clamp(32px, 5vw, 64px)',
+          'clamp(28px,4vw,60px) clamp(24px, 5vw, 56px) clamp(32px, 5vw, 64px)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

@@ -52,7 +52,7 @@ const Contatti01: React.FC<{ content: ContattiContent }> = ({ content }) => {
       style={{
         background: 'var(--bg)',
         color: 'var(--ink)',
-        padding: 'clamp(56px,8vw,120px) clamp(24px,6vw,72px)',
+        padding: 'clamp(28px,4vw,60px) clamp(24px,6vw,72px)',
       }}
     >
       <div
@@ -166,7 +166,7 @@ const Contatti02: React.FC<{ content: ContattiContent }> = ({ content }) => {
       style={{
         background: 'var(--surface)',
         color: 'var(--ink)',
-        padding: 'clamp(56px,8vw,120px) clamp(24px,6vw,72px)',
+        padding: 'clamp(28px,4vw,60px) clamp(24px,6vw,72px)',
       }}
     >
       <div
@@ -280,7 +280,7 @@ const Contatti03: React.FC<{ content: ContattiContent }> = ({ content }) => {
       style={{
         background: 'var(--bg)',
         color: 'var(--ink)',
-        padding: 'clamp(56px,8vw,120px) clamp(24px,6vw,72px)',
+        padding: 'clamp(28px,4vw,60px) clamp(24px,6vw,72px)',
       }}
     >
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>

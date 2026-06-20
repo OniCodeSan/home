@@ -2,7 +2,7 @@ import React from 'react';
 import type { Variant } from '../variant';
 import type { PrenotazioniContent } from '../types';
 
-const sectionPadding = 'clamp(40px,6vw,88px) clamp(20px,5vw,48px)';
+const sectionPadding = 'clamp(28px,4vw,56px) clamp(20px,5vw,48px)';
 const titleFont = 'var(--font-head)';
 
 const ctaButtonStyle: React.CSSProperties = {

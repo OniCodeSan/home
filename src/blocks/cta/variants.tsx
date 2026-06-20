@@ -97,7 +97,7 @@ const Cta01: React.FC<{ content: CtaContent }> = ({ content }) => {
     <section
       style={{
         background: 'var(--primary)',
-        padding: 'clamp(56px,8vw,112px) clamp(20px,5vw,48px)',
+        padding: 'clamp(28px,4vw,60px) clamp(20px,5vw,48px)',
       }}
     >
       <div
@@ -157,7 +157,7 @@ const Cta02: React.FC<{ content: CtaContent }> = ({ content }) => {
     <section
       style={{
         background: 'var(--bg)',
-        padding: 'clamp(48px,7vw,104px) clamp(20px,5vw,48px)',
+        padding: 'clamp(28px,4vw,60px) clamp(20px,5vw,48px)',
       }}
     >
       <div style={{ maxWidth: 960, margin: '0 auto' }}>
@@ -165,7 +165,7 @@ const Cta02: React.FC<{ content: CtaContent }> = ({ content }) => {
           style={{
             background: 'var(--surface)',
             border: '1px solid var(--line)',
-            padding: 'clamp(36px,6vw,80px) clamp(28px,5vw,64px)',
+            padding: 'clamp(28px,4vw,60px) clamp(28px,5vw,64px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -227,7 +227,7 @@ const Cta03: React.FC<{ content: CtaContent }> = ({ content }) => {
     <section
       style={{
         background: 'var(--surface)',
-        padding: 'clamp(48px,7vw,104px) clamp(20px,5vw,48px)',
+        padding: 'clamp(28px,4vw,60px) clamp(20px,5vw,48px)',
       }}
     >
       <div

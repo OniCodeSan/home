@@ -185,7 +185,7 @@ const Stanze01: React.FC<{ content: StanzeContent }> = ({ content }) => (
     style={{
       background: 'var(--bg)',
       color: 'var(--ink)',
-      padding: 'clamp(56px,8vw,112px) clamp(20px,5vw,56px)',
+      padding: 'clamp(28px,4vw,60px) clamp(20px,5vw,56px)',
     }}
   >
     <div style={{ maxWidth: 1180, margin: '0 auto' }}>
@@ -289,7 +289,7 @@ const Stanze02: React.FC<{ content: StanzeContent }> = ({ content }) => (
     style={{
       background: 'var(--bg)',
       color: 'var(--ink)',
-      padding: 'clamp(56px,8vw,112px) clamp(20px,5vw,56px)',
+      padding: 'clamp(28px,4vw,60px) clamp(20px,5vw,56px)',
     }}
   >
     <div style={{ maxWidth: 1180, margin: '0 auto' }}>
@@ -398,7 +398,7 @@ const Stanze03: React.FC<{ content: StanzeContent }> = ({ content }) => (
     style={{
       background: 'var(--surface)',
       color: 'var(--ink)',
-      padding: 'clamp(56px,8vw,112px) clamp(20px,5vw,56px)',
+      padding: 'clamp(28px,4vw,60px) clamp(20px,5vw,56px)',
     }}
   >
     <div style={{ maxWidth: 1180, margin: '0 auto' }}>
