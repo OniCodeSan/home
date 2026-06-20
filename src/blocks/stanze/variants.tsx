@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Variant } from '../variant';
 import type { StanzeContent } from '../types';
+import { RoomGallery } from './RoomGallery';
 
 // Stile "Grand Hotel Santa Lucia": Belle Époque, elegante e sobrio.
 // Molta aria, titoli serif, label maiuscole con tracking, linee sottili.
@@ -78,21 +79,6 @@ const TagList: React.FC<{ items?: string[] }> = ({ items }) =>
     </ul>
   ) : null;
 
-// Galleria foto aggiuntive della camera: striscia di miniature sobrie.
-const Galleria: React.FC<{ immagini?: { src: string; alt: string }[] }> = ({ immagini }) =>
-  immagini && immagini.length > 0 ? (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-      {immagini.filter((im) => im && im.src).map((im, k) => (
-        <img
-          key={(im.src || '') + k}
-          src={im.src}
-          alt={im.alt || ''}
-          style={{ width: 'clamp(64px,9vw,88px)', height: 'clamp(48px,7vw,64px)', objectFit: 'cover', border: '1px solid var(--line)', display: 'block' }}
-        />
-      ))}
-    </div>
-  ) : null;
-
 // Area neutra quando l'immagine manca: nessun <img>, solo una superficie sobria.
 const Vuoto: React.FC<{ style?: React.CSSProperties }> = ({ style }) => (
   <div
@@ -105,36 +91,6 @@ const Vuoto: React.FC<{ style?: React.CSSProperties }> = ({ style }) => (
       ...style,
     }}
   />
-);
-
-// CTA sobrio (ancora interna), in stile Belle Époque.
-const focusRing: React.CSSProperties = {
-  outlineOffset: 3,
-};
-
-const Dettaglio: React.FC<{ nome: string }> = ({ nome }) => (
-  <a
-    href="#prenota"
-    aria-label={`Prenota ${nome}`}
-    style={{
-      ...focusRing,
-      alignSelf: 'flex-start',
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 8,
-      textDecoration: 'none',
-      color: 'var(--cta)',
-      border: '1px solid var(--cta)',
-      padding: '9px 18px',
-      borderRadius: 8,
-      fontSize: 'clamp(11px,1.5vw,13px)',
-      fontWeight: 600,
-      textTransform: 'uppercase',
-      letterSpacing: '.12em',
-    }}
-  >
-    Prenota <span aria-hidden="true">→</span>
-  </a>
 );
 
 // Intestazione di sezione riusabile.
@@ -275,7 +231,6 @@ const Stanze01: React.FC<{ content: StanzeContent }> = ({ content }) => (
                 {camera.descrizione}
               </p>
               <TagList items={camera.caratteristiche} />
-              <Galleria immagini={camera.immagini} />
               <div
                 style={{
                   marginTop: 'auto',
@@ -293,7 +248,7 @@ const Stanze01: React.FC<{ content: StanzeContent }> = ({ content }) => (
                 ) : (
                   <span />
                 )}
-                <Dettaglio nome={camera.nome} />
+                <RoomGallery nome={camera.nome} immagini={[...(camera.immagine ? [camera.immagine] : []), ...(camera.immagini ?? [])]} />
               </div>
             </div>
           </article>
@@ -389,7 +344,6 @@ const Stanze02: React.FC<{ content: StanzeContent }> = ({ content }) => (
                   {camera.descrizione}
                 </p>
                 <TagList items={camera.caratteristiche} />
-              <Galleria immagini={camera.immagini} />
                 <div
                   style={{
                     display: 'flex',
@@ -402,7 +356,7 @@ const Stanze02: React.FC<{ content: StanzeContent }> = ({ content }) => (
                   {camera.prezzoIndicativo ? (
                     <Prezzo valore={camera.prezzoIndicativo} />
                   ) : null}
-                  <Dettaglio nome={camera.nome} />
+                  <RoomGallery nome={camera.nome} immagini={[...(camera.immagine ? [camera.immagine] : []), ...(camera.immagini ?? [])]} />
                 </div>
               </div>
             </article>
@@ -515,8 +469,7 @@ const Stanze03: React.FC<{ content: StanzeContent }> = ({ content }) => (
                 {camera.descrizione}
               </p>
               <TagList items={camera.caratteristiche} />
-              <Galleria immagini={camera.immagini} />
-              <Dettaglio nome={camera.nome} />
+              <RoomGallery nome={camera.nome} immagini={[...(camera.immagine ? [camera.immagine] : []), ...(camera.immagini ?? [])]} />
             </div>
           </article>
         ))}
