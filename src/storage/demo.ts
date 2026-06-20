@@ -53,7 +53,7 @@ export const demoContents: SiteContents = {
     intro: 'Tutto il meglio di Sorrento a pochi passi.',
     luoghi: [
       { nome: 'Spiaggia di Marina Grande', descrizione: 'Il borgo dei pescatori e le sue acque.', distanza: '5 min a piedi', immagine: { src: '/uploads/borgo.png', alt: 'Marina Grande' } },
-      { nome: 'Centro storico', descrizione: 'Vicoli, botteghe e piazze.', distanza: '8 min a piedi' },
+      { nome: 'Centro storico', descrizione: 'Vicoli, botteghe e piazze.', distanza: '8 min a piedi', immagine: { src: '/uploads/borgo.png', alt: 'Centro storico' } },
       { nome: 'Colazione tipica', descrizione: 'Dolci e prodotti locali ogni mattina.', distanza: 'In struttura', immagine: { src: '/uploads/colazione.png', alt: 'Colazione tipica' } },
     ],
   },

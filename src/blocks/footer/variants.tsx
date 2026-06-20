@@ -49,7 +49,7 @@ const Footer01: React.FC<{ content: FooterContent }> = ({ content }) => {
         }}
       >
         <div style={{ minWidth: 240, flex: '1 1 280px' }}>
-          <div style={{ ...label(true), marginBottom: 14 }}>Grand Hotel</div>
+          <div style={{ ...label(true), marginBottom: 14 }}>La struttura</div>
           <div
             style={{
               fontFamily: 'var(--font-head)',
@@ -136,7 +136,7 @@ const Footer02: React.FC<{ content: FooterContent }> = ({ content }) => {
           gap: 'clamp(12px,1.8vw,18px)',
         }}
       >
-        <div style={label(false)}>Grand Hotel</div>
+        <div style={label(false)}>La struttura</div>
 
         <div
           style={{
@@ -231,7 +231,7 @@ const Footer03: React.FC<{ content: FooterContent }> = ({ content }) => {
         }}
       >
         <div style={{ minWidth: 240, flex: '2 1 320px' }}>
-          <div style={{ ...label(false), marginBottom: 12 }}>Grand Hotel</div>
+          <div style={{ ...label(false), marginBottom: 12 }}>La struttura</div>
           <div
             style={{
               fontFamily: 'var(--font-head)',

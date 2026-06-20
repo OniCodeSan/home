@@ -3,7 +3,7 @@ import type { Variant } from '../variant';
 import type { ContattiContent } from '../types';
 
 /* ------------------------------------------------------------------ */
-/* Grand Hotel Santa Lucia — Belle Époque: elegante, sobrio, ariosa   */
+/* Dove siamo — Belle Époque: elegante, sobrio, ariosa   */
 /* ------------------------------------------------------------------ */
 
 const cleanPhone = (n: string) => n.replace(/[^0-9]/g, '');
@@ -75,7 +75,7 @@ const Contatti01: React.FC<{ content: ContattiContent }> = ({ content }) => {
           }}
         >
           <header>
-            <span style={labelStyle}>Grand Hotel Santa Lucia</span>
+            <span style={labelStyle}>Dove siamo</span>
             <h2
               style={{
                 fontFamily: 'var(--font-head)',
@@ -292,7 +292,7 @@ const Contatti03: React.FC<{ content: ContattiContent }> = ({ content }) => {
             borderBottom: '1px solid var(--line)',
           }}
         >
-          <span style={{ ...labelStyle, marginBottom: 14 }}>Grand Hotel Santa Lucia</span>
+          <span style={{ ...labelStyle, marginBottom: 14 }}>Dove siamo</span>
           <h2
             style={{
               fontFamily: 'var(--font-head)',

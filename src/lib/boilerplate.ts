@@ -39,12 +39,16 @@ export function buildDemoContents(
   const indirizzo = geo?.address || citta || '—';
   const telefono = geo?.phone || form.whatsapp || undefined;
 
-  const luoghi = nearby.length
+  // foto di default ruotate, così le card "dintorni" non restano vuote (il cliente le cambia)
+  const POOL = ['/uploads/borgo.png', '/uploads/colazione.png', '/uploads/terrazza.png', '/uploads/camera.png', '/uploads/header.png'];
+  const img = (i: number, alt: string) => ({ src: POOL[i % POOL.length], alt });
+  const luoghi = (nearby.length
     ? nearby.map((p) => ({ nome: p.nome, descrizione: p.categoria, distanza: p.distanza }))
     : [
         { nome: 'Centro storico', descrizione: 'Vicoli, botteghe e piazze', distanza: 'A pochi passi' },
         { nome: 'Ristoranti tipici', descrizione: 'Cucina del territorio', distanza: 'Nelle vicinanze' },
-      ];
+      ]
+  ).map((l, i) => ({ ...l, immagine: img(i, l.nome) }));
 
   return {
     header: {

@@ -363,7 +363,7 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
             gap: 'clamp(14px,2vw,22px)',
           }}
         >
-          <p style={LABEL}>Itinerari intorno all'hotel</p>
+          <p style={LABEL}>Da non perdere</p>
           <hr style={HAIRLINE} />
           {titolo && (
             <h2
@@ -413,7 +413,7 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
                   minWidth: 0,
                   overflow: 'hidden',
                   border: '1px solid var(--line)',
-                  background: 'var(--surface)',
+                  background: hasImg ? 'var(--surface)' : 'var(--primary)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-end',
@@ -454,7 +454,7 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
                 >
                   {l?.distanza && (
                     <span style={{ alignSelf: 'flex-start' }}>
-                      <DistanceBadge value={l.distanza} onPhoto={hasImg} />
+                      <DistanceBadge value={l.distanza} onPhoto={true} />
                     </span>
                   )}
                   <h3
@@ -464,7 +464,7 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
                       margin: 0,
                       fontSize: 'clamp(21px,2.4vw,30px)',
                       lineHeight: 1.18,
-                      color: hasImg ? '#fff' : 'var(--ink)',
+                      color: '#fff',
                     }}
                   >
                     {l?.nome ?? 'Luogo'}
@@ -475,7 +475,7 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
                         margin: 0,
                         fontSize: 'clamp(14px,1.3vw,16px)',
                         lineHeight: 1.65,
-                        color: hasImg ? 'rgba(255,255,255,0.9)' : 'var(--muted)',
+                        color: 'rgba(255,255,255,0.9)',
                       }}
                     >
                       {l.descrizione}
