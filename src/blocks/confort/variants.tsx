@@ -2,44 +2,152 @@ import React from 'react';
 import type { Variant } from '../variant';
 import type { ConfortContent } from '../types';
 
-const sectionPadding = 'clamp(40px,6vw,88px) clamp(20px,5vw,48px)';
-const titleFont = 'Fraunces, Georgia, serif';
-
 /* -------------------------------------------------------------------------- */
-/* Mappa nome icona -> glifo. Default '✓' per nomi sconosciuti.               */
+/* Stile condiviso — Grand Hotel Santa Lucia: Belle Époque sobrio.            */
+/* Molta aria, titoli serif eleganti, label MAIUSCOLO con letter-spacing,     */
+/* linee sottili var(--line). Nessun colore fisso: solo CSS vars.             */
 /* -------------------------------------------------------------------------- */
-function iconFor(name: string): string {
-  const map: Record<string, string> = {
-    wifi: '📶',
-    ac: '❄️',
-    breakfast: '🥐',
-    parking: '🅿️',
-    terrace: '🌅',
-    pets: '🐾',
-    pool: '🏊',
-    bar: '🍸',
-    gym: '🏋️',
-    spa: '💆',
-    bike: '🚲',
-    tv: '📺',
-    coffee: '☕',
-    shower: '🚿',
-    garden: '🌿',
-    reception: '🛎️',
-  };
-  return map[name?.toLowerCase()] ?? '✓';
-}
+const sectionPadding = 'clamp(56px,8vw,120px) clamp(20px,5vw,56px)';
 
 const titleStyle: React.CSSProperties = {
-  fontFamily: titleFont,
+  fontFamily: 'var(--font-head)',
   color: 'var(--ink)',
-  fontSize: 'clamp(1.9rem,4.5vw,3rem)',
-  lineHeight: 1.1,
+  fontSize: 'clamp(2rem,4.6vw,3.2rem)',
+  lineHeight: 1.12,
+  fontWeight: 400,
   margin: 0,
 };
 
+const eyebrowStyle: React.CSSProperties = {
+  color: 'var(--muted)',
+  fontSize: 'clamp(0.66rem,1vw,0.74rem)',
+  textTransform: 'uppercase',
+  letterSpacing: '.14em',
+  margin: 0,
+};
+
+const labelStyle: React.CSSProperties = {
+  color: 'var(--ink)',
+  fontSize: 'clamp(0.72rem,1.05vw,0.82rem)',
+  textTransform: 'uppercase',
+  letterSpacing: '.14em',
+  lineHeight: 1.5,
+  fontWeight: 500,
+};
+
 /* -------------------------------------------------------------------------- */
-/* Variante 01 — "minimal": griglia di tessere con icona grande in cerchio    */
+/* iconFor — piccoli SVG inline a tratto. Nessuna emoji, nessuna libreria.    */
+/* viewBox 0 0 24 24, stroke currentColor, strokeWidth 1.5, fill none.        */
+/* -------------------------------------------------------------------------- */
+function iconFor(name: string): JSX.Element {
+  const common = {
+    width: 22,
+    height: 22,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.5,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+    focusable: false,
+  };
+
+  switch (name?.toLowerCase()) {
+    case 'wifi':
+      return (
+        <svg {...common}>
+          <path d="M2.5 9.5a14 14 0 0 1 19 0" />
+          <path d="M5.5 12.8a9.5 9.5 0 0 1 13 0" />
+          <path d="M8.5 16a5 5 0 0 1 7 0" />
+          <circle cx="12" cy="19" r="0.6" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case 'ac':
+      return (
+        <svg {...common}>
+          <rect x="3" y="5" width="18" height="9" rx="2" />
+          <path d="M7 17.5h.01M12 18.5h.01M17 17.5h.01" />
+          <path d="M7 10h10" />
+        </svg>
+      );
+    case 'breakfast':
+      return (
+        <svg {...common}>
+          <path d="M4 8h13a3 3 0 0 1 0 6h-1" />
+          <path d="M4 8v6a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V8z" />
+          <path d="M7 3c-.5.7-.5 1.3 0 2M11 3c-.5.7-.5 1.3 0 2" />
+        </svg>
+      );
+    case 'parking':
+      return (
+        <svg {...common}>
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <path d="M9.5 16V8h3a2.5 2.5 0 0 1 0 5h-3" />
+        </svg>
+      );
+    case 'terrace':
+      return (
+        <svg {...common}>
+          <path d="M3 11h18L12 4 3 11z" />
+          <path d="M12 11v9" />
+          <path d="M8 20h8" />
+        </svg>
+      );
+    case 'pets':
+      return (
+        <svg {...common}>
+          <circle cx="6.5" cy="10" r="1.6" />
+          <circle cx="17.5" cy="10" r="1.6" />
+          <circle cx="9.5" cy="6.5" r="1.6" />
+          <circle cx="14.5" cy="6.5" r="1.6" />
+          <path d="M12 12.5c-2.4 0-4.3 1.7-4.3 3.6 0 1.4 1.2 2.2 2.6 2.2.7 0 1.1-.3 1.7-.3s1 .3 1.7.3c1.4 0 2.6-.8 2.6-2.2 0-1.9-1.9-3.6-4.3-3.6z" />
+        </svg>
+      );
+    case 'pool':
+      return (
+        <svg {...common}>
+          <path d="M2 18c1.5 0 1.5 1 3 1s1.5-1 3-1 1.5 1 3 1 1.5-1 3-1 1.5 1 3 1 1.5-1 3-1" />
+          <path d="M2 14c1.5 0 1.5 1 3 1s1.5-1 3-1 1.5 1 3 1 1.5-1 3-1 1.5 1 3 1 1.5-1 3-1" />
+          <path d="M7 11V5a2 2 0 0 1 4 0M14 11V5a2 2 0 0 1 4 0" />
+        </svg>
+      );
+    case 'spa':
+      return (
+        <svg {...common}>
+          <path d="M12 21c0-5 .8-9 5-12-1 5-2.5 8.5-5 12z" />
+          <path d="M12 21c0-5-.8-9-5-12 1 5 2.5 8.5 5 12z" />
+          <path d="M9 18c1 .8 2 1.2 3 1.2s2-.4 3-1.2" />
+        </svg>
+      );
+    case 'bar':
+      return (
+        <svg {...common}>
+          <path d="M5 4h14l-7 8-7-8z" />
+          <path d="M12 12v7" />
+          <path d="M8 20h8" />
+        </svg>
+      );
+    case 'check':
+      return (
+        <svg {...common}>
+          <path d="M4.5 12.5 9.5 17.5 19.5 6.5" />
+        </svg>
+      );
+    default:
+      return (
+        <svg {...common}>
+          <path d="M5 12.5 10 17 19 7" />
+        </svg>
+      );
+  }
+}
+
+const focusableLi: React.CSSProperties = { outlineOffset: 2 };
+
+/* -------------------------------------------------------------------------- */
+/* Variante 01 — "minimal": griglia ariosa di voci con icona in cerchio       */
+/* leggero (var(--accent)) e label maiuscola. Massima sobrietà.               */
 /* -------------------------------------------------------------------------- */
 const Confort01: React.FC<{ content: ConfortContent }> = ({ content }) => {
   const { titolo, servizi } = content;
@@ -48,15 +156,35 @@ const Confort01: React.FC<{ content: ConfortContent }> = ({ content }) => {
     <section style={{ background: 'var(--bg)', padding: sectionPadding }}>
       <div
         style={{
-          maxWidth: 1100,
+          maxWidth: 1080,
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',
-          gap: 'clamp(24px,4vw,48px)',
+          alignItems: 'center',
+          gap: 'clamp(36px,5vw,64px)',
         }}
       >
         {titolo && (
-          <h2 style={{ ...titleStyle, textAlign: 'center' }}>{titolo}</h2>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 'clamp(14px,2vw,20px)',
+              textAlign: 'center',
+            }}
+          >
+            <p style={eyebrowStyle}>Servizi &amp; Comfort</p>
+            <h2 style={{ ...titleStyle, textAlign: 'center' }}>{titolo}</h2>
+            <span
+              aria-hidden="true"
+              style={{
+                width: 'clamp(48px,7vw,72px)',
+                height: 1,
+                background: 'var(--primary)',
+              }}
+            />
+          </div>
         )}
 
         <ul
@@ -64,24 +192,23 @@ const Confort01: React.FC<{ content: ConfortContent }> = ({ content }) => {
             listStyle: 'none',
             margin: 0,
             padding: 0,
+            width: '100%',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-            gap: 'clamp(14px,2.2vw,26px)',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: 'clamp(28px,4vw,52px)',
           }}
         >
           {servizi.map((s, i) => (
             <li
               key={`${s.label}-${i}`}
+              tabIndex={0}
               style={{
+                ...focusableLi,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                gap: 'clamp(10px,1.6vw,16px)',
-                border: '1px solid var(--line)',
-                background: 'var(--surface)',
-                borderRadius: 16,
-                padding: 'clamp(20px,3vw,32px) clamp(14px,2vw,20px)',
+                gap: 'clamp(14px,2vw,20px)',
               }}
             >
               <span
@@ -90,26 +217,17 @@ const Confort01: React.FC<{ content: ConfortContent }> = ({ content }) => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 'clamp(56px,8vw,76px)',
-                  height: 'clamp(56px,8vw,76px)',
+                  width: 'clamp(58px,8vw,78px)',
+                  height: 'clamp(58px,8vw,78px)',
                   borderRadius: '50%',
                   background: 'var(--accent)',
-                  fontSize: 'clamp(1.5rem,3.4vw,2rem)',
-                  lineHeight: 1,
+                  border: '1px solid var(--line)',
+                  color: 'var(--primary)',
                 }}
               >
                 {iconFor(s.icona)}
               </span>
-              <span
-                style={{
-                  color: 'var(--ink)',
-                  fontSize: 'clamp(0.95rem,1.5vw,1.1rem)',
-                  fontWeight: 600,
-                  lineHeight: 1.3,
-                }}
-              >
-                {s.label}
-              </span>
+              <span style={labelStyle}>{s.label}</span>
             </li>
           ))}
         </ul>
@@ -119,7 +237,8 @@ const Confort01: React.FC<{ content: ConfortContent }> = ({ content }) => {
 };
 
 /* -------------------------------------------------------------------------- */
-/* Variante 02 — "moderno": lista a due colonne con icona inline a sinistra   */
+/* Variante 02 — "moderno": due colonne con icona inline incorniciata e       */
+/* divisori sottili var(--line) tra le voci.                                  */
 /* -------------------------------------------------------------------------- */
 const Confort02: React.FC<{ content: ConfortContent }> = ({ content }) => {
   const { titolo, servizi } = content;
@@ -128,24 +247,29 @@ const Confort02: React.FC<{ content: ConfortContent }> = ({ content }) => {
     <section style={{ background: 'var(--surface)', padding: sectionPadding }}>
       <div
         style={{
-          maxWidth: 1100,
+          maxWidth: 1080,
           margin: '0 auto',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'clamp(20px,3vw,40px)',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 'clamp(36px,6vw,80px)',
+          alignItems: 'start',
         }}
       >
         {titolo && (
-          <h2
+          <div
             style={{
-              ...titleStyle,
-              fontSize: 'clamp(1.9rem,4vw,2.8rem)',
-              borderLeft: '4px solid var(--primary)',
-              paddingLeft: 'clamp(12px,1.5vw,18px)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'clamp(16px,2.2vw,24px)',
             }}
           >
-            {titolo}
-          </h2>
+            <p style={eyebrowStyle}>Servizi &amp; Comfort</p>
+            <h2 style={titleStyle}>{titolo}</h2>
+            <span
+              aria-hidden="true"
+              style={{ width: 56, height: 1, background: 'var(--primary)' }}
+            />
+          </div>
         )}
 
         <ul
@@ -154,20 +278,21 @@ const Confort02: React.FC<{ content: ConfortContent }> = ({ content }) => {
             margin: 0,
             padding: 0,
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 'clamp(12px,1.8vw,22px)',
+            gridTemplateColumns: '1fr',
+            borderTop: '1px solid var(--line)',
           }}
         >
           {servizi.map((s, i) => (
             <li
               key={`${s.label}-${i}`}
+              tabIndex={0}
               style={{
+                ...focusableLi,
                 display: 'flex',
                 alignItems: 'center',
-                gap: 'clamp(12px,1.6vw,18px)',
-                background: 'var(--bg)',
-                borderRadius: 12,
-                padding: 'clamp(12px,1.8vw,18px) clamp(14px,2vw,22px)',
+                gap: 'clamp(16px,2.4vw,24px)',
+                padding: 'clamp(16px,2.4vw,24px) clamp(4px,1vw,8px)',
+                borderBottom: '1px solid var(--line)',
               }}
             >
               <span
@@ -177,27 +302,17 @@ const Confort02: React.FC<{ content: ConfortContent }> = ({ content }) => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 'clamp(40px,5vw,52px)',
-                  height: 'clamp(40px,5vw,52px)',
-                  borderRadius: 12,
+                  width: 'clamp(44px,5.5vw,54px)',
+                  height: 'clamp(44px,5.5vw,54px)',
+                  borderRadius: '50%',
                   border: '1px solid var(--line)',
-                  background: 'var(--accent)',
-                  fontSize: 'clamp(1.2rem,2.4vw,1.5rem)',
-                  lineHeight: 1,
+                  background: 'var(--bg)',
+                  color: 'var(--primary)',
                 }}
               >
                 {iconFor(s.icona)}
               </span>
-              <span
-                style={{
-                  color: 'var(--ink)',
-                  fontSize: 'clamp(0.95rem,1.5vw,1.1rem)',
-                  fontWeight: 600,
-                  lineHeight: 1.35,
-                }}
-              >
-                {s.label}
-              </span>
+              <span style={labelStyle}>{s.label}</span>
             </li>
           ))}
         </ul>
@@ -207,7 +322,8 @@ const Confort02: React.FC<{ content: ConfortContent }> = ({ content }) => {
 };
 
 /* -------------------------------------------------------------------------- */
-/* Variante 03 — "any": riga di pill che vanno a capo (flex-wrap)             */
+/* Variante 03 — "any": riga sobria di voci che vanno a capo (flex-wrap),     */
+/* separate da sottili divisori verticali var(--line).                        */
 /* -------------------------------------------------------------------------- */
 const Confort03: React.FC<{ content: ConfortContent }> = ({ content }) => {
   const { titolo, servizi } = content;
@@ -222,33 +338,47 @@ const Confort03: React.FC<{ content: ConfortContent }> = ({ content }) => {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          gap: 'clamp(20px,3vw,38px)',
+          gap: 'clamp(32px,5vw,56px)',
         }}
       >
-        {titolo && <h2 style={titleStyle}>{titolo}</h2>}
+        {titolo && (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 'clamp(14px,2vw,20px)',
+            }}
+          >
+            <p style={eyebrowStyle}>Servizi &amp; Comfort</p>
+            <h2 style={titleStyle}>{titolo}</h2>
+          </div>
+        )}
 
         <ul
           style={{
             listStyle: 'none',
             margin: 0,
-            padding: 0,
+            padding: 'clamp(20px,3vw,32px) 0',
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            gap: 'clamp(10px,1.6vw,16px)',
+            alignItems: 'center',
+            gap: 'clamp(20px,3.2vw,44px)',
+            width: '100%',
+            borderTop: '1px solid var(--line)',
+            borderBottom: '1px solid var(--line)',
           }}
         >
           {servizi.map((s, i) => (
             <li
               key={`${s.label}-${i}`}
+              tabIndex={0}
               style={{
+                ...focusableLi,
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 'clamp(8px,1.2vw,12px)',
-                border: '1px solid var(--line)',
-                background: 'var(--surface)',
-                borderRadius: 999,
-                padding: 'clamp(8px,1.2vw,12px) clamp(14px,2vw,20px)',
+                gap: 'clamp(10px,1.4vw,14px)',
               }}
             >
               <span
@@ -257,25 +387,12 @@ const Confort03: React.FC<{ content: ConfortContent }> = ({ content }) => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 'clamp(28px,4vw,34px)',
-                  height: 'clamp(28px,4vw,34px)',
-                  borderRadius: '50%',
-                  background: 'var(--accent)',
-                  fontSize: 'clamp(0.95rem,1.8vw,1.15rem)',
-                  lineHeight: 1,
+                  color: 'var(--primary)',
                 }}
               >
                 {iconFor(s.icona)}
               </span>
-              <span
-                style={{
-                  color: 'var(--ink)',
-                  fontSize: 'clamp(0.9rem,1.4vw,1.05rem)',
-                  fontWeight: 600,
-                  lineHeight: 1.3,
-                  whiteSpace: 'nowrap',
-                }}
-              >
+              <span style={{ ...labelStyle, whiteSpace: 'nowrap' }}>
                 {s.label}
               </span>
             </li>

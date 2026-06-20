@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import type { BlockInstance, SchemeId, SiteConfig } from '@/blocks/types';
 import { paletteList, palettes } from '@/schemes/palettes';
+import { fonts, fontList, DEFAULT_FONT, type FontId } from '@/schemes/fonts';
 import { registry } from '@/blocks/registry';
 import { ContentFields } from '@/app/admin/[slug]/ContentEditor';
 import { LivePreview } from './LivePreview';
@@ -17,11 +18,12 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
 }) {
   const [blocks, setBlocks] = useState<BlockInstance[]>(config.blocks);
   const [schemeId, setSchemeId] = useState<SchemeId>(config.schemeId);
+  const [fontId, setFontId] = useState<FontId>((config.fontId as FontId) ?? DEFAULT_FONT);
   const [status, setStatus] = useState<SiteConfig['status']>(config.status);
 
   const fullConfig = useMemo(
-    () => ({ ...config, blocks, schemeId, status, mood: palettes[schemeId].mood }),
-    [config, blocks, schemeId, status],
+    () => ({ ...config, blocks, schemeId, fontId, status, mood: palettes[schemeId].mood }),
+    [config, blocks, schemeId, fontId, status],
   );
 
   // reroll lato client: pesca una variante compatibile col mood della palette
@@ -86,6 +88,21 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
           </div>
         </section>
 
+        <section style={{ background: '#fff', border: '1px solid #e3e6ee', borderRadius: 12, padding: 14, marginBottom: 12 }}>
+          <h2 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 15, margin: '0 0 10px' }}>Font</h2>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {fontList.map((f) => {
+              const active = f.id === fontId;
+              return (
+                <button key={f.id} type="button" onClick={() => setFontId(f.id)}
+                  style={{ padding: '8px 12px', border: active ? '2px solid #1c5b6b' : '1px solid #d1d5db', borderRadius: 10, background: '#fff', cursor: 'pointer', fontFamily: f.head, fontSize: 16 }}>
+                  {f.nome}{active ? ' ✓' : ''}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
         <ContentFields blocks={blocks} onChange={setBlocks} uploads={uploads} uploadAction={uploadAction} slug={config.slug} />
 
         <form action={saveAction} style={{ position: 'sticky', bottom: 0, background: 'linear-gradient(to top, #f6f7f9 70%, rgba(246,247,249,0))', padding: '14px 0 6px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -100,7 +117,7 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
 
       {/* ANTEPRIMA LIVE (destra) */}
       <div style={{ flex: '1 1 0', minWidth: 0, overflowY: 'auto', background: '#fff' }}>
-        <LivePreview blocks={blocks} schemeId={schemeId} />
+        <LivePreview blocks={blocks} schemeId={schemeId} fontId={fontId} />
       </div>
     </div>
   );

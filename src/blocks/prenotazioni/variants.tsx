@@ -3,7 +3,7 @@ import type { Variant } from '../variant';
 import type { PrenotazioniContent } from '../types';
 
 const sectionPadding = 'clamp(40px,6vw,88px) clamp(20px,5vw,48px)';
-const titleFont = 'Fraunces, Georgia, serif';
+const titleFont = 'var(--font-head)';
 
 const ctaButtonStyle: React.CSSProperties = {
   display: 'inline-block',

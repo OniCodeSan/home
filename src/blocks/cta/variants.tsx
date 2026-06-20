@@ -17,55 +17,112 @@ function ctaHref(content: CtaContent): string {
   }
 }
 
-const serif = 'Fraunces, Georgia, serif';
+// Stile editoriale Belle Époque: titoli serif, label maiuscolo spaziato, CTA sobri.
+const headFont = 'var(--font-head)';
 
-// Stile base del bottone <a>. onColor = true quando il bottone sta sopra un fondo colorato.
-function buttonStyle(): React.CSSProperties {
-  return {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 10,
-    background: 'var(--cta)',
-    color: '#fff',
-    textDecoration: 'none',
-    padding: 'clamp(14px,2vw,18px) clamp(24px,4vw,40px)',
-    borderRadius: 999,
-    fontSize: 'clamp(15px,1.6vw,18px)',
-    fontWeight: 600,
-    lineHeight: 1.1,
-    transition: 'opacity .15s ease',
-    whiteSpace: 'nowrap',
-  };
-}
+// Label sopra-titolo in MAIUSCOLO con ampio letter-spacing.
+const eyebrowStyle = (color: string): React.CSSProperties => ({
+  display: 'block',
+  fontFamily: headFont,
+  color,
+  textTransform: 'uppercase',
+  letterSpacing: '.14em',
+  fontSize: 'clamp(11px,1.1vw,13px)',
+  fontWeight: 500,
+  margin: 0,
+});
 
-// Variante 01 — "caldo": banda piena con background var(--primary) e testo #fff, centrata.
+// CTA pieno e raffinato: usa var(--cta), bordi quasi netti, label spaziata.
+const solidCtaStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 12,
+  background: 'var(--cta)',
+  color: '#fff',
+  textDecoration: 'none',
+  padding: 'clamp(13px,1.8vw,16px) clamp(26px,4vw,40px)',
+  borderRadius: 2,
+  fontSize: 'clamp(12px,1.2vw,14px)',
+  fontWeight: 500,
+  letterSpacing: '.14em',
+  textTransform: 'uppercase',
+  lineHeight: 1,
+  whiteSpace: 'nowrap',
+  outlineOffset: 3,
+};
+
+// CTA a bordo sottile su fondo colorato (testo #fff).
+const outlineCtaOnColor: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 12,
+  background: 'transparent',
+  color: '#fff',
+  border: '1px solid rgba(255,255,255,.55)',
+  textDecoration: 'none',
+  padding: 'clamp(13px,1.8vw,16px) clamp(26px,4vw,40px)',
+  borderRadius: 2,
+  fontSize: 'clamp(12px,1.2vw,14px)',
+  fontWeight: 500,
+  letterSpacing: '.14em',
+  textTransform: 'uppercase',
+  lineHeight: 1,
+  whiteSpace: 'nowrap',
+  outlineOffset: 3,
+};
+
+// CTA come link discreto con freccia (testo var(--cta)).
+const linkCtaStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 12,
+  color: 'var(--cta)',
+  textDecoration: 'none',
+  fontFamily: headFont,
+  fontSize: 'clamp(13px,1.3vw,15px)',
+  fontWeight: 500,
+  letterSpacing: '.14em',
+  textTransform: 'uppercase',
+  lineHeight: 1,
+  paddingBottom: 6,
+  borderBottom: '1px solid var(--line)',
+  whiteSpace: 'nowrap',
+  outlineOffset: 4,
+};
+
+// Variante 01 — "caldo": banda piena var(--primary), testo #fff centrato, CTA a bordo sottile.
 const Cta01: React.FC<{ content: CtaContent }> = ({ content }) => {
   const href = ctaHref(content);
   return (
     <section
       style={{
         background: 'var(--primary)',
-        padding: 'clamp(40px,6vw,88px) clamp(20px,5vw,48px)',
+        padding: 'clamp(56px,8vw,112px) clamp(20px,5vw,48px)',
       }}
     >
       <div
         style={{
-          maxWidth: 1000,
+          maxWidth: 880,
           margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          gap: 'clamp(16px,2.5vw,24px)',
+          gap: 'clamp(20px,3vw,32px)',
         }}
       >
+        <span style={eyebrowStyle('rgba(255,255,255,.7)')} aria-hidden="true">
+          ·  ·  ·
+        </span>
         <h2
           style={{
-            fontFamily: serif,
+            fontFamily: headFont,
             color: '#fff',
             margin: 0,
-            fontSize: 'clamp(28px,5vw,48px)',
-            lineHeight: 1.1,
+            fontWeight: 400,
+            fontSize: 'clamp(30px,5vw,52px)',
+            lineHeight: 1.12,
+            letterSpacing: '.005em',
           }}
         >
           {content.titolo}
@@ -74,17 +131,17 @@ const Cta01: React.FC<{ content: CtaContent }> = ({ content }) => {
           <p
             style={{
               color: '#fff',
-              opacity: 0.92,
+              opacity: 0.85,
               margin: 0,
-              maxWidth: 640,
-              fontSize: 'clamp(15px,2vw,19px)',
-              lineHeight: 1.55,
+              maxWidth: 560,
+              fontSize: 'clamp(15px,1.8vw,18px)',
+              lineHeight: 1.7,
             }}
           >
             {content.testo}
           </p>
         ) : null}
-        <a href={href} style={buttonStyle()}>
+        <a href={href} style={{ ...outlineCtaOnColor, marginTop: 'clamp(4px,1vw,12px)' }}>
           {content.label}
           <span aria-hidden="true">→</span>
         </a>
@@ -93,37 +150,39 @@ const Cta01: React.FC<{ content: CtaContent }> = ({ content }) => {
   );
 };
 
-// Variante 02 — "moderno": box centrato su var(--surface) con bordo var(--line).
+// Variante 02 — "moderno": box su var(--surface) entro cornice sottile var(--line), CTA pieno raffinato.
 const Cta02: React.FC<{ content: CtaContent }> = ({ content }) => {
   const href = ctaHref(content);
   return (
     <section
       style={{
         background: 'var(--bg)',
-        padding: 'clamp(40px,6vw,88px) clamp(20px,5vw,48px)',
+        padding: 'clamp(48px,7vw,104px) clamp(20px,5vw,48px)',
       }}
     >
-      <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto' }}>
         <div
           style={{
             background: 'var(--surface)',
             border: '1px solid var(--line)',
-            borderRadius: 'clamp(16px,2vw,28px)',
-            padding: 'clamp(28px,5vw,56px)',
+            padding: 'clamp(36px,6vw,80px) clamp(28px,5vw,64px)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            gap: 'clamp(14px,2.5vw,22px)',
+            gap: 'clamp(18px,2.5vw,28px)',
           }}
         >
+          <span style={eyebrowStyle('var(--accent)')}>{content.label}</span>
           <h2
             style={{
-              fontFamily: serif,
+              fontFamily: headFont,
               color: 'var(--ink)',
               margin: 0,
-              fontSize: 'clamp(26px,4.5vw,44px)',
-              lineHeight: 1.1,
+              fontWeight: 400,
+              fontSize: 'clamp(28px,4.5vw,46px)',
+              lineHeight: 1.14,
+              letterSpacing: '.005em',
             }}
           >
             {content.titolo}
@@ -133,15 +192,25 @@ const Cta02: React.FC<{ content: CtaContent }> = ({ content }) => {
               style={{
                 color: 'var(--muted)',
                 margin: 0,
-                maxWidth: 580,
-                fontSize: 'clamp(15px,2vw,18px)',
-                lineHeight: 1.55,
+                maxWidth: 540,
+                fontSize: 'clamp(15px,1.8vw,18px)',
+                lineHeight: 1.7,
               }}
             >
               {content.testo}
             </p>
           ) : null}
-          <a href={href} style={buttonStyle()}>
+          <span
+            aria-hidden="true"
+            style={{
+              display: 'block',
+              width: 56,
+              height: 1,
+              background: 'var(--line)',
+              margin: '4px 0',
+            }}
+          />
+          <a href={href} style={solidCtaStyle}>
             {content.label}
             <span aria-hidden="true">→</span>
           </a>
@@ -151,35 +220,41 @@ const Cta02: React.FC<{ content: CtaContent }> = ({ content }) => {
   );
 };
 
-// Variante 03 — "any": split testo-sinistra / bottone-destra, responsive via flex-wrap.
+// Variante 03 — "any": split testo a sinistra / CTA-link a destra, separati da linea sottile.
 const Cta03: React.FC<{ content: CtaContent }> = ({ content }) => {
   const href = ctaHref(content);
   return (
     <section
       style={{
         background: 'var(--surface)',
-        padding: 'clamp(40px,6vw,88px) clamp(20px,5vw,48px)',
+        padding: 'clamp(48px,7vw,104px) clamp(20px,5vw,48px)',
       }}
     >
       <div
         style={{
-          maxWidth: 1000,
+          maxWidth: 1040,
           margin: '0 auto',
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: 'clamp(20px,4vw,48px)',
+          gap: 'clamp(28px,5vw,64px)',
+          borderTop: '1px solid var(--line)',
+          borderBottom: '1px solid var(--line)',
+          padding: 'clamp(36px,5vw,64px) 0',
         }}
       >
-        <div style={{ flex: '1 1 320px', minWidth: 280 }}>
+        <div style={{ flex: '1 1 360px', minWidth: 280 }}>
+          <span style={eyebrowStyle('var(--accent)')}>{content.label}</span>
           <h2
             style={{
-              fontFamily: serif,
+              fontFamily: headFont,
               color: 'var(--ink)',
-              margin: 0,
-              fontSize: 'clamp(26px,4.5vw,42px)',
-              lineHeight: 1.1,
+              margin: '16px 0 0',
+              fontWeight: 400,
+              fontSize: 'clamp(26px,4vw,42px)',
+              lineHeight: 1.14,
+              letterSpacing: '.005em',
             }}
           >
             {content.titolo}
@@ -188,9 +263,10 @@ const Cta03: React.FC<{ content: CtaContent }> = ({ content }) => {
             <p
               style={{
                 color: 'var(--muted)',
-                margin: '12px 0 0',
-                fontSize: 'clamp(15px,2vw,18px)',
-                lineHeight: 1.55,
+                margin: '16px 0 0',
+                maxWidth: 520,
+                fontSize: 'clamp(15px,1.8vw,18px)',
+                lineHeight: 1.7,
               }}
             >
               {content.testo}
@@ -198,7 +274,7 @@ const Cta03: React.FC<{ content: CtaContent }> = ({ content }) => {
           ) : null}
         </div>
         <div style={{ flex: '0 0 auto', minWidth: 200 }}>
-          <a href={href} style={buttonStyle()}>
+          <a href={href} style={linkCtaStyle}>
             {content.label}
             <span aria-hidden="true">→</span>
           </a>

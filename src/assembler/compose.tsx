@@ -2,6 +2,7 @@ import React from 'react';
 import type { BlockInstance, SiteConfig } from '@/blocks/types';
 import { registry } from '@/blocks/registry';
 import { palettes, type PaletteTokens } from '@/schemes/palettes';
+import { fonts, DEFAULT_FONT, type FontId } from '@/schemes/fonts';
 
 // I token diventano variabili CSS inline sul root della pagina.
 // Cambiare palette = cambiare questi token. Nessun colore vive nei componenti.
@@ -21,14 +22,18 @@ function renderBlock(block: BlockInstance, key: number) {
 // Render deterministico: ordine fisso dei blocchi salvati nel config.
 export function Compose({ config }: { config: SiteConfig }) {
   const palette = palettes[config.schemeId];
+  const font = fonts[(config.fontId as FontId) ?? DEFAULT_FONT] ?? fonts[DEFAULT_FONT];
   return (
     <div
       data-scheme={config.schemeId}
       data-mood={config.mood}
       style={{
         ...tokensToStyle(palette.tokens),
+        ['--font-head' as any]: font.head,
+        ['--font-body' as any]: font.body,
         background: 'var(--bg)',
         color: 'var(--ink)',
+        fontFamily: 'var(--font-body)',
         minHeight: '100vh',
       }}
     >

@@ -2,50 +2,148 @@ import React from 'react';
 import type { Variant } from '../variant';
 import type { ContattiContent } from '../types';
 
-const SECTION_PADDING = 'clamp(40px,6vw,88px) clamp(20px,5vw,48px)';
-const TITLE_FONT = 'Fraunces, Georgia, serif';
-
-const focusableLink: React.CSSProperties = {
-  color: 'var(--primary)',
-  textDecoration: 'none',
-  outlineOffset: 2,
-};
+/* ------------------------------------------------------------------ */
+/* Grand Hotel Santa Lucia — Belle Époque: elegante, sobrio, ariosa   */
+/* ------------------------------------------------------------------ */
 
 const cleanPhone = (n: string) => n.replace(/[^0-9]/g, '');
+
+const labelStyle: React.CSSProperties = {
+  display: 'block',
+  fontSize: 'clamp(11px,1vw,12px)',
+  letterSpacing: '0.14em',
+  textTransform: 'uppercase',
+  color: 'var(--muted)',
+  marginBottom: 6,
+};
+
+const linkStyle: React.CSSProperties = {
+  color: 'var(--ink)',
+  textDecoration: 'none',
+  fontSize: 'clamp(15px,1.7vw,18px)',
+  outlineColor: 'var(--primary)',
+  outlineOffset: 3,
+  transition: 'color 0.2s ease',
+};
 
 const Mappa: React.FC<{ src: string }> = ({ src }) => (
   <iframe
     src={src}
-    style={{ border: 0, width: '100%', height: '100%', minHeight: 260 }}
+    style={{ border: 0, width: '100%', height: '100%', minHeight: 280 }}
     loading="lazy"
     title="Mappa"
   />
 );
 
+const Riga: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
+  <div>
+    <span style={labelStyle}>{label}</span>
+    {children}
+  </div>
+);
+
 /* ------------------------------------------------------------------ */
-/* Variante 01 — elegante: split mappa (sx) + dati (dx)               */
+/* Variante 01 — elegante: dati (sx) + mappa grande (dx)              */
 /* ------------------------------------------------------------------ */
 const Contatti01: React.FC<{ content: ContattiContent }> = ({ content }) => {
   const { telefono, whatsapp, email, indirizzo, mappaEmbed } = content;
   return (
-    <section style={{ background: 'var(--bg)', color: 'var(--ink)', padding: SECTION_PADDING }}>
+    <section
+      style={{
+        background: 'var(--bg)',
+        color: 'var(--ink)',
+        padding: 'clamp(56px,8vw,120px) clamp(24px,6vw,72px)',
+      }}
+    >
       <div
         style={{
-          maxWidth: 1100,
+          maxWidth: 1200,
           margin: '0 auto',
           display: 'flex',
           flexWrap: 'wrap',
-          gap: 'clamp(20px,4vw,48px)',
+          gap: 'clamp(40px,6vw,88px)',
           alignItems: 'stretch',
         }}
       >
+        <div
+          style={{
+            flex: '1 1 340px',
+            minWidth: 280,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(28px,4vw,44px)',
+          }}
+        >
+          <header>
+            <span style={labelStyle}>Grand Hotel Santa Lucia</span>
+            <h2
+              style={{
+                fontFamily: 'var(--font-head)',
+                fontWeight: 400,
+                fontSize: 'clamp(34px,5vw,56px)',
+                lineHeight: 1.1,
+                margin: '8px 0 0',
+                color: 'var(--ink)',
+              }}
+            >
+              Dove siamo
+            </h2>
+          </header>
+
+          <div
+            style={{
+              height: 1,
+              width: 72,
+              background: 'var(--line)',
+            }}
+          />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px,3vw,32px)' }}>
+            <Riga label="Indirizzo">
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 'clamp(15px,1.7vw,18px)',
+                  lineHeight: 1.6,
+                  color: 'var(--ink)',
+                }}
+              >
+                {indirizzo}
+              </p>
+            </Riga>
+
+            {telefono && (
+              <Riga label="Telefono">
+                <a href={`tel:${telefono}`} style={linkStyle}>
+                  {telefono}
+                </a>
+              </Riga>
+            )}
+
+            {whatsapp && (
+              <Riga label="WhatsApp">
+                <a href={`https://wa.me/${cleanPhone(whatsapp)}`} style={linkStyle}>
+                  {whatsapp}
+                </a>
+              </Riga>
+            )}
+
+            {email && (
+              <Riga label="Email">
+                <a href={`mailto:${email}`} style={linkStyle}>
+                  {email}
+                </a>
+              </Riga>
+            )}
+          </div>
+        </div>
+
         {mappaEmbed && (
           <div
             style={{
-              flex: '1 1 320px',
-              minWidth: 280,
-              minHeight: 260,
-              borderRadius: 14,
+              flex: '1.4 1 420px',
+              minWidth: 300,
+              minHeight: 'clamp(320px,42vw,520px)',
               overflow: 'hidden',
               border: '1px solid var(--line)',
             }}
@@ -53,65 +151,24 @@ const Contatti01: React.FC<{ content: ContattiContent }> = ({ content }) => {
             <Mappa src={mappaEmbed} />
           </div>
         )}
-        <div
-          style={{
-            flex: '1 1 320px',
-            minWidth: 280,
-            background: 'var(--surface)',
-            border: '1px solid var(--line)',
-            borderRadius: 14,
-            padding: 'clamp(20px,3vw,36px)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(12px,2vw,20px)',
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: TITLE_FONT,
-              fontSize: 'clamp(26px,4vw,40px)',
-              margin: 0,
-              color: 'var(--ink)',
-            }}
-          >
-            Dove siamo
-          </h2>
-          <p style={{ margin: 0, color: 'var(--muted)', fontSize: 'clamp(15px,1.6vw,18px)' }}>
-            {indirizzo}
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 'clamp(15px,1.6vw,18px)' }}>
-            {telefono && (
-              <a href={`tel:${telefono}`} style={focusableLink}>
-                Tel: {telefono}
-              </a>
-            )}
-            {whatsapp && (
-              <a
-                href={`https://wa.me/${cleanPhone(whatsapp)}`}
-                style={focusableLink}
-              >
-                WhatsApp: {whatsapp}
-              </a>
-            )}
-            {email && (
-              <a href={`mailto:${email}`} style={focusableLink}>
-                Email: {email}
-              </a>
-            )}
-          </div>
-        </div>
       </div>
     </section>
   );
 };
 
 /* ------------------------------------------------------------------ */
-/* Variante 02 — minimal: card centrata con elenco, mappa sotto       */
+/* Variante 02 — minimal: intestazione centrata, mappa grande sotto   */
 /* ------------------------------------------------------------------ */
 const Contatti02: React.FC<{ content: ContattiContent }> = ({ content }) => {
   const { telefono, whatsapp, email, indirizzo, mappaEmbed } = content;
   return (
-    <section style={{ background: 'var(--surface)', color: 'var(--ink)', padding: SECTION_PADDING }}>
+    <section
+      style={{
+        background: 'var(--surface)',
+        color: 'var(--ink)',
+        padding: 'clamp(56px,8vw,120px) clamp(24px,6vw,72px)',
+      }}
+    >
       <div
         style={{
           maxWidth: 1100,
@@ -119,72 +176,87 @@ const Contatti02: React.FC<{ content: ContattiContent }> = ({ content }) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 'clamp(20px,4vw,40px)',
+          gap: 'clamp(40px,6vw,80px)',
         }}
       >
-        <div
-          style={{
-            maxWidth: 560,
-            width: '100%',
-            textAlign: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(12px,2vw,18px)',
-          }}
-        >
+        <header style={{ textAlign: 'center', maxWidth: 640 }}>
+          <span style={{ ...labelStyle, marginBottom: 14 }}>Contatti</span>
           <h2
             style={{
-              fontFamily: TITLE_FONT,
-              fontSize: 'clamp(28px,4.5vw,44px)',
+              fontFamily: 'var(--font-head)',
+              fontWeight: 400,
+              fontSize: 'clamp(36px,5.5vw,60px)',
+              lineHeight: 1.1,
               margin: 0,
               color: 'var(--ink)',
             }}
           >
-            Contatti
+            Restiamo in contatto
           </h2>
-          <p style={{ margin: 0, color: 'var(--muted)', fontSize: 'clamp(15px,1.7vw,19px)' }}>
-            {indirizzo}
-          </p>
-          <ul
+          <div
             style={{
-              listStyle: 'none',
-              margin: 0,
-              padding: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 10,
-              fontSize: 'clamp(15px,1.7vw,19px)',
+              height: 1,
+              width: 72,
+              background: 'var(--line)',
+              margin: 'clamp(24px,3vw,36px) auto 0',
             }}
-          >
-            {telefono && (
-              <li>
-                <a href={`tel:${telefono}`} style={focusableLink}>
-                  {telefono}
-                </a>
-              </li>
-            )}
-            {whatsapp && (
-              <li>
-                <a href={`https://wa.me/${cleanPhone(whatsapp)}`} style={focusableLink}>
-                  WhatsApp {whatsapp}
-                </a>
-              </li>
-            )}
-            {email && (
-              <li>
-                <a href={`mailto:${email}`} style={focusableLink}>
-                  {email}
-                </a>
-              </li>
-            )}
-          </ul>
+          />
+        </header>
+
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 'clamp(32px,5vw,72px)',
+            width: '100%',
+            textAlign: 'center',
+          }}
+        >
+          <Riga label="Indirizzo">
+            <p
+              style={{
+                margin: 0,
+                fontSize: 'clamp(15px,1.7vw,18px)',
+                lineHeight: 1.6,
+                maxWidth: 260,
+                color: 'var(--ink)',
+              }}
+            >
+              {indirizzo}
+            </p>
+          </Riga>
+
+          {telefono && (
+            <Riga label="Telefono">
+              <a href={`tel:${telefono}`} style={linkStyle}>
+                {telefono}
+              </a>
+            </Riga>
+          )}
+
+          {whatsapp && (
+            <Riga label="WhatsApp">
+              <a href={`https://wa.me/${cleanPhone(whatsapp)}`} style={linkStyle}>
+                {whatsapp}
+              </a>
+            </Riga>
+          )}
+
+          {email && (
+            <Riga label="Email">
+              <a href={`mailto:${email}`} style={linkStyle}>
+                {email}
+              </a>
+            </Riga>
+          )}
         </div>
+
         {mappaEmbed && (
           <div
             style={{
               width: '100%',
-              minHeight: 260,
-              borderRadius: 12,
+              minHeight: 'clamp(320px,40vw,480px)',
               overflow: 'hidden',
               border: '1px solid var(--line)',
               background: 'var(--bg)',
@@ -199,76 +271,114 @@ const Contatti02: React.FC<{ content: ContattiContent }> = ({ content }) => {
 };
 
 /* ------------------------------------------------------------------ */
-/* Variante 03 — any: banda a colonne (titolo | dati | mappa)         */
+/* Variante 03 — any: titolo a banda, dati e mappa affiancati         */
 /* ------------------------------------------------------------------ */
 const Contatti03: React.FC<{ content: ContattiContent }> = ({ content }) => {
   const { telefono, whatsapp, email, indirizzo, mappaEmbed } = content;
   return (
-    <section style={{ background: 'var(--bg)', color: 'var(--ink)', padding: SECTION_PADDING }}>
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: '0 auto',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 'clamp(20px,3vw,40px)',
-          alignItems: 'flex-start',
-        }}
-      >
-        <div style={{ flex: '1 1 200px', minWidth: 200 }}>
+    <section
+      style={{
+        background: 'var(--bg)',
+        color: 'var(--ink)',
+        padding: 'clamp(56px,8vw,120px) clamp(24px,6vw,72px)',
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <header
+          style={{
+            textAlign: 'center',
+            paddingBottom: 'clamp(28px,4vw,48px)',
+            marginBottom: 'clamp(40px,5vw,64px)',
+            borderBottom: '1px solid var(--line)',
+          }}
+        >
+          <span style={{ ...labelStyle, marginBottom: 14 }}>Grand Hotel Santa Lucia</span>
           <h2
             style={{
-              fontFamily: TITLE_FONT,
-              fontSize: 'clamp(26px,4vw,42px)',
+              fontFamily: 'var(--font-head)',
+              fontWeight: 400,
+              fontSize: 'clamp(34px,5vw,56px)',
+              lineHeight: 1.1,
               margin: 0,
-              color: 'var(--accent)',
+              color: 'var(--ink)',
             }}
           >
             Dove siamo
           </h2>
-        </div>
+        </header>
+
         <div
           style={{
-            flex: '1 1 240px',
-            minWidth: 220,
             display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-            fontSize: 'clamp(15px,1.6vw,18px)',
+            flexWrap: 'wrap',
+            gap: 'clamp(40px,6vw,80px)',
+            alignItems: 'stretch',
           }}
         >
-          <p style={{ margin: 0, color: 'var(--muted)' }}>{indirizzo}</p>
-          {telefono && (
-            <a href={`tel:${telefono}`} style={focusableLink}>
-              {telefono}
-            </a>
+          {mappaEmbed && (
+            <div
+              style={{
+                flex: '1.5 1 420px',
+                minWidth: 300,
+                minHeight: 'clamp(320px,40vw,500px)',
+                overflow: 'hidden',
+                border: '1px solid var(--line)',
+                background: 'var(--surface)',
+                order: 2,
+              }}
+            >
+              <Mappa src={mappaEmbed} />
+            </div>
           )}
-          {whatsapp && (
-            <a href={`https://wa.me/${cleanPhone(whatsapp)}`} style={focusableLink}>
-              WhatsApp {whatsapp}
-            </a>
-          )}
-          {email && (
-            <a href={`mailto:${email}`} style={focusableLink}>
-              {email}
-            </a>
-          )}
-        </div>
-        {mappaEmbed && (
+
           <div
             style={{
-              flex: '1 1 320px',
-              minWidth: 280,
-              minHeight: 260,
-              borderRadius: 12,
-              overflow: 'hidden',
-              border: '1px solid var(--line)',
-              background: 'var(--surface)',
+              flex: '1 1 300px',
+              minWidth: 260,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'clamp(24px,3vw,36px)',
+              order: 1,
             }}
           >
-            <Mappa src={mappaEmbed} />
+            <Riga label="Indirizzo">
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 'clamp(15px,1.7vw,18px)',
+                  lineHeight: 1.6,
+                  color: 'var(--ink)',
+                }}
+              >
+                {indirizzo}
+              </p>
+            </Riga>
+
+            {telefono && (
+              <Riga label="Telefono">
+                <a href={`tel:${telefono}`} style={linkStyle}>
+                  {telefono}
+                </a>
+              </Riga>
+            )}
+
+            {whatsapp && (
+              <Riga label="WhatsApp">
+                <a href={`https://wa.me/${cleanPhone(whatsapp)}`} style={linkStyle}>
+                  {whatsapp}
+                </a>
+              </Riga>
+            )}
+
+            {email && (
+              <Riga label="Email">
+                <a href={`mailto:${email}`} style={linkStyle}>
+                  {email}
+                </a>
+              </Riga>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

@@ -118,6 +118,7 @@ export type SiteConfig = {
   status: 'draft' | 'review' | 'published';
   schemeId: SchemeId;
   mood: Mood;                 // mood effettivo = mood della palette scelta
+  fontId?: string;            // abbinamento tipografico (vedi schemes/fonts.ts); default 'belle'
   blocks: BlockInstance[];    // ordine fisso degli slot
   lead?: Lead;                // presente per i siti nati da richiesta demo
 };

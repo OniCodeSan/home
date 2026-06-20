@@ -2,15 +2,64 @@ import React from 'react';
 import type { Variant } from '../variant';
 import type { VicinanzeContent } from '../types';
 
-const SECTION_PAD = 'clamp(40px,6vw,88px) clamp(20px,5vw,48px)';
-const INNER: React.CSSProperties = { maxWidth: 1100, margin: '0 auto' };
-const SERIF = 'Fraunces, Georgia, serif';
+// ─────────────────────────────────────────────────────────────
+// Grand Hotel Santa Lucia — stile Belle Époque
+// Elegante, sobrio, editoriale: molta aria, titoli serif,
+// label MAIUSCOLO con letter-spacing, linee sottili var(--line),
+// badge distanza discreti.
+// ─────────────────────────────────────────────────────────────
+
+const SECTION_PAD = 'clamp(56px,9vw,128px) clamp(20px,5vw,56px)';
+const INNER: React.CSSProperties = { maxWidth: 1180, margin: '0 auto' };
+const HEAD = 'var(--font-head)';
+
+const LABEL: React.CSSProperties = {
+  margin: 0,
+  fontSize: 'clamp(11px,1vw,12px)',
+  fontWeight: 600,
+  letterSpacing: '.14em',
+  textTransform: 'uppercase',
+  color: 'var(--primary)',
+};
+
+const HAIRLINE: React.CSSProperties = {
+  width: 'clamp(40px,6vw,68px)',
+  height: 1,
+  background: 'var(--line)',
+  border: 'none',
+};
+
+// Badge distanza sobrio: bordo sottile, testo primary, sfondo neutro.
+const DistanceBadge: React.FC<{ value: string; onPhoto?: boolean }> = ({
+  value,
+  onPhoto,
+}) => (
+  <span
+    style={{
+      display: 'inline-block',
+      fontSize: 'clamp(10px,1vw,12px)',
+      fontWeight: 600,
+      letterSpacing: '.12em',
+      textTransform: 'uppercase',
+      padding: '5px 12px',
+      whiteSpace: 'nowrap',
+      color: onPhoto ? '#fff' : 'var(--primary)',
+      border: onPhoto ? '1px solid rgba(255,255,255,0.55)' : '1px solid var(--line)',
+      background: onPhoto ? 'rgba(0,0,0,0.18)' : 'var(--surface)',
+    }}
+  >
+    {value}
+  </span>
+);
 
 // ─────────────────────────────────────────────────────────────
-// Variante 01 — griglia di card con foto (mood: naturale)
+// Variante 01 — griglia di card editoriali con foto (mood: naturale)
 // ─────────────────────────────────────────────────────────────
 const Vicinanze01: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
-  const { titolo, intro, luoghi } = content;
+  const titolo = content?.titolo;
+  const intro = content?.intro;
+  const luoghi = content?.luoghi ?? [];
+
   return (
     <section
       style={{
@@ -20,124 +69,119 @@ const Vicinanze01: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
       }}
     >
       <div style={INNER}>
-        {titolo && (
-          <h2
-            style={{
-              fontFamily: SERIF,
-              fontWeight: 600,
-              margin: 0,
-              fontSize: 'clamp(26px,4vw,44px)',
-              color: 'var(--ink)',
-            }}
-          >
-            {titolo}
-          </h2>
-        )}
-        {intro && (
-          <p
-            style={{
-              margin: 'clamp(8px,1.5vw,16px) 0 0',
-              maxWidth: 620,
-              fontSize: 'clamp(15px,1.4vw,18px)',
-              lineHeight: 1.6,
-              color: 'var(--muted)',
-            }}
-          >
-            {intro}
-          </p>
-        )}
+        <header
+          style={{
+            maxWidth: 640,
+            margin: '0 auto clamp(40px,6vw,72px)',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 'clamp(14px,2vw,22px)',
+          }}
+        >
+          <p style={LABEL}>Nei dintorni</p>
+          <hr style={HAIRLINE} />
+          {titolo && (
+            <h2
+              style={{
+                fontFamily: HEAD,
+                fontWeight: 500,
+                margin: 0,
+                fontSize: 'clamp(30px,5vw,52px)',
+                lineHeight: 1.1,
+                color: 'var(--ink)',
+              }}
+            >
+              {titolo}
+            </h2>
+          )}
+          {intro && (
+            <p
+              style={{
+                margin: 0,
+                fontSize: 'clamp(15px,1.4vw,18px)',
+                lineHeight: 1.7,
+                color: 'var(--muted)',
+              }}
+            >
+              {intro}
+            </p>
+          )}
+        </header>
 
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
-            gap: 'clamp(16px,2.5vw,28px)',
-            marginTop: 'clamp(24px,4vw,48px)',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
+            gap: 'clamp(28px,4vw,56px)',
           }}
         >
           {luoghi.map((l, i) => (
             <article
-              key={`${l.nome}-${i}`}
+              key={`${l?.nome ?? 'luogo'}-${i}`}
               style={{
-                background: 'var(--surface)',
-                border: '1px solid var(--line)',
-                borderRadius: 16,
-                overflow: 'hidden',
+                background: 'var(--bg)',
                 display: 'flex',
                 flexDirection: 'column',
               }}
             >
-              {l.immagine && (
-                <div style={{ position: 'relative' }}>
+              <div style={{ position: 'relative', overflow: 'hidden' }}>
+                {l?.immagine?.src ? (
                   <img
                     src={l.immagine.src}
-                    alt={l.immagine.alt}
+                    alt={l.immagine.alt ?? l?.nome ?? ''}
                     style={{
                       display: 'block',
                       width: '100%',
-                      height: 'clamp(150px,20vw,200px)',
+                      height: 'clamp(220px,28vw,320px)',
                       objectFit: 'cover',
                     }}
                   />
-                  {l.distanza && (
-                    <span
-                      style={{
-                        position: 'absolute',
-                        top: 12,
-                        left: 12,
-                        background: 'var(--accent)',
-                        color: 'var(--ink)',
-                        fontSize: 'clamp(11px,1.1vw,13px)',
-                        fontWeight: 600,
-                        padding: '4px 10px',
-                        borderRadius: 999,
-                      }}
-                    >
-                      {l.distanza}
-                    </span>
-                  )}
-                </div>
-              )}
+                ) : (
+                  <div
+                    aria-hidden
+                    style={{
+                      width: '100%',
+                      height: 'clamp(220px,28vw,320px)',
+                      background: 'var(--surface)',
+                      borderBottom: '1px solid var(--line)',
+                    }}
+                  />
+                )}
+              </div>
+
               <div
                 style={{
-                  padding: 'clamp(16px,2vw,22px)',
+                  paddingTop: 'clamp(18px,2.4vw,26px)',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 8,
+                  gap: 'clamp(10px,1.4vw,14px)',
                 }}
               >
+                {l?.distanza && (
+                  <span style={{ alignSelf: 'flex-start' }}>
+                    <DistanceBadge value={l.distanza} />
+                  </span>
+                )}
                 <h3
                   style={{
-                    fontFamily: SERIF,
-                    fontWeight: 600,
+                    fontFamily: HEAD,
+                    fontWeight: 500,
                     margin: 0,
-                    fontSize: 'clamp(18px,1.8vw,22px)',
+                    fontSize: 'clamp(20px,2.2vw,27px)',
+                    lineHeight: 1.2,
                     color: 'var(--ink)',
                   }}
                 >
-                  {l.nome}
+                  {l?.nome ?? 'Luogo'}
                 </h3>
-                {!l.immagine && l.distanza && (
-                  <span
-                    style={{
-                      alignSelf: 'flex-start',
-                      background: 'var(--accent)',
-                      color: 'var(--ink)',
-                      fontSize: 'clamp(11px,1.1vw,13px)',
-                      fontWeight: 600,
-                      padding: '4px 10px',
-                      borderRadius: 999,
-                    }}
-                  >
-                    {l.distanza}
-                  </span>
-                )}
-                {l.descrizione && (
+                {l?.descrizione && (
                   <p
                     style={{
                       margin: 0,
                       fontSize: 'clamp(14px,1.3vw,16px)',
-                      lineHeight: 1.6,
+                      lineHeight: 1.7,
                       color: 'var(--muted)',
                     }}
                   >
@@ -154,10 +198,13 @@ const Vicinanze01: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
 };
 
 // ─────────────────────────────────────────────────────────────
-// Variante 02 — lista compatta con badge distanza (mood: fresco)
+// Variante 02 — lista compatta editoriale con badge distanza (mood: fresco)
 // ─────────────────────────────────────────────────────────────
 const Vicinanze02: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
-  const { titolo, intro, luoghi } = content;
+  const titolo = content?.titolo;
+  const intro = content?.intro;
+  const luoghi = content?.luoghi ?? [];
+
   return (
     <section
       style={{
@@ -167,111 +214,117 @@ const Vicinanze02: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
       }}
     >
       <div style={INNER}>
-        {titolo && (
-          <h2
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: 'clamp(24px,4vw,64px)',
+            alignItems: 'end',
+            marginBottom: 'clamp(36px,5vw,64px)',
+          }}
+        >
+          <div
             style={{
-              fontFamily: SERIF,
-              fontWeight: 600,
-              margin: 0,
-              fontSize: 'clamp(26px,4vw,44px)',
-              color: 'var(--ink)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'clamp(14px,2vw,20px)',
             }}
           >
-            {titolo}
-          </h2>
-        )}
-        {intro && (
-          <p
-            style={{
-              margin: 'clamp(8px,1.5vw,16px) 0 0',
-              maxWidth: 620,
-              fontSize: 'clamp(15px,1.4vw,18px)',
-              lineHeight: 1.6,
-              color: 'var(--muted)',
-            }}
-          >
-            {intro}
-          </p>
-        )}
+            <p style={LABEL}>Da vivere intorno</p>
+            <hr style={HAIRLINE} />
+            {titolo && (
+              <h2
+                style={{
+                  fontFamily: HEAD,
+                  fontWeight: 500,
+                  margin: 0,
+                  fontSize: 'clamp(30px,5vw,52px)',
+                  lineHeight: 1.1,
+                  color: 'var(--ink)',
+                }}
+              >
+                {titolo}
+              </h2>
+            )}
+          </div>
+          {intro && (
+            <p
+              style={{
+                margin: 0,
+                fontSize: 'clamp(15px,1.4vw,18px)',
+                lineHeight: 1.75,
+                color: 'var(--muted)',
+              }}
+            >
+              {intro}
+            </p>
+          )}
+        </div>
 
         <ul
           style={{
             listStyle: 'none',
-            margin: 'clamp(24px,4vw,48px) 0 0',
+            margin: 0,
             padding: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(10px,1.5vw,16px)',
+            borderTop: '1px solid var(--line)',
           }}
         >
           {luoghi.map((l, i) => (
             <li
-              key={`${l.nome}-${i}`}
+              key={`${l?.nome ?? 'luogo'}-${i}`}
               style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                alignItems: 'center',
-                gap: 'clamp(12px,2vw,20px)',
-                background: 'var(--bg)',
-                border: '1px solid var(--line)',
-                borderRadius: 14,
-                padding: 'clamp(12px,1.8vw,18px)',
+                alignItems: 'baseline',
+                gap: 'clamp(14px,2.5vw,32px)',
+                padding: 'clamp(22px,3vw,38px) 0',
+                borderBottom: '1px solid var(--line)',
               }}
             >
-              {l.immagine && (
-                <img
-                  src={l.immagine.src}
-                  alt={l.immagine.alt}
-                  style={{
-                    display: 'block',
-                    width: 'clamp(64px,8vw,96px)',
-                    height: 'clamp(64px,8vw,96px)',
-                    objectFit: 'cover',
-                    borderRadius: 10,
-                    flexShrink: 0,
-                  }}
-                />
-              )}
-              <div style={{ flex: '1 1 220px', minWidth: 220 }}>
+              <span
+                style={{
+                  fontFamily: HEAD,
+                  fontWeight: 500,
+                  fontSize: 'clamp(15px,1.4vw,18px)',
+                  color: 'var(--primary)',
+                  flexShrink: 0,
+                  minWidth: '2ch',
+                }}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+
+              <div style={{ flex: '1 1 240px', minWidth: 200 }}>
                 <h3
                   style={{
-                    fontFamily: SERIF,
-                    fontWeight: 600,
+                    fontFamily: HEAD,
+                    fontWeight: 500,
                     margin: 0,
-                    fontSize: 'clamp(17px,1.7vw,21px)',
+                    fontSize: 'clamp(21px,2.4vw,30px)',
+                    lineHeight: 1.2,
                     color: 'var(--ink)',
                   }}
                 >
-                  {l.nome}
+                  {l?.nome ?? 'Luogo'}
                 </h3>
-                {l.descrizione && (
+                {l?.descrizione && (
                   <p
                     style={{
-                      margin: '6px 0 0',
-                      fontSize: 'clamp(13px,1.3vw,15px)',
-                      lineHeight: 1.55,
+                      margin: 'clamp(8px,1vw,12px) 0 0',
+                      fontSize: 'clamp(14px,1.3vw,16px)',
+                      lineHeight: 1.7,
                       color: 'var(--muted)',
+                      maxWidth: 560,
                     }}
                   >
                     {l.descrizione}
                   </p>
                 )}
               </div>
-              {l.distanza && (
-                <span
-                  style={{
-                    flexShrink: 0,
-                    color: 'var(--primary)',
-                    border: '1px solid var(--line)',
-                    background: 'var(--surface)',
-                    fontSize: 'clamp(12px,1.2vw,14px)',
-                    fontWeight: 600,
-                    padding: '6px 12px',
-                    borderRadius: 999,
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {l.distanza}
+
+              {l?.distanza && (
+                <span style={{ flexShrink: 0, marginLeft: 'auto' }}>
+                  <DistanceBadge value={l.distanza} />
                 </span>
               )}
             </li>
@@ -283,10 +336,13 @@ const Vicinanze02: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
 };
 
 // ─────────────────────────────────────────────────────────────
-// Variante 03 — mosaico (mood: any)
+// Variante 03 — mosaico elegante (mood: any)
 // ─────────────────────────────────────────────────────────────
 const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
-  const { titolo, intro, luoghi } = content;
+  const titolo = content?.titolo;
+  const intro = content?.intro;
+  const luoghi = content?.luoghi ?? [];
+
   return (
     <section
       style={{
@@ -296,55 +352,65 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
       }}
     >
       <div style={INNER}>
-        {(titolo || intro) && (
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(24px,4vw,48px)' }}>
-            {titolo && (
-              <h2
-                style={{
-                  fontFamily: SERIF,
-                  fontWeight: 600,
-                  margin: 0,
-                  fontSize: 'clamp(26px,4vw,44px)',
-                  color: 'var(--ink)',
-                }}
-              >
-                {titolo}
-              </h2>
-            )}
-            {intro && (
-              <p
-                style={{
-                  margin: 'clamp(8px,1.5vw,16px) auto 0',
-                  maxWidth: 620,
-                  fontSize: 'clamp(15px,1.4vw,18px)',
-                  lineHeight: 1.6,
-                  color: 'var(--muted)',
-                }}
-              >
-                {intro}
-              </p>
-            )}
-          </div>
-        )}
+        <header
+          style={{
+            maxWidth: 680,
+            margin: '0 auto clamp(40px,6vw,72px)',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 'clamp(14px,2vw,22px)',
+          }}
+        >
+          <p style={LABEL}>Itinerari intorno all'hotel</p>
+          <hr style={HAIRLINE} />
+          {titolo && (
+            <h2
+              style={{
+                fontFamily: HEAD,
+                fontWeight: 500,
+                margin: 0,
+                fontSize: 'clamp(32px,5.5vw,56px)',
+                lineHeight: 1.08,
+                color: 'var(--ink)',
+              }}
+            >
+              {titolo}
+            </h2>
+          )}
+          {intro && (
+            <p
+              style={{
+                margin: 0,
+                fontSize: 'clamp(15px,1.4vw,18px)',
+                lineHeight: 1.75,
+                color: 'var(--muted)',
+              }}
+            >
+              {intro}
+            </p>
+          )}
+        </header>
 
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
-            gridAutoRows: 'clamp(180px,24vw,260px)',
-            gap: 'clamp(12px,2vw,20px)',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
+            gridAutoRows: 'clamp(240px,30vw,360px)',
+            gap: 'clamp(14px,2vw,24px)',
           }}
         >
           {luoghi.map((l, i) => {
-            const wide = i % 5 === 0; // ritmo mosaico
+            const wide = i % 5 === 0; // ritmo editoriale del mosaico
+            const hasImg = Boolean(l?.immagine?.src);
             return (
               <article
-                key={`${l.nome}-${i}`}
+                key={`${l?.nome ?? 'luogo'}-${i}`}
                 style={{
                   position: 'relative',
                   gridColumn: wide ? 'span 2' : 'span 1',
                   minWidth: 0,
-                  borderRadius: 16,
                   overflow: 'hidden',
                   border: '1px solid var(--line)',
                   background: 'var(--surface)',
@@ -353,10 +419,10 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
                   justifyContent: 'flex-end',
                 }}
               >
-                {l.immagine && (
+                {hasImg && (
                   <img
-                    src={l.immagine.src}
-                    alt={l.immagine.alt}
+                    src={l!.immagine!.src}
+                    alt={l!.immagine!.alt ?? l?.nome ?? ''}
                     style={{
                       position: 'absolute',
                       inset: 0,
@@ -366,59 +432,50 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
                     }}
                   />
                 )}
-                {l.immagine && (
+                {hasImg && (
                   <div
                     aria-hidden
                     style={{
                       position: 'absolute',
                       inset: 0,
                       background:
-                        'linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0.05) 55%, rgba(0,0,0,0))',
+                        'linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0.08) 52%, rgba(0,0,0,0))',
                     }}
                   />
                 )}
                 <div
                   style={{
                     position: 'relative',
-                    padding: 'clamp(14px,2vw,20px)',
+                    padding: 'clamp(18px,2.6vw,30px)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 6,
+                    gap: 'clamp(9px,1.2vw,13px)',
                   }}
                 >
-                  {l.distanza && (
-                    <span
-                      style={{
-                        alignSelf: 'flex-start',
-                        background: 'var(--accent)',
-                        color: 'var(--ink)',
-                        fontSize: 'clamp(11px,1.1vw,13px)',
-                        fontWeight: 600,
-                        padding: '4px 10px',
-                        borderRadius: 999,
-                      }}
-                    >
-                      {l.distanza}
+                  {l?.distanza && (
+                    <span style={{ alignSelf: 'flex-start' }}>
+                      <DistanceBadge value={l.distanza} onPhoto={hasImg} />
                     </span>
                   )}
                   <h3
                     style={{
-                      fontFamily: SERIF,
-                      fontWeight: 600,
+                      fontFamily: HEAD,
+                      fontWeight: 500,
                       margin: 0,
-                      fontSize: 'clamp(18px,1.9vw,24px)',
-                      color: l.immagine ? '#fff' : 'var(--ink)',
+                      fontSize: 'clamp(21px,2.4vw,30px)',
+                      lineHeight: 1.18,
+                      color: hasImg ? '#fff' : 'var(--ink)',
                     }}
                   >
-                    {l.nome}
+                    {l?.nome ?? 'Luogo'}
                   </h3>
-                  {l.descrizione && (
+                  {l?.descrizione && (
                     <p
                       style={{
                         margin: 0,
-                        fontSize: 'clamp(13px,1.3vw,15px)',
-                        lineHeight: 1.55,
-                        color: l.immagine ? 'rgba(255,255,255,0.88)' : 'var(--muted)',
+                        fontSize: 'clamp(14px,1.3vw,16px)',
+                        lineHeight: 1.65,
+                        color: hasImg ? 'rgba(255,255,255,0.9)' : 'var(--muted)',
                       }}
                     >
                       {l.descrizione}
