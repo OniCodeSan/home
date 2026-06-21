@@ -4,7 +4,7 @@ import { storage } from '@/storage';
 import { buildSiteConfig } from '@/assembler/build';
 import { hashString } from '@/assembler/random';
 import { buildDemoContents, type DemoForm } from '@/lib/boilerplate';
-import { geocode, nearbyPlaces } from '@/lib/osm';
+import { geocode, nearbyPlaces, placePhotos } from '@/lib/osm';
 
 const SCHEMES = Object.keys(palettes) as SchemeId[];
 
@@ -58,8 +58,17 @@ export async function enrichDemo(slug: string): Promise<{ ready: boolean }> {
     (await geocode([form.struttura, form.citta].filter(Boolean).join(' '))) ||
     (form.citta ? await geocode(form.citta) : null);
   const nearby = geo ? await nearbyPlaces(geo.lat, geo.lon) : [];
+  // foto reali della zona (Wikimedia Commons) per hero e dintorni
+  const photos = geo ? await placePhotos(geo.lat, geo.lon, 8) : [];
 
   const enriched = buildDemoContents(form, geo, nearby);
+  if (photos[0]) enriched.header.immagine = { src: photos[0], alt: form.struttura };
+  if (photos.length > 1) {
+    enriched.vicinanze.luoghi = enriched.vicinanze.luoghi.map((l, i) => ({
+      ...l,
+      immagine: { src: photos[(i + 1) % photos.length], alt: l.nome },
+    }));
+  }
   setContent(config, 'header', enriched.header);
   setContent(config, 'vicinanze', enriched.vicinanze);
   setContent(config, 'contatti', enriched.contatti);

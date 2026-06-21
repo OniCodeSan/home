@@ -58,6 +58,30 @@ export async function geocode(query: string): Promise<GeoResult | null> {
   };
 }
 
+// Foto reali vicine alle coordinate da Wikimedia Commons (gratis, CC, niente key).
+// Solo JPG orizzontali di buona dimensione; thumbnail a 1600px per non pesare.
+export async function placePhotos(lat: number, lon: number, max = 6): Promise<string[]> {
+  const geo = await fetchJson(
+    `https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&list=geosearch&gsnamespace=6&gsradius=10000&gslimit=40&gscoord=${lat}%7C${lon}`,
+  );
+  const titles: string[] = (geo?.query?.geosearch || []).map((g: any) => g.title).slice(0, 40);
+  if (titles.length === 0) return [];
+  const info = await fetchJson(
+    `https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url%7Csize%7Cmime&iiurlwidth=1600&titles=${encodeURIComponent(titles.join('|'))}`,
+  );
+  const pages = info?.query?.pages || {};
+  const out: string[] = [];
+  for (const k of Object.keys(pages)) {
+    const ii = pages[k]?.imageinfo?.[0];
+    if (!ii) continue;
+    const name = String(pages[k].title || '').toLowerCase();
+    const isPhoto = ii.mime === 'image/jpeg' && ii.width > ii.height && ii.width >= 1100;
+    const skip = /map|mappa|stemma|coat|flag|bandiera|logo|diagram|plan/.test(name);
+    if (isPhoto && !skip) out.push(ii.thumburl || ii.url);
+  }
+  return out.slice(0, max);
+}
+
 function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371000;
   const toRad = (d: number) => (d * Math.PI) / 180;
