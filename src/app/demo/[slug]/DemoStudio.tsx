@@ -85,10 +85,15 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
       )}
 
       <section style={{ background: '#fff', border: '1px solid #e3e6ee', borderRadius: 12, padding: 14, marginBottom: 12 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginBottom: 10 }}>
-          <h2 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 15, margin: 0 }}>Colori</h2>
-          {admin ? <button type="button" onClick={rerollAll} style={btn}>Ri-tira layout</button> : null}
-        </div>
+        <h2 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 15, margin: '0 0 4px' }}>Template</h2>
+        <p style={{ color: '#6b7280', fontSize: 12, margin: '0 0 10px' }}>Cambia la disposizione e lo stile delle sezioni. Premi finché non ti piace.</p>
+        <button type="button" onClick={rerollAll} style={{ padding: '10px 16px', border: '1px solid #C13C7B', borderRadius: 10, background: '#fff', color: '#C13C7B', cursor: 'pointer', font: 'inherit', fontSize: 14, fontWeight: 700 }}>
+          ⟳ Prova un altro template
+        </button>
+      </section>
+
+      <section style={{ background: '#fff', border: '1px solid #e3e6ee', borderRadius: 12, padding: 14, marginBottom: 12 }}>
+        <h2 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 15, margin: '0 0 10px' }}>Colori</h2>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {paletteList.map((p) => swatch(p.id))}
         </div>
