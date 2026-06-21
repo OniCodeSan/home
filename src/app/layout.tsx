@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { GOOGLE_FONTS_HREF } from '@/schemes/fonts';
+import { CookieBanner } from '@/components/CookieBanner';
 
 export const metadata: Metadata = {
   title: 'Saluti dal web',
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         }}
       >
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

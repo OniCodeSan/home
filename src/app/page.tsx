@@ -210,7 +210,12 @@ export default function Landing() {
 
       <footer style={{ background: C.ink, color: 'rgba(255,255,255,.75)', textAlign: 'center', padding: '28px 20px' }}>
         <span style={{ fontFamily: script, fontSize: 26, color: '#fff' }}>Saluti dal web</span>
-        <p style={{ margin: '6px 0 0', fontSize: 14 }}>Il tuo sito, pronto da guardare.</p>
+        <p style={{ margin: '6px 0 10px', fontSize: 14 }}>Il tuo sito, pronto da guardare.</p>
+        <p style={{ margin: 0, fontSize: 13 }}>
+          <a href="/privacy" style={{ color: '#F2A65A' }}>Privacy Policy</a>
+          <span style={{ opacity: 0.5, margin: '0 8px' }}>·</span>
+          <a href="/cookie-policy" style={{ color: '#F2A65A' }}>Cookie Policy</a>
+        </p>
       </footer>
     </main>
   );
