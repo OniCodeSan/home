@@ -50,7 +50,7 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
     const p = palettes[id];
     return (
       <button key={id} type="button" title={p.nome} onClick={() => setSchemeId(id)}
-        style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 11px', border: active ? '2px solid #1c5b6b' : '1px solid #d1d5db', borderRadius: 999, background: '#fff', cursor: 'pointer', font: 'inherit', fontSize: 13 }}>
+        style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 11px', border: active ? '2px solid #C13C7B' : '1px solid #d1d5db', borderRadius: 999, background: '#fff', cursor: 'pointer', font: 'inherit', fontSize: 13 }}>
         <span style={{ display: 'inline-flex' }}>
           {(['--primary', '--cta', '--accent'] as const).map((t) => (
             <span key={t} style={{ width: 15, height: 15, borderRadius: '50%', background: p.tokens[t], border: '1px solid rgba(0,0,0,.1)', marginLeft: t === '--primary' ? 0 : -5 }} />
@@ -68,14 +68,14 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
     <>
       {admin ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 12 }}>
-          <a href="/admin" style={{ color: '#1c5b6b', textDecoration: 'none', fontSize: 14 }}>← Siti</a>
+          <a href="/admin" style={{ color: '#C13C7B', textDecoration: 'none', fontSize: 14 }}>← Siti</a>
           <strong style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 18 }}>{config.slug}</strong>
           <select value={status} onChange={(e) => setStatus(e.target.value as SiteConfig['status'])} style={{ ...btn, padding: '6px 10px' }}>
             <option value="draft">Bozza</option>
             <option value="review">Review</option>
             <option value="published">Pubblicato</option>
           </select>
-          {status === 'published' ? <a href={`/${config.slug}`} target="_blank" rel="noreferrer" style={{ color: '#1c5b6b', fontSize: 13 }}>apri ↗</a> : null}
+          {status === 'published' ? <a href={`/${config.slug}`} target="_blank" rel="noreferrer" style={{ color: '#C13C7B', fontSize: 13 }}>apri ↗</a> : null}
         </div>
       ) : (
         <>
@@ -101,7 +101,7 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
             const active = f.id === fontId;
             return (
               <button key={f.id} type="button" onClick={() => setFontId(f.id)}
-                style={{ padding: '8px 12px', border: active ? '2px solid #1c5b6b' : '1px solid #d1d5db', borderRadius: 10, background: '#fff', cursor: 'pointer', fontFamily: f.head, fontSize: 16 }}>
+                style={{ padding: '8px 12px', border: active ? '2px solid #C13C7B' : '1px solid #d1d5db', borderRadius: 10, background: '#fff', cursor: 'pointer', fontFamily: f.head, fontSize: 16 }}>
                 {f.nome}{active ? ' ✓' : ''}
               </button>
             );
@@ -114,10 +114,10 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
       <form action={saveAction} style={{ position: 'sticky', bottom: 0, background: 'linear-gradient(to top, #f6f7f9 70%, rgba(246,247,249,0))', padding: '14px 0 6px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
         <input type="hidden" name="slug" value={config.slug} />
         <input type="hidden" name="config" value={JSON.stringify(fullConfig)} />
-        <button type="submit" style={{ padding: '12px 20px', border: '1px solid #1c5b6b', borderRadius: 10, background: '#1c5b6b', color: '#fff', cursor: 'pointer', font: 'inherit', fontSize: 15, fontWeight: 700 }}>
+        <button type="submit" style={{ padding: '12px 20px', border: '1px solid #C13C7B', borderRadius: 10, background: '#C13C7B', color: '#fff', cursor: 'pointer', font: 'inherit', fontSize: 15, fontWeight: 700 }}>
           💾 {admin ? 'Salva' : 'Salva e pubblica le modifiche'}
         </button>
-        {admin ? null : <a href={`/demo/${config.slug}/acquista`} style={{ padding: '12px 18px', background: '#C25E3C', color: '#fff', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>Acquista →</a>}
+        {admin ? null : <a href={`/demo/${config.slug}/acquista`} style={{ padding: '12px 18px', background: '#241436', color: '#fff', borderRadius: 10, textDecoration: 'none', fontWeight: 700, fontSize: 15 }}>Acquista →</a>}
       </form>
     </>
   );
@@ -128,8 +128,8 @@ export function DemoStudio({ config, uploads, saveAction, uploadAction, admin = 
   if (mobile) {
     const tabStyle = (on: boolean): React.CSSProperties => ({
       flex: 1, padding: '14px 8px', border: 'none', background: '#fff', cursor: 'pointer',
-      font: 'inherit', fontSize: 15, fontWeight: on ? 700 : 500, color: on ? '#1c5b6b' : '#6b7280',
-      borderBottom: on ? '2px solid #1c5b6b' : '2px solid transparent',
+      font: 'inherit', fontSize: 15, fontWeight: on ? 700 : 500, color: on ? '#C13C7B' : '#6b7280',
+      borderBottom: on ? '2px solid #C13C7B' : '2px solid transparent',
     });
     return (
       <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: "'Hanken Grotesk', system-ui, sans-serif" }}>

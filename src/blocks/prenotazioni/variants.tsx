@@ -79,8 +79,49 @@ const Prenotazioni03: React.FC<{ content: PrenotazioniContent }> = ({ content })
   </section>
 );
 
+// ── 04 · "elegante" — card centrata su surface, filetti e numerazione raffinata ─
+const Prenotazioni04: React.FC<{ content: PrenotazioniContent }> = ({ content }) => (
+  <section id="prenota" style={{ background: 'var(--bg)', padding: sectionPadding }}>
+    <div
+      style={{
+        maxWidth: 680,
+        margin: '0 auto',
+        background: 'var(--surface)',
+        border: '1px solid var(--line)',
+        padding: 'clamp(32px,5vw,64px) clamp(24px,4vw,56px)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center',
+        gap: 'clamp(18px,2.6vw,28px)',
+      }}
+    >
+      <span
+        style={{
+          color: 'var(--primary)',
+          fontSize: 'clamp(0.72rem,1.1vw,0.82rem)',
+          letterSpacing: '0.32em',
+          textTransform: 'uppercase',
+        }}
+      >
+        Prenotazioni
+      </span>
+      <span style={{ display: 'block', width: 56, height: 1, background: 'var(--line)' }} />
+      {content.titolo && <Titolo style={{ fontSize: 'clamp(1.9rem,4.5vw,3rem)' }}>{content.titolo}</Titolo>}
+      {content.testo && (
+        <p style={{ color: 'var(--muted)', fontSize: 'clamp(1rem,1.6vw,1.18rem)', lineHeight: 1.7, maxWidth: 520, margin: 0 }}>
+          {content.testo}
+        </p>
+      )}
+      <span style={{ display: 'block', width: 56, height: 1, background: 'var(--line)' }} />
+      <PrenotaButton whatsapp={content.whatsapp} />
+    </div>
+  </section>
+);
+
 export const prenotazioniVariants: Variant<PrenotazioniContent>[] = [
   { id: 'prenotazioni-01', mood: 'caldo', Component: Prenotazioni01 },
   { id: 'prenotazioni-02', mood: 'moderno', Component: Prenotazioni02 },
   { id: 'prenotazioni-03', mood: 'any', Component: Prenotazioni03 },
+  { id: 'prenotazioni-04', mood: 'elegante', Component: Prenotazioni04 },
 ];

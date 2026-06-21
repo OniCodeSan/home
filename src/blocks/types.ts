@@ -3,7 +3,9 @@
 
 export type SchemeId =
   | 'costiera' | 'toscana' | 'salvia' | 'notte' | 'sabbia'
-  | 'bosco' | 'bordeaux' | 'ardesia' | 'tramonto' | 'pietra';
+  | 'bosco' | 'bordeaux' | 'ardesia' | 'tramonto' | 'pietra'
+  | 'marina' | 'oltremare' | 'lavanda' | 'glicine'
+  | 'agrumi' | 'foresta' | 'menta' | 'cipria';
 
 export type Mood = 'caldo' | 'naturale' | 'elegante' | 'moderno' | 'minimal' | 'fresco';
 

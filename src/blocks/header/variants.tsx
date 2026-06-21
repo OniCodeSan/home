@@ -251,8 +251,93 @@ const Header03: React.FC<{ content: HeaderContent }> = ({ content }) => (
   </header>
 );
 
+// ── Header 04 · "fresco" — immagine grande a sinistra a tutta altezza, ─────────
+//                          blocco testo a destra su var(--bg) ──────────────────
+const Header04: React.FC<{ content: HeaderContent }> = ({ content }) => (
+  <header style={{ background: 'var(--bg)' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'stretch',
+        minHeight: 'clamp(460px, 78vh, 760px)',
+      }}
+    >
+      <div
+        style={{
+          flex: '1 1 460px',
+          minWidth: 300,
+          position: 'relative',
+          background: 'var(--surface)',
+        }}
+      >
+        <img
+          src={content.immagine.src}
+          alt={content.immagine.alt}
+          style={{
+            display: 'block',
+            width: '100%',
+            height: '100%',
+            minHeight: 'clamp(320px, 60vh, 760px)',
+            objectFit: 'cover',
+          }}
+        />
+      </div>
+      <div
+        style={{
+          flex: '1 1 420px',
+          minWidth: 300,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 'clamp(4px, 0.6vw, 8px)',
+          padding: 'clamp(32px, 5vw, 80px) clamp(24px, 5vw, 72px)',
+          borderTop: '1px solid var(--line)',
+          borderBottom: '1px solid var(--line)',
+        }}
+      >
+        <Eyebrow text={content.eyebrow} color="var(--accent)" />
+        <h1
+          style={{
+            margin: '.4em 0 .3em',
+            fontFamily: 'var(--font-head)',
+            fontWeight: 500,
+            fontSize: 'clamp(38px, 5.6vw, 76px)',
+            lineHeight: 1.03,
+            letterSpacing: '-0.012em',
+            color: 'var(--ink)',
+            maxWidth: 18 + 'ch',
+          }}
+        >
+          {content.struttura}
+        </h1>
+        <div
+          style={{
+            width: 'clamp(44px, 7vw, 80px)',
+            height: 1,
+            background: 'var(--line)',
+            margin: '0 0 clamp(18px, 2.4vw, 30px)',
+          }}
+        />
+        <p
+          style={{
+            margin: 0,
+            maxWidth: 480,
+            fontSize: 'clamp(16px, 2vw, 20px)',
+            lineHeight: 1.65,
+            color: 'var(--muted)',
+          }}
+        >
+          {content.sottotitolo}
+        </p>
+      </div>
+    </div>
+  </header>
+);
+
 export const headerVariants: Variant<HeaderContent>[] = [
   { id: 'header-01', mood: 'caldo', Component: Header01 },
   { id: 'header-02', mood: 'elegante', Component: Header02 },
   { id: 'header-03', mood: 'any', Component: Header03 },
+  { id: 'header-04', mood: 'fresco', Component: Header04 },
 ];

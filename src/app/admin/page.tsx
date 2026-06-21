@@ -40,7 +40,7 @@ export default async function AdminHome() {
               <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 8 }}>
                 {byStatus(stato).map((s) => (
                   <li key={s.slug}>
-                    <Link href={`/admin/${s.slug}`} style={{ textDecoration: 'none', color: '#1c5b6b', fontWeight: 600 }}>
+                    <Link href={`/admin/${s.slug}`} style={{ textDecoration: 'none', color: '#C13C7B', fontWeight: 600 }}>
                       {s.slug}
                     </Link>
                     <span style={{ color: '#9aa0ab', fontSize: 13 }}> · {s.schemeId} ({s.mood})</span>

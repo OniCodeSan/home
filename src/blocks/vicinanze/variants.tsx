@@ -491,8 +491,189 @@ const Vicinanze03: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
   );
 };
 
+// ─────────────────────────────────────────────────────────────
+// Variante 04 — righe alternate immagine/testo (mood: elegante)
+// Layout a fasce orizzontali: ogni luogo è una riga con un
+// pannello visuale e un pannello testuale che si invertono a
+// righe alterne; su schermi stretti i pannelli vanno a capo.
+// ─────────────────────────────────────────────────────────────
+const Vicinanze04: React.FC<{ content: VicinanzeContent }> = ({ content }) => {
+  const titolo = content?.titolo;
+  const intro = content?.intro;
+  const luoghi = content?.luoghi ?? [];
+
+  return (
+    <section
+      style={{
+        background: 'var(--surface)',
+        color: 'var(--ink)',
+        padding: SECTION_PAD,
+      }}
+    >
+      <div style={INNER}>
+        <header
+          style={{
+            maxWidth: 700,
+            margin: '0 0 clamp(40px,6vw,76px)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(14px,2vw,22px)',
+          }}
+        >
+          <p style={LABEL}>Intorno a voi</p>
+          <hr style={HAIRLINE} />
+          {titolo && (
+            <h2
+              style={{
+                fontFamily: HEAD,
+                fontWeight: 500,
+                margin: 0,
+                fontSize: 'clamp(32px,5.5vw,56px)',
+                lineHeight: 1.08,
+                color: 'var(--ink)',
+              }}
+            >
+              {titolo}
+            </h2>
+          )}
+          {intro && (
+            <p
+              style={{
+                margin: 0,
+                fontSize: 'clamp(15px,1.4vw,18px)',
+                lineHeight: 1.75,
+                color: 'var(--muted)',
+              }}
+            >
+              {intro}
+            </p>
+          )}
+        </header>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(20px,3vw,40px)',
+          }}
+        >
+          {luoghi.map((l, i) => {
+            const hasImg = Boolean(l?.immagine?.src);
+            const reverse = i % 2 === 1;
+            return (
+              <article
+                key={`${l?.nome ?? 'luogo'}-${i}`}
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  flexDirection: reverse ? 'row-reverse' : 'row',
+                  gap: 'clamp(20px,3vw,44px)',
+                  alignItems: 'stretch',
+                  border: '1px solid var(--line)',
+                  background: 'var(--bg)',
+                  overflow: 'hidden',
+                }}
+              >
+                {/* Pannello visuale: foto reale o tile pieno var(--primary) */}
+                <div
+                  style={{
+                    position: 'relative',
+                    flex: '1 1 320px',
+                    minWidth: 'min(100%, 280px)',
+                    minHeight: 'clamp(220px,26vw,340px)',
+                    background: hasImg ? 'var(--surface)' : 'var(--primary)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {hasImg ? (
+                    <img
+                      src={l!.immagine!.src}
+                      alt={l!.immagine!.alt ?? l?.nome ?? ''}
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  ) : (
+                    <span
+                      aria-hidden
+                      style={{
+                        position: 'relative',
+                        margin: 'clamp(20px,2.6vw,30px)',
+                        fontFamily: HEAD,
+                        fontWeight: 500,
+                        fontSize: 'clamp(40px,6vw,72px)',
+                        lineHeight: 1,
+                        color: '#fff',
+                        opacity: 0.85,
+                      }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                  )}
+                </div>
+
+                {/* Pannello testuale */}
+                <div
+                  style={{
+                    flex: '1 1 320px',
+                    minWidth: 'min(100%, 280px)',
+                    padding: 'clamp(24px,3.4vw,48px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    gap: 'clamp(12px,1.6vw,18px)',
+                  }}
+                >
+                  {l?.distanza && (
+                    <span style={{ alignSelf: 'flex-start' }}>
+                      <DistanceBadge value={l.distanza} />
+                    </span>
+                  )}
+                  <h3
+                    style={{
+                      fontFamily: HEAD,
+                      fontWeight: 500,
+                      margin: 0,
+                      fontSize: 'clamp(24px,3vw,38px)',
+                      lineHeight: 1.15,
+                      color: 'var(--ink)',
+                    }}
+                  >
+                    {l?.nome ?? 'Luogo'}
+                  </h3>
+                  {l?.descrizione && (
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: 'clamp(14px,1.3vw,17px)',
+                        lineHeight: 1.75,
+                        color: 'var(--muted)',
+                        maxWidth: 560,
+                      }}
+                    >
+                      {l.descrizione}
+                    </p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export const vicinanzeVariants: Variant<VicinanzeContent>[] = [
   { id: 'vicinanze-01', mood: 'naturale', Component: Vicinanze01 },
   { id: 'vicinanze-02', mood: 'fresco', Component: Vicinanze02 },
   { id: 'vicinanze-03', mood: 'any', Component: Vicinanze03 },
+  { id: 'vicinanze-04', mood: 'elegante', Component: Vicinanze04 },
 ];

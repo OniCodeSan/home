@@ -17,7 +17,7 @@ const s = {
   item: { border: '1px dashed #d1d5db', borderRadius: 8, padding: 12, marginBottom: 10, background: '#fafbfc' } as React.CSSProperties,
   btn: { padding: '6px 12px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff', cursor: 'pointer', font: 'inherit', fontSize: 13 } as React.CSSProperties,
   btnDanger: { padding: '4px 10px', border: '1px solid #e3b3b3', borderRadius: 8, background: '#fff', color: '#b34141', cursor: 'pointer', font: 'inherit', fontSize: 12 } as React.CSSProperties,
-  btnPrimary: { padding: '10px 18px', border: '1px solid #1c5b6b', borderRadius: 8, background: '#1c5b6b', color: '#fff', cursor: 'pointer', font: 'inherit', fontSize: 14, fontWeight: 600 } as React.CSSProperties,
+  btnPrimary: { padding: '10px 18px', border: '1px solid #C13C7B', borderRadius: 8, background: '#C13C7B', color: '#fff', cursor: 'pointer', font: 'inherit', fontSize: 14, fontWeight: 600 } as React.CSSProperties,
 };
 
 // ── campi riusabili ────────────────────────────────────────────────────────

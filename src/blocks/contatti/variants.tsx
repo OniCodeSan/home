@@ -384,8 +384,140 @@ const Contatti03: React.FC<{ content: ContattiContent }> = ({ content }) => {
   );
 };
 
+/* ------------------------------------------------------------------ */
+/* Variante 04 — caldo: card avvolgente, mappa a riquadro + lista      */
+/* a voci separate da linee, accento su sfondo surface                 */
+/* ------------------------------------------------------------------ */
+const Contatti04: React.FC<{ content: ContattiContent }> = ({ content }) => {
+  const { telefono, whatsapp, email, indirizzo, mappaEmbed } = content;
+
+  const voce: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 6,
+    padding: 'clamp(16px,2.4vw,22px) 0',
+    borderBottom: '1px solid var(--line)',
+  };
+
+  return (
+    <section id="contatti"
+      style={{
+        background: 'var(--surface)',
+        color: 'var(--ink)',
+        padding: 'clamp(28px,4vw,60px) clamp(24px,6vw,72px)',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1120,
+          margin: '0 auto',
+          background: 'var(--bg)',
+          border: '1px solid var(--line)',
+          overflow: 'hidden',
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'stretch',
+        }}
+      >
+        {mappaEmbed && (
+          <div
+            style={{
+              flex: '1.2 1 360px',
+              minWidth: 300,
+              minHeight: 'clamp(320px,40vw,520px)',
+              overflow: 'hidden',
+              borderRight: '1px solid var(--line)',
+            }}
+          >
+            <Mappa src={mappaEmbed} />
+          </div>
+        )}
+
+        <div
+          style={{
+            flex: '1 1 340px',
+            minWidth: 280,
+            display: 'flex',
+            flexDirection: 'column',
+            padding: 'clamp(28px,4vw,52px)',
+          }}
+        >
+          <header>
+            <span style={{ ...labelStyle, marginBottom: 12 }}>Contatti</span>
+            <h2
+              style={{
+                fontFamily: 'var(--font-head)',
+                fontWeight: 400,
+                fontSize: 'clamp(32px,4.5vw,52px)',
+                lineHeight: 1.1,
+                margin: 0,
+                color: 'var(--ink)',
+              }}
+            >
+              Dove siamo
+            </h2>
+          </header>
+
+          <div
+            style={{
+              height: 3,
+              width: 56,
+              background: 'var(--primary)',
+              margin: 'clamp(20px,2.6vw,28px) 0 clamp(8px,1.5vw,16px)',
+            }}
+          />
+
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ ...voce, borderTop: '1px solid var(--line)' }}>
+              <span style={labelStyle}>Indirizzo</span>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 'clamp(15px,1.7vw,18px)',
+                  lineHeight: 1.6,
+                  color: 'var(--ink)',
+                }}
+              >
+                {indirizzo}
+              </p>
+            </div>
+
+            {telefono && (
+              <div style={voce}>
+                <span style={labelStyle}>Telefono</span>
+                <a href={`tel:${telefono}`} style={linkStyle}>
+                  {telefono}
+                </a>
+              </div>
+            )}
+
+            {whatsapp && (
+              <div style={voce}>
+                <span style={labelStyle}>WhatsApp</span>
+                <a href={`https://wa.me/${cleanPhone(whatsapp)}`} style={linkStyle}>
+                  {whatsapp}
+                </a>
+              </div>
+            )}
+
+            {email && (
+              <div style={voce}>
+                <span style={labelStyle}>Email</span>
+                <a href={`mailto:${email}`} style={linkStyle}>
+                  {email}
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export const contattiVariants: Variant<ContattiContent>[] = [
   { id: 'contatti-01', mood: 'elegante', Component: Contatti01 },
   { id: 'contatti-02', mood: 'minimal', Component: Contatti02 },
   { id: 'contatti-03', mood: 'any', Component: Contatti03 },
+  { id: 'contatti-04', mood: 'caldo', Component: Contatti04 },
 ];

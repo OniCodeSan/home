@@ -405,8 +405,111 @@ const Confort03: React.FC<{ content: ConfortContent }> = ({ content }) => {
   );
 };
 
+/* -------------------------------------------------------------------------- */
+/* Variante 04 — "caldo": tessere accoglienti centrate. Eyebrow + titolo in    */
+/* alto al centro, poi una griglia fluida (flex-wrap) di card a larghezza      */
+/* fissa con icona su pastiglia var(--accent) e sottile cornice var(--line).   */
+/* L'ultima riga resta centrata grazie a justify-content center. Layout        */
+/* diverso: card verticali compatte con sfondo proprio e bordo superiore       */
+/* accentato var(--primary).                                                   */
+/* -------------------------------------------------------------------------- */
+const Confort04: React.FC<{ content: ConfortContent }> = ({ content }) => {
+  const { titolo, servizi } = content;
+
+  return (
+    <section style={{ background: 'var(--surface)', padding: sectionPadding }}>
+      <div
+        style={{
+          maxWidth: 1080,
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          gap: 'clamp(36px,5vw,60px)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 'clamp(12px,1.8vw,18px)',
+          }}
+        >
+          <p style={eyebrowStyle}>Ospitalit&agrave; &amp; Calore</p>
+          <h2 style={{ ...titleStyle, textAlign: 'center' }}>
+            {titolo || 'I nostri servizi'}
+          </h2>
+          <span
+            aria-hidden="true"
+            style={{
+              width: 'clamp(44px,6vw,64px)',
+              height: 2,
+              borderRadius: 2,
+              background: 'var(--primary)',
+            }}
+          />
+        </div>
+
+        <ul
+          style={{
+            listStyle: 'none',
+            margin: 0,
+            padding: 0,
+            width: '100%',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 'clamp(16px,2.4vw,28px)',
+          }}
+        >
+          {servizi.map((s, i) => (
+            <li
+              key={`${s.label}-${i}`}
+              tabIndex={0}
+              style={{
+                ...focusableLi,
+                width: 'clamp(130px,16vw,170px)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                gap: 'clamp(12px,1.6vw,16px)',
+                padding: 'clamp(20px,2.6vw,28px) clamp(12px,1.6vw,16px)',
+                background: 'var(--bg)',
+                border: '1px solid var(--line)',
+                borderTop: '2px solid var(--primary)',
+                borderRadius: 4,
+              }}
+            >
+              <span
+                aria-hidden="true"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 'clamp(50px,6.5vw,64px)',
+                  height: 'clamp(50px,6.5vw,64px)',
+                  borderRadius: '50%',
+                  background: 'var(--accent)',
+                  color: 'var(--primary)',
+                }}
+              >
+                {iconFor(s.icona)}
+              </span>
+              <span style={labelStyle}>{s.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+};
+
 export const confortVariants: Variant<ConfortContent>[] = [
   { id: 'confort-01', mood: 'minimal', Component: Confort01 },
   { id: 'confort-02', mood: 'moderno', Component: Confort02 },
   { id: 'confort-03', mood: 'any', Component: Confort03 },
+  { id: 'confort-04', mood: 'caldo', Component: Confort04 },
 ];

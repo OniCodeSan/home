@@ -33,6 +33,22 @@ export const palettes: Record<SchemeId, Palette> = {
     tokens:{'--bg':'#FBF3E8','--surface':'#FFFFFF','--ink':'#322620','--muted':'#71604F','--primary':'#7A3B2E','--cta':'#D98A2B','--accent':'#E0A95C','--line':'rgba(50,38,32,.12)'} },
   pietra: { id:'pietra', nome:'Pietra', mood:'minimal',
     tokens:{'--bg':'#F5F3EF','--surface':'#FFFFFF','--ink':'#292723','--muted':'#6B655B','--primary':'#4A463E','--cta':'#B07A4A','--accent':'#A89B86','--line':'rgba(41,39,35,.12)'} },
+  marina: { id:'marina', nome:'Marina', mood:'fresco',
+    tokens:{'--bg':'#F0F5F7','--surface':'#FFFFFF','--ink':'#14333D','--muted':'#5B6E74','--primary':'#14617A','--cta':'#E8804A','--accent':'#7FB6C4','--line':'rgba(20,51,61,.12)'} },
+  oltremare: { id:'oltremare', nome:'Oltremare', mood:'moderno',
+    tokens:{'--bg':'#F2F4F8','--surface':'#FFFFFF','--ink':'#1B2333','--muted':'#5D6680','--primary':'#243B6B','--cta':'#E0703C','--accent':'#8E9FD0','--line':'rgba(27,35,51,.12)'} },
+  lavanda: { id:'lavanda', nome:'Lavanda', mood:'elegante',
+    tokens:{'--bg':'#F6F3F9','--surface':'#FFFFFF','--ink':'#2A2333','--muted':'#645C70','--primary':'#5B4B8A','--cta':'#C2683E','--accent':'#B6A4D8','--line':'rgba(42,35,51,.12)'} },
+  glicine: { id:'glicine', nome:'Glicine', mood:'fresco',
+    tokens:{'--bg':'#F5F4FA','--surface':'#FFFFFF','--ink':'#272636','--muted':'#62607A','--primary':'#6C5CA6','--cta':'#D98A4A','--accent':'#A9B3E0','--line':'rgba(39,38,54,.12)'} },
+  agrumi: { id:'agrumi', nome:'Agrumi', mood:'caldo',
+    tokens:{'--bg':'#FCF7E9','--surface':'#FFFFFF','--ink':'#33291A','--muted':'#6F6450','--primary':'#B5701E','--cta':'#E0922A','--accent':'#E8C26A','--line':'rgba(51,41,26,.12)'} },
+  foresta: { id:'foresta', nome:'Foresta', mood:'naturale',
+    tokens:{'--bg':'#EFF3EE','--surface':'#FFFFFF','--ink':'#1B2820','--muted':'#54614F','--primary':'#2C4632','--cta':'#C06A34','--accent':'#7E9B72','--line':'rgba(27,40,32,.12)'} },
+  menta: { id:'menta', nome:'Menta', mood:'fresco',
+    tokens:{'--bg':'#EFF6F2','--surface':'#FFFFFF','--ink':'#18302A','--muted':'#56685F','--primary':'#1F6B57','--cta':'#E08646','--accent':'#86C2A8','--line':'rgba(24,48,42,.12)'} },
+  cipria: { id:'cipria', nome:'Cipria', mood:'minimal',
+    tokens:{'--bg':'#FAF3F1','--surface':'#FFFFFF','--ink':'#322628','--muted':'#6E5D5F','--primary':'#9A5A5E','--cta':'#C77F58','--accent':'#E0B7B0','--line':'rgba(50,38,40,.12)'} },
 };
 
 export const paletteList: Palette[] = Object.values(palettes);

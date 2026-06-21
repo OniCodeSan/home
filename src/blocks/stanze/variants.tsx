@@ -478,8 +478,123 @@ const Stanze03: React.FC<{ content: StanzeContent }> = ({ content }) => (
   </section>
 );
 
+// ── Stanze 04 · "caldo" — griglia a 2 colonne, foto grande sopra / testo sotto ──
+const Stanze04: React.FC<{ content: StanzeContent }> = ({ content }) => (
+  <section
+    style={{
+      background: 'var(--bg)',
+      color: 'var(--ink)',
+      padding: 'clamp(28px,4vw,60px) clamp(20px,5vw,56px)',
+    }}
+  >
+    <div style={{ maxWidth: 1180, margin: '0 auto' }}>
+      <Intestazione titolo={content.titolo} intro={content.intro} align="center" />
+
+      <div
+        style={{
+          marginTop: 'clamp(40px,6vw,80px)',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
+          gap: 'clamp(28px,4vw,56px)',
+        }}
+      >
+        {content.camere.map((camera, i) => (
+          <article
+            key={camera.nome + i}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'clamp(16px,2.5vw,24px)',
+            }}
+          >
+            <div
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                border: '1px solid var(--line)',
+              }}
+            >
+              {camera.immagine ? (
+                <img
+                  src={camera.immagine.src}
+                  alt={camera.immagine.alt}
+                  style={{
+                    width: '100%',
+                    height: 'clamp(280px,34vw,420px)',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                />
+              ) : (
+                <Vuoto
+                  style={{
+                    height: 'clamp(280px,34vw,420px)',
+                    borderBottom: 'none',
+                  }}
+                />
+              )}
+              <span
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  top: 'clamp(12px,2vw,20px)',
+                  left: 'clamp(12px,2vw,20px)',
+                  fontFamily: 'var(--font-head)',
+                  fontSize: 'clamp(24px,4vw,40px)',
+                  lineHeight: 1,
+                  color: 'var(--bg)',
+                  textShadow: '0 1px 12px rgba(0,0,0,.35)',
+                }}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'baseline',
+                justifyContent: 'space-between',
+                gap: 12,
+              }}
+            >
+              <h3
+                style={{
+                  margin: 0,
+                  fontFamily: 'var(--font-head)',
+                  fontWeight: 400,
+                  fontSize: 'clamp(24px,3.4vw,34px)',
+                  lineHeight: 1.12,
+                }}
+              >
+                {camera.nome}
+              </h3>
+              {camera.prezzoIndicativo ? (
+                <Prezzo valore={camera.prezzoIndicativo} />
+              ) : null}
+            </div>
+            <p
+              style={{
+                margin: 0,
+                color: 'var(--muted)',
+                fontSize: 'clamp(15px,2vw,17px)',
+                lineHeight: 1.75,
+              }}
+            >
+              {camera.descrizione}
+            </p>
+            <TagList items={camera.caratteristiche} />
+            <RoomGallery nome={camera.nome} immagini={[...(camera.immagine ? [camera.immagine] : []), ...(camera.immagini ?? [])]} />
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 export const stanzeVariants: Variant<StanzeContent>[] = [
   { id: 'stanze-01', mood: 'elegante', Component: Stanze01 },
   { id: 'stanze-02', mood: 'naturale', Component: Stanze02 },
   { id: 'stanze-03', mood: 'any', Component: Stanze03 },
+  { id: 'stanze-04', mood: 'caldo', Component: Stanze04 },
 ];

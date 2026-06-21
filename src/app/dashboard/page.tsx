@@ -14,7 +14,7 @@ export default async function Home() {
         Landing page per piccole strutture ricettive, assemblate da blocchi statici.
       </p>
       <div style={{ display: 'flex', gap: 12, margin: '24px 0' }}>
-        <Link href="/admin" style={{ padding: '10px 16px', background: '#1c5b6b', color: '#fff', borderRadius: 8, textDecoration: 'none' }}>
+        <Link href="/admin" style={{ padding: '10px 16px', background: '#C13C7B', color: '#fff', borderRadius: 8, textDecoration: 'none' }}>
           Apri admin →
         </Link>
       </div>

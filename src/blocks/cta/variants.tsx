@@ -95,8 +95,24 @@ const Cta03: React.FC<{ content: CtaContent }> = ({ content }) => (
   </section>
 );
 
+// ── 04 · "elegante" — box centrato con cornice doppia sottile su bg ────────────
+const Cta04: React.FC<{ content: CtaContent }> = ({ content }) => (
+  <section style={{ background: 'var(--bg)', padding: SECTION_PAD }}>
+    <div style={{ maxWidth: 820, margin: '0 auto', border: '1px solid var(--line)', padding: 'clamp(8px,1vw,14px)' }}>
+      <div style={{ border: '1px solid var(--line)', padding: 'clamp(36px,5.5vw,72px) clamp(24px,5vw,60px)', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'clamp(16px,2.4vw,26px)' }}>
+        <Eyebrow center>Il tuo soggiorno</Eyebrow>
+        <h2 style={{ fontFamily: HEAD, fontWeight: 400, lineHeight: 1.12, fontSize: 'clamp(28px,4.4vw,46px)', margin: 0, color: 'var(--ink)' }}>{content.titolo}</h2>
+        <Rule center />
+        <Testo center>{content.testo}</Testo>
+        <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}><Button content={content} /></div>
+      </div>
+    </div>
+  </section>
+);
+
 export const ctaVariants: Variant<CtaContent>[] = [
   { id: 'cta-01', mood: 'caldo', Component: Cta01 },
   { id: 'cta-02', mood: 'moderno', Component: Cta02 },
   { id: 'cta-03', mood: 'any', Component: Cta03 },
+  { id: 'cta-04', mood: 'elegante', Component: Cta04 },
 ];
