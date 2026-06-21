@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: `
               *{box-sizing:border-box;}
+              html,body{overflow-x:hidden;}
               html{scroll-behavior:smooth;scroll-padding-top:80px;}
               img{max-width:100%;}
               a{color:inherit;}

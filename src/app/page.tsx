@@ -80,7 +80,7 @@ export default function Landing() {
         <Diagonals />
         <div style={{ position: 'relative', ...inner, ...sectionPad, display: 'flex', gap: 'clamp(28px,5vw,64px)', flexWrap: 'wrap', alignItems: 'center' }}>
           <div style={{ flex: '1 1 440px', minWidth: 300 }}>
-            <h1 style={{ margin: 0, fontFamily: script, fontWeight: 400, fontSize: 'clamp(56px,11vw,128px)', lineHeight: 0.95, textShadow: '0 6px 28px rgba(0,0,0,.28)' }}>
+            <h1 style={{ margin: 0, fontFamily: script, fontWeight: 400, fontSize: 'clamp(44px,11vw,128px)', lineHeight: 0.95, overflowWrap: 'break-word', textShadow: '0 6px 28px rgba(0,0,0,.28)' }}>
               Saluti dal web!
             </h1>
             <p style={{ ...eyebrow, marginTop: 18, color: '#fff', opacity: 0.95 }}>Il tuo sito ti aspetta</p>
