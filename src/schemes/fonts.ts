@@ -32,4 +32,5 @@ export const GOOGLE_FONTS_HREF =
   '&family=Source+Sans+3:wght@400;500;600;700' +
   '&family=Inter:wght@400;500;600;700' +
   '&family=Mulish:wght@400;500;600;700' +
+  '&family=Yellowtail' +
   '&display=swap';

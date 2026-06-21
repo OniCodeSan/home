@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import { GOOGLE_FONTS_HREF } from '@/schemes/fonts';
 
 export const metadata: Metadata = {
-  title: 'contentmug · hotel',
-  description: 'Landing page per piccole strutture ricettive.',
+  title: 'Saluti dal web',
+  description: 'Il tuo sito ti aspetta. Ti prepariamo già una bozza: guardala, poi decidi.',
 };
 
 const fontLinks = (
