@@ -33,14 +33,14 @@ export function DemoLoading({ slug }: { slug: string }) {
   }, [slug, router]);
 
   return (
-    <main style={{ minHeight: '100vh', background: '#163A46', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Hanken Grotesk', system-ui, sans-serif", padding: 24 }}>
+    <main style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #321A52 0%, #6E2A86 26%, #C13C7B 54%, #E8743B 82%, #F2A65A 100%)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Hanken Grotesk', system-ui, sans-serif", padding: 24 }}>
       <div style={{ textAlign: 'center', maxWidth: 460 }}>
-        <div style={{ width: 56, height: 56, margin: '0 auto 22px', border: '4px solid rgba(255,255,255,.2)', borderTopColor: '#E0A95C', borderRadius: '50%', animation: 'cmspin 1s linear infinite' }} />
-        <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 26, margin: '0 0 10px' }}>Stiamo costruendo il tuo sito</h1>
-        <p style={{ minHeight: 48, fontSize: 16, color: '#cfe0e4', transition: 'opacity .3s' }}>{STEPS[step]}</p>
+        <div style={{ width: 56, height: 56, margin: '0 auto 22px', border: '4px solid rgba(255,255,255,.25)', borderTopColor: '#fff', borderRadius: '50%', animation: 'cmspin 1s linear infinite' }} />
+        <h1 style={{ fontFamily: "'Yellowtail', cursive", fontWeight: 400, fontSize: 38, margin: '0 0 10px' }}>Stiamo creando il tuo sito</h1>
+        <p style={{ minHeight: 48, fontSize: 16, color: 'rgba(255,255,255,.92)', transition: 'opacity .3s' }}>{STEPS[step]}</p>
         <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginTop: 18 }}>
           {STEPS.map((_, i) => (
-            <span key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i <= step ? '#E0A95C' : 'rgba(255,255,255,.25)' }} />
+            <span key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i <= step ? '#fff' : 'rgba(255,255,255,.3)' }} />
           ))}
         </div>
       </div>

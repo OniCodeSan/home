@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-const C = { teal: '#163A46', terra: '#C25E3C', muted: '#5b6270' };
+const C = { teal: '#241436', terra: '#C13C7B', muted: '#6E5C7A' };
 const serif = 'Fraunces, Georgia, serif';
 
 export function DemoPopup({ slug }: { slug: string }) {
@@ -20,7 +20,7 @@ export function DemoPopup({ slug }: { slug: string }) {
     <div
       role="dialog"
       aria-modal="true"
-      style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(15,42,51,.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, fontFamily: "'Hanken Grotesk', system-ui, sans-serif" }}
+      style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(36,20,54,.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, fontFamily: "'Hanken Grotesk', system-ui, sans-serif" }}
       onClick={() => setClosed(true)}
     >
       <div

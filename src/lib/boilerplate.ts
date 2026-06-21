@@ -111,7 +111,7 @@ export function buildDemoContents(
       indirizzo,
       email: form.email || undefined,
       telefono,
-      note: 'Sito dimostrativo generato da contentmug · hotel.',
+      note: 'Sito dimostrativo generato con Saluti dal web.',
     },
   };
 }

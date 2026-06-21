@@ -7,7 +7,8 @@ import { requestPurchaseAction } from '../actions';
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 
-const C = { teal: '#163A46', terra: '#C25E3C', gold: '#E0A95C', muted: '#5b6270' };
+const SUNSET = 'linear-gradient(135deg, #321A52 0%, #6E2A86 26%, #C13C7B 54%, #E8743B 82%, #F2A65A 100%)';
+const C = { teal: SUNSET, terra: '#C13C7B', gold: '#F2A65A', muted: '#5b6270' };
 const serif = 'Fraunces, Georgia, serif';
 
 export default async function AcquistaDemo({ params, searchParams }: { params: { slug: string }; searchParams: { ok?: string } }) {

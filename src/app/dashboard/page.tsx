@@ -9,7 +9,7 @@ export default async function Home() {
   const sites = await storage.listSites();
   return (
     <main style={{ maxWidth: 720, margin: '0 auto', padding: '64px 24px', fontFamily: 'system-ui, sans-serif' }}>
-      <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 40, margin: 0 }}>contentmug · hotel</h1>
+      <h1 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 40, margin: 0 }}>Saluti dal web</h1>
       <p style={{ color: '#6b7280', fontSize: 18 }}>
         Landing page per piccole strutture ricettive, assemblate da blocchi statici.
       </p>

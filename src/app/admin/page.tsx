@@ -18,7 +18,7 @@ export default async function AdminHome() {
   return (
     <main style={ui.page}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-        <h1 style={ui.h1}>contentmug · admin</h1>
+        <h1 style={ui.h1}>Saluti dal web · admin</h1>
         {authEnabled() ? (
           <form action={logoutAction}>
             <button type="submit" style={ui.btn}>Esci</button>

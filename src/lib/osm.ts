@@ -3,7 +3,7 @@
 // Overpass: luoghi di interesse vicini.
 // Nessun dato inventato: se OSM non trova nulla, ritorniamo null/[] e si usa il boilerplate.
 
-const UA = 'contentmug-hotel/1.0 (https://contentmug.it; info@contentmug.it)';
+const UA = 'saluti-dal-web/1.0 (info@salutidalweb.it)';
 
 export type GeoResult = {
   lat: number;
