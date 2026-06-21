@@ -26,6 +26,7 @@ export default async function AdminHome() {
         ) : null}
       </div>
       <p style={{ color: '#6b7280', marginTop: 0 }}>Siti per stato. Apri un sito per modificarlo e pubblicarlo.</p>
+      <p style={{ marginTop: 0 }}><Link href="/admin/magazine" style={{ ...ui.btn, textDecoration: 'none', display: 'inline-block' }}>📰 Gestisci il Magazine →</Link></p>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 16 }}>
         {STATI.map((stato) => (
