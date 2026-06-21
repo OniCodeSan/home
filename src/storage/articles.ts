@@ -1,5 +1,9 @@
 import { getClient, hasSupabase } from './supabase';
 
+// Gli articoli sono salvati come JSON in un bucket privato Supabase (niente tabella DDL).
+const BUCKET = 'magazine';
+const PATH = 'articles.json';
+
 export type Article = {
   slug: string;
   titolo: string;
@@ -13,56 +17,50 @@ export type Article = {
   updatedAt?: string;
 };
 
-function rowToArticle(r: any): Article {
-  return {
-    slug: r.slug,
-    titolo: r.titolo,
-    sommario: r.sommario || undefined,
-    copertina: r.copertina || undefined,
-    contenuto: r.contenuto || '',
-    tags: Array.isArray(r.tags) ? r.tags : [],
-    status: r.status,
-    autore: r.autore || undefined,
-    createdAt: r.created_at,
-    updatedAt: r.updated_at,
-  };
+async function readAll(): Promise<Article[]> {
+  if (!hasSupabase()) return [];
+  try {
+    const { data, error } = await getClient().storage.from(BUCKET).download(PATH);
+    if (error || !data) return [];
+    const text = await data.text();
+    const arr = JSON.parse(text);
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
+}
+
+async function writeAll(list: Article[]): Promise<void> {
+  const buf = Buffer.from(JSON.stringify(list, null, 2));
+  const { error } = await getClient().storage.from(BUCKET).upload(PATH, buf, {
+    contentType: 'application/json',
+    upsert: true,
+  });
+  if (error) throw error;
 }
 
 export async function listArticles(opts?: { publishedOnly?: boolean }): Promise<Article[]> {
-  if (!hasSupabase()) return [];
-  let q = getClient().from('articles').select('*').order('created_at', { ascending: false });
-  if (opts?.publishedOnly) q = q.eq('status', 'published');
-  const { data, error } = await q;
-  if (error) return [];
-  return (data ?? []).map(rowToArticle);
+  let all = await readAll();
+  if (opts?.publishedOnly) all = all.filter((a) => a.status === 'published');
+  return all.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
 }
 
 export async function getArticle(slug: string): Promise<Article | null> {
-  if (!hasSupabase()) return null;
-  const { data, error } = await getClient().from('articles').select('*').eq('slug', slug).maybeSingle();
-  if (error || !data) return null;
-  return rowToArticle(data);
+  const all = await readAll();
+  return all.find((a) => a.slug === slug) ?? null;
 }
 
 export async function saveArticle(a: Article): Promise<void> {
-  const { error } = await getClient().from('articles').upsert(
-    {
-      slug: a.slug,
-      titolo: a.titolo,
-      sommario: a.sommario ?? null,
-      copertina: a.copertina ?? null,
-      contenuto: a.contenuto ?? '',
-      tags: a.tags ?? [],
-      status: a.status,
-      autore: a.autore ?? null,
-      updated_at: new Date().toISOString(),
-    },
-    { onConflict: 'slug' },
-  );
-  if (error) throw error;
+  const all = await readAll();
+  const now = new Date().toISOString();
+  const idx = all.findIndex((x) => x.slug === a.slug);
+  const next: Article = { ...a, updatedAt: now, createdAt: idx >= 0 ? all[idx].createdAt || now : now };
+  if (idx >= 0) all[idx] = next;
+  else all.push(next);
+  await writeAll(all);
 }
 
 export async function deleteArticle(slug: string): Promise<void> {
-  const { error } = await getClient().from('articles').delete().eq('slug', slug);
-  if (error) throw error;
+  const all = await readAll();
+  await writeAll(all.filter((a) => a.slug !== slug));
 }
